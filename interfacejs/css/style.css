@@ -1,0 +1,123 @@
+﻿/*  
+    Макет располагал в PerfectPixel по след. координатам:
+    433 по оси x
+    171 по оси y
+    масштаб 1
+*/
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color:aquamarine;
+}
+
+h1 {
+    font-size: 20px;
+    font-weight: 100;
+    padding: 32px 0 0 39px;
+}
+
+#input {
+    border: none;
+    height: 23px;
+    width: 140px;
+    margin-top: 7px;
+    padding-left: 6px;
+    letter-spacing: 0.3px;
+}
+
+#input:focus { 
+    outline: none; 
+}
+
+.share {
+    margin: 171px auto;
+    height: 320px;
+    width: 500px;
+}
+
+.emails-editor {
+    height: 220px;
+    width: 100%;
+    background-color: #f5f5f5;
+}
+
+.emails-editor__input {
+    height: 99px;
+    width: 420px;
+    border-top: 1px solid #cccccc;
+    background: #fff;
+    margin-top: 35px;
+    margin-left: 40px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.archive {
+    display: inline-block;
+    margin-left: 8px;
+    background-color: #d9e8ff;
+    border-radius: 15px;
+    padding: 3px 23px 3px 10px;
+    margin-top: 7px;
+    /*чтобы максимально совпадало с шаблоном можно добавить letter-spacing*/
+    /*letter-spacing: -0.9px;*/
+    font-size: 15px;
+}
+
+.buttons {
+    height: 100px;
+    width: 100%;
+    background-color: #fff;
+}
+
+button {
+    border: none;
+    border-radius: 1px;
+    margin-top: 30px;
+    margin-left: 40px;
+    background-color: #6699ff;
+    color: #fff;
+}
+
+.addEmail {
+    padding: 8px 22px 7px 20px;
+}
+
+.getCount {
+    padding: 8px 10px 7px 11px;
+    margin-left: 16px;
+}
+
+.checkbox {
+    cursor: pointer;
+}
+
+input[type=checkbox] {
+    display: none;
+}
+
+label {
+    display: inline-block;
+    cursor: pointer;
+    position: relative;
+    font-size: 13px;
+}
+label:before {
+	content: "";
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    bottom: -8px;
+    left: 5px;
+    background: url(../images/mark.png) no-repeat;
+}
+
+.error {
+    background-color: #fff;
+    border-bottom: 1px dotted red;
+    border-radius: 0;
+}

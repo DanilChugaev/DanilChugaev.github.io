@@ -1,0 +1,18 @@
+﻿<!doctype html>
+<html ng-app="jsApp">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body ng-controller="jsController">
+    <div class="share">        
+        <emails-editor></emails-editor>        
+        <div class="buttons">
+            <button class="addEmail" ng-click="addEmails()">Add email</button>
+            <button class="getCount" ng-click="getEmailsCount()">Get emails count</button>
+        </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+    <script src="js/controller.js"></script>
+</body>
+</html>
