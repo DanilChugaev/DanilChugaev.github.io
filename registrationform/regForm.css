@@ -17,7 +17,7 @@ body {
 }
 
 input {
-    transition: all 0.5s ease;
+    transition: all 0.3s ease;
 }
 
 /*при клике на текстовое поле input, placrholder плавно становитс€ наполовину прозрачным*/
