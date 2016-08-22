@@ -16,6 +16,10 @@ body {
     position: absolute;
 }
 
+input {
+    transition: all 0.3s ease;
+}
+
 /*при клике на текстовое поле input, placrholder плавно становитс€ наполовину прозрачным*/
 input::-webkit-input-placeholder       { opacity: 1; transition: opacity 0.3s ease; color: #818181!important; }
 input::-moz-placeholder                { opacity: 1; transition: opacity 0.3s ease; color: #818181!important; }
