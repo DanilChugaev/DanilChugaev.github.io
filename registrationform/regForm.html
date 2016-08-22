@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+
+<html lang="ru">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+    <title>Форма регистрации</title>
+    <link rel="stylesheet" href="regForm.css" type="text/css" />
+    <script src="regForm.js"></script>
+</head>
+<body> 
+
+    
+
+	<div class="content">
+		<div class="form-container">
+			<div class="form-control my-form our-shadow">
+				<form role="form">
+					<div class="modal-header">
+						<h4 class="modal-title">Вход в систему</h4>
+					</div>
+					<div class="form-group">
+						<input type="email" class="form-control" id="email" placeholder="Введите E-mail">
+					</div>
+					<div class="form-group">
+						<input type="password" class="form-control" id="pass" placeholder="Введите пароль">
+					</div>
+					<div class="checkbox">
+						<!--<label><input type="checkbox" value="check1"> Запомнить меня на этом компьютере</label>-->
+						<ul class="list">
+							<li class="list__item">
+								<label class="custom-check">
+									<input type="checkbox" name="check-B" class="custom-check__checkbox check-B" />
+									<span data-ripple="false" class="custom-check__checkbox check-B__background"></span>
+									<span class="custom-check__checkbox check-B__checkbox"></span>
+									<span class="custom-check__text remember-me__label">Запомнить меня?</span>
+									<button class="btn btn-link btn-forget-password our_link" type="button" data-toggle="modal" data-target="#forgotPassword">
+										<span class="custom-check__text forget-password__label">Забыли пароль?</span>
+									</button>
+								</label>
+							</li>
+						</ul>
+					</div>
+					<div class="form-group">
+						<button class="btn btn-success" type="button" data-toggle="modal" data-target="#enter">Войти</button>&nbsp;
+						<button class="btn btn-primary" type="button" data-toggle="modal" data-target="#registration">Регистрация</button>
+					</div>
+				</form>
+			</div>
+		</div>			
+
+		<form id="enter" class="modal fade" tabindex="-1" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content our-shadow">
+					<div class="modal-body">
+						<button class="close" type="button" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title">Вход выполнен</h4>
+					</div>
+				</div>
+			</div>
+		</form>
+
+		<form id="forgotPassword" class="modal fade" tabindex="-1" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content our-shadow">
+					<div class="modal-header">
+						<button class="close" type="button" data-dismiss="modal">×</button>
+						<h4 class="modal-title">Восстановление пароля</h4>
+					</div>
+					<div class="modal-body">
+						<div class="form-group">
+							<input type="text" name="email" id="mail1" class="form-control input-sm" placeholder="Введите E-mail">
+						</div>                   
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-success" data-dismiss="modal">Выслать пароль</button>
+						<button class="btn btn-danger" type="button" data-dismiss="modal">Отмена</button>
+					</div>
+				</div>
+			</div>
+		</form>
+
+		<form id="registration" class="modal fade" tabindex="-1" role="dialog">
+			<!-- закрытие модального окна по нажатию клавиши ESC
+				а также по клику на темном фоне-->
+			<div class="modal-dialog">
+				<div class="modal-content our-shadow">
+					<div class="modal-header">
+						<button class="close" type="button" data-dismiss="modal">×</button>
+						<h4 class="modal-title">Регистрация</h4>
+					</div>
+					<div class="modal-body">
+						<div class="form-group">
+							<input type="text" name="family" id="family1" class="form-control input-sm" placeholder="Введите фамилию">
+						</div>
+						<div class="form-group">
+							<input type="text" name="nameM" id="name1" class="form-control input-sm"  placeholder="Введите имя">
+						</div>
+						<div class="form-group">
+							<input type="text" name="email" id="mail2" class="form-control input-sm"  placeholder="Введите E-mail">
+						</div>
+						<div class="form-group">
+							<input type="password" name="password" id="password1" class="form-control input-sm"  placeholder="Введите пароль"  
+							title="Пароль должен содержать >= 8 символов">
+						</div>
+						<div class="form-group">
+							<input type="password" name="password" id="password2" class="form-control input-sm"  placeholder="Подтвердите пароль">
+						</div>
+						<div class="form-group">
+							<ul class="list">
+								<li class="list__item">
+									<label class="custom-check">
+										<input type="radio" checked="true" name="radio-C" class="custom-check__checkbox radio-C" />
+										<span data-ripple="true" class="custom-check__checkbox radio-C__background"></span>
+										<span class="custom-check__checkbox radio-C__checkbox"></span>
+										<span class="custom-check__text text_radio">Мужской</span>
+									</label>
+								</li>
+								<li class="list__item">
+									<label class="custom-check">
+										<input type="radio" name="radio-C" class="custom-check__checkbox radio-C" />
+										<span data-ripple="true" class="custom-check__checkbox radio-C__background"></span>
+										<span class="custom-check__checkbox radio-C__checkbox"></span>
+										<span class="custom-check__text text_radio">Женский</span>
+									</label>
+								</li>
+							</ul>
+
+							<div class="checkbox">
+								<!--<label><input type="checkbox" value="check1"> Запомнить меня на этом компьютере</label>-->
+								<ul class="list">
+									<li class="list__item">
+										<label class="custom-check">
+											<input type="checkbox" name="check-B" class="custom-check__checkbox check-B" id="user-license"/>
+											<span data-ripple="false" class="custom-check__checkbox check-B__background"></span>
+											<span class="custom-check__checkbox check-B__checkbox"></span>
+											<span class="custom-check__text">Я принимаю условия <a href="">Пользовательского соглашения</a></span>
+										</label>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-success" data-dismiss="modal">Зарегистрироваться</button>
+						<button class="btn btn-danger" type="button" data-dismiss="modal">Отмена</button>
+					</div>
+				</div>
+			</div>
+		</form>
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js" integrity="sha384-vZ2WRJMwsjRMW/8U7i6PWi6AlO1L79snBrmgiDpgIWJ82z8eA5lenwvxbMV1PAh7" crossorigin="anonymous"></script>
+	</div>
+</body>
+</html>
+<script>
+    /*  некогда было заботиться о правильности кода
+        необходимо его уменьшить
+        добавить функции, чтобы избежать дублирования кода
+
+        Данный код отвечает за правильность введенного емейла,        
+        а так же за введенный пароль от 8 символов:
+        (border становится зеленым если вводится правильно, 
+            красным если не правильно)
+
+    */
+    var thisEmail = document.getElementById('email');
+    var thisEmail1 = document.getElementById('mail1');
+    var thisEmail2 = document.getElementById('mail2');
+
+    var thisPass = document.getElementById('pass');
+    var thisPassword1 = document.getElementById('password1');
+    var thisPassword2 = document.getElementById('password2');
+
+    var r = /^[\w\.\d-_]+@[\w\.\d-_]+\.\w{2,4}$/i;
+
+    thisPass.oninput = function () {
+        if (thisPass.value.length < 8 && thisPass.value.length > 0) {
+            thisPass.style.borderColor = "#d9534f";//"#d9534f";
+        } else
+            if (thisPass.value.length >= 8) {
+                thisPass.style.borderColor = "#5cb85c";//"#5cb85c";
+            } else {
+                thisPass.style.borderColor = "#ccc";
+            }
+    }
+
+    thisPassword1.oninput = function () {
+        if (thisPassword1.value.length < 8 && thisPassword1.value.length > 0) {
+            thisPassword1.style.borderColor = "#d9534f";//"#d9534f";
+        } else
+            if (thisPassword1.value.length >= 8) {
+                thisPassword1.style.borderColor = "#5cb85c";//"#5cb85c";
+            } else {
+                thisPassword1.style.borderColor = "#ccc";
+            }
+    }
+    
+    thisPassword2.oninput = function () {
+        if (thisPassword2.value != thisPassword1.value) {
+            thisPassword2.style.borderColor = "#d9534f";//"#d9534f";
+        } else
+            if (thisPassword2.value == thisPassword1.value) {
+                thisPassword2.style.borderColor = "#5cb85c";//"#5cb85c";
+            } else {
+                thisPassword2.style.borderColor = "#ccc";
+            }
+    }
+    
+    thisEmail.oninput = function () {
+        if (!r.test(thisEmail.value) && thisEmail.value != "") {
+            thisEmail.style.borderColor = "#d9534f";//"#d9534f"; 
+        } else
+            if (r.test(thisEmail.value)) {
+                thisEmail.style.borderColor = "#5cb85c";//"#5cb85c";
+            } else {
+                thisEmail.style.borderColor = "#ccc";
+            }
+    }
+
+    thisEmail1.oninput = function () {
+        if (!r.test(thisEmail1.value) && thisEmail1.value != "") {
+            thisEmail1.style.borderColor = "#d9534f";//"#d9534f";
+        } else
+            if (r.test(thisEmail1.value)) {
+                thisEmail1.style.borderColor = "#5cb85c";//"#5cb85c";
+            } else {
+                thisEmail1.style.borderColor = "#ccc";
+            }
+    }
+
+    thisEmail2.oninput = function () {
+        if (!r.test(thisEmail2.value) && thisEmail2.value != "") {
+            thisEmail2.style.borderColor = "#d9534f";//"#d9534f";
+        } else
+            if (r.test(thisEmail2.value)) {
+                thisEmail2.style.borderColor = "#5cb85c";//"#5cb85c";
+            } else {
+                thisEmail2.style.borderColor = "#ccc";
+            }
+    }
+
+
+
+
+</script>
