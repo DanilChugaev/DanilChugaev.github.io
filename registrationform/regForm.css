@@ -3,7 +3,7 @@
 
 body {
     /* http://bayguzin.ru/demo2014/kruglyashki/img/city.png */
-    background-image: url(city.png );
+    background-image: url(city.jpg);
     background-size: cover;
     font-size: 15px;
 } 
