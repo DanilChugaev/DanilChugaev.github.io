@@ -27,10 +27,10 @@ emailApp.controller("jsController", ['$scope', function ($scope) {
         //event.keyCode = 13 - enter
         if (event.keyCode == 13 || event.keyCode == 191 || event.keyCode == 188)
         {
-            if (event.keyCode == 191 || event.keyCode == 188) {
-                var str = event.target.value;
-                event.target.value = str.substring(0, str.length - 1)
-            }
+            if (event.keyCode == 191 || event.keyCode == 188) {         //если нажата запятая или slash около правого shift
+                var str = event.target.value;                           //необходимо обрезать строку при формировании ее в блок
+                event.target.value = str.substring(0, str.length - 1)   //(удаляется последний символ)
+            }                                                           
             checkAndPushEmail(event);   //проверяем емэйл и добавляем в массив
         }
         event = "";
