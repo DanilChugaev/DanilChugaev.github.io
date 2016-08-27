@@ -21,18 +21,26 @@ emailApp.controller("jsController", ['$scope', function ($scope) {
     }
 
     /*отслеживание нажатой клавиши*/
-    input.onkeyup = function (text) {
-        if (text.code == "Enter" || text.code == "Comma") { //если нажата клавиша энтер или запятая
-            debugger
-            checkAndPushEmail(text);    //проверяем емэйл и добавляем в массив
+    input.onkeyup = function (event) {
+        //event.keyCode = 188 - запятая
+        //event.keyCode = 191 - slash, находящийся рядом с правым shift
+        //event.keyCode = 13 - enter
+        if (event.keyCode == 13 || event.keyCode == 191 || event.keyCode == 188)
+        {
+            if (event.keyCode == 191 || event.keyCode == 188) {
+                var str = event.target.value;
+                event.target.value = str.substring(0, str.length - 1)
+            }
+            checkAndPushEmail(event);   //проверяем емэйл и добавляем в массив
         }
-        text = "";
+        event = "";
     }
 
     //если текстовое поле теряет фокус
     input.onblur = function (text) {
-        debugger
-        checkAndPushEmail(text);    //проверяем емэйл и добавляем в массив
+        if (text.currentTarget.value != "") {
+            checkAndPushEmail(text);    //проверяем емэйл и добавляем в массив
+        }        
         text = "";
     }
 
@@ -40,22 +48,14 @@ emailApp.controller("jsController", ['$scope', function ($scope) {
         var check = /^[\w\.\d-_]+@[\w\.\d-_]+\.\w{2,4}$/i;  //переменная для проверки корректности ввода емэйла   
         var enter = text.target.value;
 
-        if (enter != "") {
-            $scope.list.items.push({ email: enter, done: false, count: $scope.list.items.length });
-            input.value = "";
-        }
-
         //проверяем корректность ввода емэйла
-        if (!check.test(enter) && enter != "") {//если не корректный емэйл
-            var archive = document.getElementById("archive");
-
-            for (i = 0; i < $scope.list.items.length; i++) {
-                if (enter == $scope.list.items[i].email) {
-                    //необходимо i-тому элементу устанавливать класс ошибки
-                    archive.classList.add("error"); //устанавливаем класс ошибки
-                }
-            }
+        if (!check.test(enter) || enter == "") {//если не корректный емэйл
+            $scope.list.items.push({ email: enter, done: false, count: $scope.list.items.length, error: true }); //устанавливаем класс ошибки
+        } else {
+            $scope.list.items.push({ email: enter, done: false, count: $scope.list.items.length, error: false });
         }
+        $scope.$apply($scope.list.items);   //необходим для открытия видимости событий барузера в angularJS
+        input.value = "";
     }
 
     //функция удаления емэйла из массива
@@ -71,6 +71,7 @@ emailApp.controller("jsController", ['$scope', function ($scope) {
     $scope.getEmailsCount = function () {
         alert("Количество емэйлов: " + $scope.list.items.length + " шт.")
     }
+
 }])
 
 //код для создания реиспользуемой директивы <emails-editor>
@@ -80,11 +81,11 @@ emailApp.controller("jsController", ['$scope', function ($scope) {
             '<div class="emails-editor">' +
                 '<h1>Share "Board name" with others</h1>' +
                 '<div class="emails-editor__input">' + 
-                    '<div id="archive" class="archive" ng-repeat="item in list.items">' +
+                    '<div id="archive" class="archive" ng-repeat="item in list.items" ng-class="item.error==true ? \'error\':\'\'">' +
                         '<span ng-bind="item.email"></span>' +
                         '<input class="checkbox" type="checkbox" ng-model="item.done" />' +
                         '<label for="checkbox" ng-click="deleteEmails(item)"></label>' +
-                    '</div> <input id="input" type="text" ng-model="text" placeholder="add more people ..." />' +
+                    '</div> <input id="input" type="text" ng-model="text" placeholder="add more people ..." />' +                   
                  '</div>' +
             '</div>'
     };
