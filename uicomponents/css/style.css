@@ -1,0 +1,112 @@
+﻿* {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    font-size: 15px;
+    /*background-color: red;*/
+}
+
+h1 {
+    display: table;
+    margin: 20px auto;
+    font-size: 25px;
+    color: #fff;
+}
+
+h3 {
+  display: table;
+  margin: 10px auto;
+  color: #fff;
+}
+
+/*Стили для звездного неба*/
+#pixie
+{
+   background-color: #164979;
+   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#040429', endColorstr='#257EB7',GradientType=0 ); /* IE6-9 */
+   background: -ms-linear-gradient(top,  #0E2A55 40%,#0E2A55 40%,#1D6196 60%); /* IE10+ */
+   background: -webkit-gradient(linear, center top, center bottom, from(#040429), to(#257EB7)); /* Chrome, Safari 4+ */
+   background: -webkit-linear-gradient(center top , #040429, #257EB7) repeat scroll 0 0 rgba(0, 0, 0, 0); /* Chrome 10-25, iOS 5+, Safari 5.1+ */
+   background:    -moz-linear-gradient(center top , #040429, #257EB7) repeat scroll 0 0 rgba(0, 0, 0, 0); /* Firefox 3.6-15 */
+   background:      -o-linear-gradient(center top , #040429, #257EB7) repeat scroll 0 0 rgba(0, 0, 0, 0); /* Opera 11.10-12.00 */
+   background:         linear-gradient(center top , #040429, #257EB7) repeat scroll 0 0 rgba(0, 0, 0, 0); /* Chrome 26, Firefox 16+, IE 10+, Opera 12.10+ */
+   margin:0;
+   padding:0;
+   background-size: 100% 100%; /* Chrome 10-25, iOS 5+, Safari 5.1+ */
+   z-index:    -1; /* Firefox 3.6-15 */
+   position:      fixed;; /* Firefox 3.6-15 */
+   top:      0;;
+}
+/**/
+
+/*Стили для проверки правильности паролей и емэйла*/
+.content-item-1 {
+    padding: 20px;
+    width: 305px;
+    border-radius: 5px;
+    border: 1px solid gainsboro;
+    box-shadow: 3px 3px 19px;
+    margin: 0 auto;
+    background-color: rgba(0,0,0,0.7);
+}
+.content-item-1 label {
+    color: #fff;
+    margin-top: 10px;
+    display: inline-block;
+}
+.content-item-1 .mail {
+    margin-bottom: 20px;
+} 
+.content-item-1 input[type=text] {
+    width: 290px;
+    height: 25px;
+    border-radius: 5px;
+    padding: 3px 6px;
+}
+.content-item-1 .content-item_password {
+}
+.content-item-1 .password-color {
+    height: 5px;
+    width: 300px;
+    border:1px solid #E1E1E1;
+    margin-top: 5px;
+}
+.content-item-1 .indicator{            
+    display: block;
+    height: 5px;
+    width: 0;
+    min-width: 0;
+    max-width: 300px;
+}
+.content-item-default{color: #CCC;}
+.content-item-weak{color: #DB5449;}
+.content-item-strong{color: #fff;}
+.content-item-stronger{color: #54B3D9;}
+.content-item-strongest{color: #01D043;}
+
+.content-color-default{background-color: #CCC;}
+.content-color-weak{background-color: #DB5449;}
+.content-color-strong{background-color: #FF8719;}
+.content-color-stronger{background-color: #54B3D9;}
+.content-color-strongest{background-color: #01D043;}
+
+.content-item-1 input {
+    transition: all 0.3s ease;
+}
+
+/*при клике на текстовое поле input, placrholder плавно становится наполовину прозрачным*/
+.content-item-1 input::-webkit-input-placeholder       { opacity: 1; transition: opacity 0.3s ease; color: #818181!important; }
+.content-item-1 input::-moz-placeholder                { opacity: 1; transition: opacity 0.3s ease; color: #818181!important; }
+.content-item-1 input:-moz-placeholder                 { opacity: 1; transition: opacity 0.3s ease; color: #818181!important; }
+.content-item-1 input:-ms-input-placeholder            { opacity: 1; transition: opacity 0.3s ease; color: #818181!important; }
+
+.content-item-1 input:focus::-webkit-input-placeholder { opacity: 0.5; transition: opacity 0.3s ease; }
+.content-item-1 input:focus::-moz-placeholder          { opacity: 0.5; transition: opacity 0.3s ease; }
+.content-item-1 input:focus:-moz-placeholder           { opacity: 0.5; transition: opacity 0.3s ease; }
+.content-item-1 input:focus:-ms-input-placeholder      { opacity: 0.5; transition: opacity 0.3s ease; }
+
+.content-item-1 input:focus {
+    box-shadow:inset 0 0 7px rgba(0,0,0,0.5);
+    outline: none;
+}
+/**/
