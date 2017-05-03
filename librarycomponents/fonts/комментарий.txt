@@ -1,0 +1,42 @@
+ƒобавьте в файл со стил€ми, в самое начало, директиву @font-face:
+@font-face {
+font-family: ALSRubl;
+src: url(fonts/rouble.ttf); /* ѕуть к файлу со шрифтом */
+}
+“ам же в стил€х, укажите этот шрифт дл€ элемента, в котором будет находитьс€ знак рубл€, например:
+.rubznak {
+font-family: ALSRubl;
+}
+»спользуйте в HTML коде нужную вам букву, дл€ преобразовани€ ее в знак рубл€ подход€щего семейства шрифтов:
+<span class="rubznak">q</span>
+Ѕуквы соответствующие шрифтам, в стиле которых нарисованы знаки рубл€:
+a Ч Arial Regular
+b Ч Arial Italic
+c Ч Arial Bold
+d Ч Arial Bold Italic
+
+e Ч Georgia Regular
+f Ч Georgia Italic
+g Ч Georgia Bold
+h Ч Georgia Bold Italic
+
+i Ч Tahoma Regular
+j Ч Tahoma Bold
+
+k Ч Times Regular
+l Ч Times Italic
+m Ч Times Bold
+n Ч Times Bold Italic
+
+o Ч Lucida Sans
+
+p Ч Verdana Regular
+q Ч Verdana Italic
+r Ч Verdana Bold
+s Ч Verdana Bold Italic
+«нак рубл€ всегда должен сто€ть с отбивкой от числа: 99,990 ?
+
+≈сли в вашем шрифте есть символ рубл€, то достаточно просто использовать его спецсимвол в HTML коде:
+<span>&#8381;</span>
+
+<span>?</span>

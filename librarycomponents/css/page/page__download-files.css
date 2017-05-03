@@ -1,0 +1,44 @@
+.container__preview {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: start;
+  -webkit-align-items: flex-start;
+      -ms-flex-align: start;
+          align-items: flex-start; }
+  .container__preview input {
+    display: none; }
+  .container__preview label {
+    margin: 0;
+    border: 1px solid grey;
+    width: 250px;
+    text-align: center;
+    padding: 10px;
+    -webkit-border-radius: 5px;
+            border-radius: 5px;
+    cursor: pointer;
+    -webkit-transition: all 0.3s;
+    transition: all 0.3s; }
+    .container__preview label:hover {
+      color: #fff;
+      background-color: #3EB2CF; }
+  .container__preview .droppable {
+    width: 100%;
+    height: 100px;
+    background-color: #00CC71;
+    color: #fff;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-transition: all 0.3s;
+    transition: all 0.3s; }
+    .container__preview .droppable span {
+      margin: auto; }
+    .container__preview .droppable.dragover, .container__preview .droppable:hover {
+      outline: 2px dashed #fff;
+      outline-offset: -10px;
+      background-color: #1e8859;
+      cursor: pointer; }

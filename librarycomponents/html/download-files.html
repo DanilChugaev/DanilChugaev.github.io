@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Download files page</title>
+
+    //= template/heads-link.html
+</head>
+<body>
+    //= template/header.html
+
+    <main>
+        <!-- -------------------------------------------------------------------------------- -->
+        <!--
+            Для получения превью изображений при их загрузке
+            а также списка файлов загруженных
+        -->
+        <form id="formWithFile" method="POST" action="../handler.php" class="container container__preview">
+            <p data-lang="ru">Секция с загрузкой изображений и получения превью изображений,
+                а так-же списка загруженный файлов.
+                Скрипт позволяет загружать несколько файлов сразу.</p>
+            <p data-lang="en">Section with the download of images and getting previews of images,
+                As well as the list of downloaded files. The script allows you to download several files at once.</p>
+            <label>
+                <b data-lang="ru">Выбрать файл</b>
+                <b data-lang="en">Select a file</b>
+                <input id="upload" type="file" name="file[]" multiple/>
+            </label>
+            <div id="droppable" class="droppable">
+                <span data-lang="ru">Перетащите файлы сюда или кликните чтобы выбрать</span>
+                <span data-lang="en">Drag the files here or click to select</span>
+            </div>
+            <div id="preview-img" class="preview preview__img"></div>
+            <ul id="preview-text" class="preview preview__file-name"></ul>
+
+            <button type="submit" id="upload-button">
+
+                <span data-lang="ru">Загрузить на сервер</span>
+                <span data-lang="en">Upload to server</span>
+            </button>
+        </form>
+        <!-- -------------------------------------------------------------------------------- -->
+    </main>
+
+    <!-- -------------------------------------------------------------------------------- -->
+    <!--Область с подключаемыми файлами-->
+    <link rel="stylesheet" href="css/all/1_common.css">
+    <link rel="stylesheet" href="css/page/page__download-files.css">
+
+    <!--<script src="js/custom/preview/preview__v1.js" defer></script>-->
+    <script src="js/custom/preview/preview__v3.js" defer></script>
+    <!-- -------------------------------------------------------------------------------- -->
+
+
+    //= template/footer.html
+</body>
+</html>

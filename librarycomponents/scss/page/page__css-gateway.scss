@@ -1,0 +1,122 @@
+.container {
+  &__gateway {
+    position: relative;
+    label {
+      position: absolute;
+    }
+  }
+}
+.graph-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.graph {
+  position: relative;
+  input {
+    width:60px;
+    height:25px;
+  }
+  img {
+    margin-left: 140px;
+    margin-bottom: 40px;
+  }
+    width:50%;
+
+  &__maxSize {
+    top: 104px;
+    left: 0;
+  }
+  &__minSize {
+    top: 245px;
+    left: 0;
+  }
+  &__minWidth {
+    bottom: 0px;
+    left: 175px;
+  }
+  &__maxWidth {
+    bottom: 0px;
+    left: 445px;
+  }
+}
+
+#output {
+  //position: absolute;
+
+}
+
+.output {
+  width:500px;
+  height:80%;
+  top:20px;
+  right:10px;
+label {
+  display: block;
+  position: relative;
+}
+  textarea  {
+    width:450px;
+    z-index: 99;
+  }
+  &__result {
+    padding: 10px;
+    width: 150px;
+    border: none;
+    border-radius: 4px;
+    background-color: #58a;
+    color: #fff;
+    margin-bottom: 10px;
+    cursor: pointer;
+  }
+  &__clear {
+    padding: 10px;
+    width: 150px;
+    border: none;
+    border-radius: 4px;
+    background-color: brown;
+    color: #fff;
+    margin-bottom: 10px;
+    cursor: pointer;
+  }
+  &__text {
+    resize: vertical;
+  }
+}
+
+.formula  {
+  margin-left: 40px;
+  li {
+    list-style: disc!important;
+    font-family: 'Indie Flower', 'Neucha', cursive;
+    //padding: 10px 0;
+    font-size: 18px;
+  }
+}
+
+  .history {
+    width:100%;
+    margin: 20px 0;
+
+    &__item {
+      border:1px solid #40c58a;
+      margin-bottom: 10px;
+    }
+  }
+  .item {
+    &__count {
+      margin-right: 10px;
+    }
+    &__title {
+      display: flex;
+      flex-direction: row;
+      padding: 10px;
+      border-bottom: 1px solid #40c58a;
+      background-color: #40c58a;
+      color: #fff;
+    }
+    &__content {
+      padding: 10px;
+      background-color: #fff;
+    }
+  }

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>CSS-gateway page</title>
+
+    //= template/heads-link.html
+</head>
+<body>
+    //= template/header.html
+
+    <main>
+        <section class="container container__gateway">
+
+            <div class="graph-container">
+                <div class="graph">
+                    <ul>
+                        <li>
+                            <label class="graph__maxSize">
+                                <span>maxSize</span>
+                                <input type="number" id="maxSize" value="30">
+                            </label>
+                            <label class="graph__minSize">
+                                <span>minSize</span>
+                                <input type="number" id="minSize" value="20">
+                            </label>
+                            <img src="image/graph-gateway.png" alt="">
+                        </li>
+                        <li>
+                            <label class="graph__minWidth">
+                                <span id="minValue">minWidth</span>
+                                <input type="number" id="minWidth" value="1020">
+                            </label>
+
+                            <label class="graph__maxWidth">
+                                <span id="maxValue">maxWidth</span>
+                                <input type="number" id="maxWidth" value="1920">
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+
+                <div id="output" class="output">
+                    <button id="result" class="output__result">result</button>
+                    <textarea name="" id="output-text" class="output__text" cols="30" rows="10"></textarea>
+                    <button id="clear" class="output__clear">clear</button>
+                    <div>
+                        <label>
+                            <span>vw</span>
+                            <input type="radio" class="viewport__input" name="viewport" value="vw" checked>
+                        </label>
+                        <label>
+                            <span>vh</span>
+                            <input type="radio" class="viewport__input" name="viewport" value="vh">
+                        </label>
+                    </div>
+
+
+
+                </div>
+            </div>
+
+
+            <div id="history" class="history">
+
+                <!--<div class="history__item history__item&#45;&#45;1">-->
+                    <!--<div class="item item__title">-->
+                        <!--<div class="item item__count">[1]</div>-->
+                        <!--<div class="item item__name">calc( 1.11vw + 8.67px )</div>-->
+                    <!--</div>-->
+                    <!--<div class="item item__content">-->
+                        <!--<div class="content content__m">1</div>-->
+                        <!--<div>1</div>-->
+                        <!--<div>1</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="history__item history__item&#45;&#45;2">-->
+                    <!--<div class="item item__title">-->
+                        <!--<div class="item item__count">[1]</div>-->
+                        <!--<div class="item item__name">calc( 1.11vw + 8.67px )</div>-->
+                    <!--</div>-->
+                    <!--<div class="item item__content">-->
+                        <!--1-->
+                    <!--</div>-->
+                <!--</div>-->
+            </div>
+
+            <p data-lang="ru">
+                Идея данного компонента появилась после прочтения статьи про
+                <a href="http://css-live.ru/articles/matematika-css-shlyuzov.html">математику CSS-шлюзов</a>. <br>
+                Чтобы не считать различные адаптивные значения вручную, данный алгоритм был запрограммирован.
+
+            </p>
+            
+            <p data-lang="ru">
+                Изменение размера - это простая линейная функция (см. ниже).
+            </p>
+
+            <img src="/image/css-gateway.png" alt="">
+
+            <p data-lang="ru">
+                Она записывается в виде y = mx + b, где:
+            </p>
+            <ul class="formula">
+                <li>y — наш размер (вертикальная ось)</li>
+                <li>x — ширина области просмотра, в пикселях (горизонтальная ось)</li>
+                <li>m — крутизна наклона функции («сколько пикселей прибавляется к размеру на каждый пиксель увеличения ширины окна?»),</li>
+                <li>и b — размер шрифта до того, как к нему добавится какое-либо относительное значение, связанное с размером окна.</li>
+            </ul>
+
+
+
+        </section>
+    </main>
+
+    <!-- -------------------------------------------------------------------------------- -->
+    <!--Область с подключаемыми файлами-->
+    <link rel="stylesheet" href="css/all/1_common.css">
+    <link rel="stylesheet" href="css/page/page__css-gateway.css">
+
+    <script src="js/custom/css-gateway.js"></script>
+    <!-- -------------------------------------------------------------------------------- -->
+
+    //= template/footer.html
+</body>
+</html>

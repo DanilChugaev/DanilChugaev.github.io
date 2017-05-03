@@ -1,0 +1,84 @@
+header {
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  height: 100vh;
+  width: 100%;
+  background: #58a;
+  color: #fff; }
+  header * {
+    font-family: 'Indie Flower', 'Neucha', cursive; }
+  header [data-lang] {
+    font-size: 70px;
+    text-shadow: 3px 2px 2px rgba(0, 0, 0, 0.3); }
+
+.list-components {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  padding: 20px;
+  background-color: transparent; }
+  .list-components li {
+    list-style: none;
+    -webkit-flex-basis: 370px;
+        -ms-flex-preferred-size: 370px;
+            flex-basis: 370px;
+    height: 200px;
+    background-color: #40c58a;
+    margin-bottom: 20px;
+    overflow: hidden; }
+    .list-components li a {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-align: center;
+      -webkit-align-items: center;
+          -ms-flex-align: center;
+              align-items: center;
+      -webkit-box-pack: center;
+      -webkit-justify-content: center;
+          -ms-flex-pack: center;
+              justify-content: center;
+      width: 100%;
+      height: 100%;
+      text-decoration: none;
+      color: #fff;
+      position: relative; }
+      .list-components li a span {
+        -webkit-transform: translateY(1000%);
+            -ms-transform: translateY(1000%);
+                transform: translateY(1000%);
+        -webkit-transition: all 0.3s;
+        transition: all 0.3s;
+        z-index: 51; }
+      .list-components li a::after {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+        background-color: rgba(0, 0, 0, 0.3);
+        -webkit-transition: all 0.3s;
+        transition: all 0.3s;
+        -webkit-transform: translateY(100%);
+            -ms-transform: translateY(100%);
+                transform: translateY(100%); }
+      .list-components li a:hover span {
+        -webkit-transform: translateY(0);
+            -ms-transform: translateY(0);
+                transform: translateY(0); }
+      .list-components li a:hover::after {
+        -webkit-transform: translateY(0);
+            -ms-transform: translateY(0);
+                transform: translateY(0); }
