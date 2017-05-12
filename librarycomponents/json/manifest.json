@@ -16,10 +16,10 @@
     "src": "ico/256-256.png",
     "sizes": "256x256"
   }],
-  "scope": "/",
+  "scope": "/librarycomponents/",
   "start_url": "/index.html",
   "display": "fullscreen",
   "orientation": "landscape",
   "theme_color": "aliceblue",
-  "background_color": "red"
+  "background_color": "#58a"
 }

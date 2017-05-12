@@ -164,8 +164,10 @@ html:lang(en) {
 	}
 }
 .container {
-	width: 1250px;
-	width: var(--containerWidth, 1250px);
+
+	max-width: 1250px;
+	width:100%;
+	//width: var(--containerWidth, 1250px);
 	margin: 0 auto;
 	padding: 20px;
 	background-color: rgba(0,0,0,0.1);

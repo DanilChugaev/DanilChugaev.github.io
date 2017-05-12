@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="manifest" href="manifest.json">
+    <link rel="manifest" href="json/manifest.json">
     
     <!--На страницах будут подключаться скрипты и стили относящиеся к данной странице-->
     <!--Также будут общие файлы-->
@@ -21,7 +21,7 @@
     <link rel="apple-touch-icon-precomposed" sizes="64x64" href="ico/64-64.png">
     <link rel="apple-touch-icon-precomposed" href="ico/favicon.png">
     <!-- -------------------------------------------------------------------------------- -->
-    
+    <script src="https://unpkg.com/vue"></script>
     <!--Стили для прелоадера, он необходим чтобы пользователь не видел "голый" текст без стилей-->
     <link rel="stylesheet" href="css/preloader.css">
 </head>
@@ -53,33 +53,15 @@
     </header>
 
     <main>
-        <ul class="container list-components">
-            <li>
-                <a href="download-files.html">
-                    <span data-lang="ru">Загрузка файлов</span>
-                    <span data-lang="en">Download files</span>
-                </a>
-            </li>
-            <li>
-                <a href="pop-ups.html">
-                    <span data-lang="ru">Всплывашки и всплывающие окна</span>
-                    <span data-lang="en">Pop-ups</span>
-                </a>
-            </li>
-            <li>
-                <a href="css-gateway.html">
-                    css-gateway
-                </a>
-            </li>
-            <li><a href="">4</a></li>
-            <li><a href="">5</a></li>
-            <li><a href="">6</a></li>
+        <ul id="js-list-components" class="container list-components">
+            <list-components v-for="component in components" v-bind:item="component"></list-components>
         </ul>
     </main>
 
     <!-- -------------------------------------------------------------------------------- -->
     <!--Область с подключаемыми файлами-->
     <link rel="stylesheet" href="css/all/1_common.css">
+    <link rel="stylesheet" href="css/all/4_media-queries.css">
     <link rel="stylesheet" href="css/page/page__index.css">
     <!-- -------------------------------------------------------------------------------- -->
 
@@ -89,6 +71,7 @@
     <!-- -------------------------------------------------------------------------------- -->
     <script src="js/custom/scroll-to.js" defer></script>
     <script src="js/custom/lang-select.js"></script>
+    <script src="js/custom/init_vue.js"></script>
     <!-- -------------------------------------------------------------------------------- -->
     <script>
         /*
@@ -105,5 +88,6 @@
         })();
     </script>
     <!-- -------------------------------------------------------------------------------- -->
+
 </body>
 </html>

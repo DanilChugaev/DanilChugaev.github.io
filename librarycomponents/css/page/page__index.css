@@ -11,7 +11,8 @@ header {
     font-family: 'Indie Flower', 'Neucha', cursive; }
   header [data-lang] {
     font-size: 70px;
-    text-shadow: 3px 2px 2px rgba(0, 0, 0, 0.3); }
+    text-shadow: 3px 2px 2px rgba(0, 0, 0, 0.3);
+    text-align: center; }
 
 .list-components {
   display: -webkit-box;
@@ -21,10 +22,9 @@ header {
   -webkit-flex-wrap: wrap;
       -ms-flex-wrap: wrap;
           flex-wrap: wrap;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -webkit-justify-content: space-around;
+      -ms-flex-pack: distribute;
+          justify-content: space-around;
   padding: 20px;
   background-color: transparent; }
   .list-components li {
