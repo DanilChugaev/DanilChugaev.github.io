@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="theme-color" content="#012D5C">
+
+    <title>Задание 2</title>
+
+    <link href="css/lib/chartist.min.css" rel="stylesheet">
+    <script src="js/lib/chartist.min.js" defer></script>
+
+    <link href="css/custom/index.css" rel="stylesheet">
+    <script src="js/compiled/example-4.js" defer></script>
+</head>
+<body>
+
+<section class="settings">
+    <div>
+        <span>Введите количество итераций:</span>
+        <input type="number" id="countIterations" value="1000000">
+    </div>
+    <div class="boxShadowNone">
+        <button id="startBtn" type="button">Запустить</button>
+        <span id="info"></span>
+    </div>
+</section>
+
+<div class="counter">
+    <span>Итоговое количество итераций</span>
+    <div>
+        <span>S1 - орел:___ </span> <span id="s1"></span> <span>раз(а)</span>
+    </div>
+    <div>
+        <span>S2 - решка:___ </span> <span id="s2"></span> <span>раз(а)</span>
+    </div>
+    <div>
+        <span>S3 - 3,4:___ </span> <span id="s3"></span> <span>раз(а)</span>
+    </div>
+    <div>
+        <span>S4 - 1,2,6:___ </span> <span id="s4"></span> <span>раз(а)</span>
+    </div>
+    <div>
+        <span>S5 - 5:___ </span> <span id="s5"></span> <span>раз(а)</span>
+    </div>
+    <div>
+        <span>S6 - 6:___ </span> <span id="s6"></span> <span>раз(а)</span>
+    </div>
+</div>
+
+
+<div class="ct-chart ct-perfect-fourth"></div>
+</body>
+</html>

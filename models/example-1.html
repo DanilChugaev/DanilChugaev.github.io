@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="theme-color" content="#012D5C">
+
+    <title>Задание 1</title>
+
+    <link href="css/lib/chartist.min.css" rel="stylesheet">
+    <script src="js/lib/chartist.min.js" defer></script>
+
+    <link href="css/custom/index.css" rel="stylesheet">
+    <script src="js/compiled/example-1.js" defer></script>
+</head>
+<body>
+
+<section class="settings">
+    <div>
+        <span>Введите количество итераций:</span>
+        <input type="number" id="countIterations" value="10">
+    </div>
+    <div>
+        <span>Задайте время переключения <br> на следующую итерацию (в с.):</span>
+        <input type="number" id="timeIteration" value="1">
+    </div>
+    <div class="boxShadowNone">
+        <button id="startBtn" type="button">Запустить</button>
+        <span id="info"></span>
+    </div>
+</section>
+<section class="results">
+    <div>
+        <span>Текущее состояние</span>
+        <section>
+            <span id="state"></span>
+        </section>
+    </div>
+    <div>
+        <span>Входное состояние</span>
+        <span id="inputValue"></span>
+    </div>
+    <div>
+        <span>Вероятность</span>
+        <span id="random"></span>
+    </div>
+</section>
+
+<label>
+    <input type="radio" name="secondRoad" value="0" checked>
+    <span>0 - нет машин</span>
+</label>
+<label>
+    <input type="radio" name="secondRoad" value="1">
+    <span>1 - есть машины</span>
+</label>
+
+<div class="counter">
+    <span>Итоговое количество итераций</span>
+    <div>
+        <span>Состояния 0 (магистраль открыта) были: </span> <span id="resultState0"></span> <span>раз(а)</span>
+    </div>
+    <div>
+        <span>Состояния 1 (магистраль закрыта) были: </span> <span id="resultState1"></span> <span>раз(а)</span>
+    </div>
+</div>
+
+
+<div class="ct-chart ct-perfect-fourth"></div>
+</body>
+</html>
