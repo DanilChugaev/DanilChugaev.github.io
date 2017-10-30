@@ -5,8 +5,12 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body ng-controller="jsController">
-    <div class="share">        
-        <emails-editor></emails-editor>        
+    <div class="share">
+        <div class="emails-editor-container">
+            <h1>Share "Board name" with others</h1>
+            <emails-editor emails="emails" on-emails-updated="onEmailsUpdated()"></emails-editor>
+            <!--<emails-editor emails="emails" on-emails-updated="onEmailsUpdated()"></emails-editor>-->
+        </div>
         <div class="buttons">
             <button class="addEmail" ng-click="addEmails()">Add email</button>
             <button class="getCount" ng-click="getEmailsCount()">Get emails count</button>

@@ -1,10 +1,4 @@
-﻿/*  
-    Макет располагал в PerfectPixel по след. координатам:
-    433 по оси x
-    171 по оси y
-    масштаб 1
-*/
-* {
+﻿* {
     margin: 0;
     padding: 0;
 }
@@ -16,10 +10,10 @@ body {
 h1 {
     font-size: 20px;
     font-weight: 100;
-    padding: 32px 0 0 39px;
+    margin-bottom: 35px;
 }
 
-#input {
+.input {
     border: none;
     height: 23px;
     width: 140px;
@@ -28,7 +22,7 @@ h1 {
     letter-spacing: 0.3px;
 }
 
-#input:focus { 
+.input:focus {
     outline: none; 
 }
 
@@ -38,19 +32,17 @@ h1 {
     width: 500px;
 }
 
-.emails-editor {
-    height: 220px;
-    width: 100%;
+.emails-editor-container {
+    /*max-height: 220px;*/
+    padding: 32px 40px;
     background-color: #f5f5f5;
 }
 
-.emails-editor__input {
+.emails-editor {
     height: 99px;
     width: 420px;
     border-top: 1px solid #cccccc;
     background: #fff;
-    margin-top: 35px;
-    margin-left: 40px;
     overflow-x: hidden;
     overflow-y: auto;
 }
@@ -62,8 +54,6 @@ h1 {
     border-radius: 15px;
     padding: 3px 23px 3px 10px;
     margin-top: 7px;
-    /*чтобы максимально совпадало с шаблоном можно добавить letter-spacing*/
-    /*letter-spacing: -0.9px;*/
     font-size: 15px;
 }
 
@@ -80,6 +70,7 @@ button {
     margin-left: 40px;
     background-color: #6699ff;
     color: #fff;
+    cursor: pointer;
 }
 
 .addEmail {
