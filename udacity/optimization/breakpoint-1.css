@@ -1,0 +1,187 @@
+/*
+ *
+ * Header
+ *
+ */
+
+.header__hamburger {
+	display: none;
+}
+
+.header__inner {
+	padding: 20px 0;
+}
+
+.header__logo {
+	height: 90px;
+	margin-right: 20px;
+}
+
+.header__title {
+	font-size: 38px;
+}
+ 
+/*
+ *
+ * Top Level Navigation
+ *
+ */
+
+.nav {
+	width: 100%;
+	background-color: initial;
+	-webkit-transform: translate(0, 0);
+	transform: translate(0, 0);
+	position: relative;
+}
+
+.nav__list {
+	flex-direction: row;
+	justify-content: space-between;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.nav__item {
+	display: flex;
+	justify-content: center;
+	width: 100%;
+	box-sizing: border-box;
+}
+
+.nav__item:not(:last-of-type) {
+  border: none;
+}
+
+.nav a {
+  text-decoration: none;
+	padding: 24px;
+	font-size: 16px;
+	width: 100%;
+	min-width: 25%;
+	max-width: 130px;
+	text-align: center;
+}
+
+/*
+ *
+ * Hero
+ *
+ */
+
+.hero {
+	order: 0;
+	width: 60%;
+	height: auto;
+}
+
+.description p {
+	font-size: 14px;
+}
+
+/*
+ *
+ * content
+ *
+ */
+
+.content {
+	display: flex;
+	flex-wrap:wrap;
+}
+
+
+
+/*
+ *
+ * Top News
+ *
+ */
+
+ .top-news {
+	order:2;
+	width: 100%;
+}
+.news__title {
+	font-size: 18px;
+}
+
+.top-news__item a {
+	font-size: 14px;
+}
+/*
+ *
+ * Sport Scores
+ *
+ */
+.scores {
+	order:3;
+	width: 100%;
+}
+
+.scores__table th,
+.scores__table td {
+	font-size: 14px;
+}
+
+/*
+ *
+ * Weather
+ *
+ */
+
+.weather {
+	order: 1;
+	width: 40%;	
+}
+.weather__today {
+	flex-wrap: wrap;
+}
+.weather__desc {
+	font-size: 16px;
+}
+.weather__next__item span {
+	font-size: 14px;
+}
+
+
+/*
+ *
+ * Recent News
+ *
+ */
+
+.recent-news {
+	order:4;
+	width: 100%;
+}
+
+.snippet__thumbnail {
+	position: static;
+	top: initial;
+	left: initial;
+	width: 100px;
+	height: 68px;
+	object-fit: cover;
+ }
+
+.snippet__title {
+	text-decoration: underline;
+	font-size: 16px;
+}
+.snippet__caption p{
+	font-size: 14px;
+}
+ 
+ /*
+ *
+ *
+ * Footer
+ *
+ *
+ */
+
+footer ul {
+	flex-direction: row;
+}

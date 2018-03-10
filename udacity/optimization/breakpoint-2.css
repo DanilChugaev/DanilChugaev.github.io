@@ -1,0 +1,29 @@
+
+.hero {
+	order: 0;
+	width: 50%;
+}
+.top-news {
+	order:1;
+	width: 50%;
+}
+.scores {
+	order:2;
+	width: 60%;
+}
+.weather {
+ 	order: 3;
+	width: 40%;	
+}
+
+.snippet__thumbnail {
+	width: 200px;
+	height: 126px;
+}
+
+.snippet__caption p {
+	display: block;
+	overflow: auto;
+	max-height: 100%;
+	text-overflow: unset;
+}
