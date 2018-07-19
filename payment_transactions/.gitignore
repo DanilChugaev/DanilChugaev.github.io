@@ -1,6 +1,5 @@
 .DS_Store
 node_modules
-payment_transactions/node_modules
 /dist
 
 # local env files
