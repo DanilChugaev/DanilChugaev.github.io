@@ -5762,10 +5762,95 @@ export default new Vuex.Store({
         },
       },
     ],
+    typesDataTable: {
+      transaction: {
+        _current: [
+          {
+            field: 'id',
+            headTable: 'transaction_id',
+          },
+          {
+            field: 'transfer_date',
+            headTable: 'Дата перевода',
+          },
+        ],
+        project: [
+          {
+            field: 'name',
+            headTable: 'Проект',
+          },
+        ],
+        payment_method: [
+          {
+            field: 'name',
+            headTable: 'Платежная система',
+          },
+        ],
+      },
+      user: {
+        _current: [
+          {
+            field: 'id',
+            headTable: 'id пользователя',
+          },
+          {
+            field: 'name',
+            headTable: 'Имя',
+          },
+          {
+            field: 'email',
+            headTable: 'Email',
+          },
+        ],
+      },
+      payment_details: {
+        payment: [
+          {
+            field: 'currency',
+            headTable: 'Валюта',
+          },
+          {
+            field: 'amount',
+            headTable: 'Сумма',
+          },
+        ],
+      },
+      purchase: {
+        _current: [
+          {
+            field: 'virtual_items',
+            headTable: 'Виртуальные объекты',
+          },
+        ],
+        virtual_currency: [
+          {
+            field: 'name',
+            headTable: 'Виртуальная валюта',
+          },
+        ],
+      },
+    },
   },
   getters: {
+    /**
+     * Return an array of all transactions
+     *
+     * @param {Object} state
+     *
+     * @return {Array} transactions
+     * */
     getTransactions (state) {
       return state.transactions
+    },
+    /**
+     * Return an object with the required data types for the table
+     *
+     * @param {Object} state
+     *
+     * @return {Object} typesDataTable
+     * */
+    getTypesDataTable (state) {
+      return state.typesDataTable
     },
   },
 })
