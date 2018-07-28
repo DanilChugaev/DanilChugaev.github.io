@@ -6,106 +6,9 @@ export default {
   data () {
     return {
       loading: false,
-      headers: [
-        {text: 'Dessert (100g serving)', value: 'name'},
-        {text: 'Calories', value: 'calories'},
-        {text: 'Fat (g)', value: 'fat'},
-        {text: 'Carbs (g)', value: 'carbs'},
-        {text: 'Protein (g)', value: 'protein'},
-        {text: 'Iron (%)', value: 'iron'},
-      ],
-      items: [
-        {
-          value: false,
-          name: 'Frozen Yogurt',
-          calories: 159,
-          fat: 6.0,
-          carbs: 24,
-          protein: 4.0,
-          iron: '1%',
-        },
-        {
-          value: false,
-          name: 'Ice cream sandwich',
-          calories: 237,
-          fat: 9.0,
-          carbs: 37,
-          protein: 4.3,
-          iron: '1%',
-        },
-        {
-          value: false,
-          name: 'Eclair',
-          calories: 262,
-          fat: 16.0,
-          carbs: 23,
-          protein: 6.0,
-          iron: '7%',
-        },
-        {
-          value: false,
-          name: 'Cupcake',
-          calories: 305,
-          fat: 3.7,
-          carbs: 67,
-          protein: 4.3,
-          iron: '8%',
-        },
-        {
-          value: false,
-          name: 'Gingerbread',
-          calories: 356,
-          fat: 16.0,
-          carbs: 49,
-          protein: 3.9,
-          iron: '16%',
-        },
-        {
-          value: false,
-          name: 'Jelly bean',
-          calories: 375,
-          fat: 0.0,
-          carbs: 94,
-          protein: 0.0,
-          iron: '0%',
-        },
-        {
-          value: false,
-          name: 'Lollipop',
-          calories: 392,
-          fat: 0.2,
-          carbs: 98,
-          protein: 0,
-          iron: '2%',
-        },
-        {
-          value: false,
-          name: 'Honeycomb',
-          calories: 408,
-          fat: 3.2,
-          carbs: 87,
-          protein: 6.5,
-          iron: '45%',
-        },
-        {
-          value: false,
-          name: 'Donut',
-          calories: 452,
-          fat: 25.0,
-          carbs: 51,
-          protein: 4.9,
-          iron: '22%',
-        },
-        {
-          value: false,
-          name: 'KitKat',
-          calories: 518,
-          fat: 26.0,
-          carbs: 65,
-          protein: 7,
-          iron: '6%',
-        },
-      ],
+      rowsPerPageItems: [10, 20, 50, 100, 200],
+      headers: [],
+      items: [],
     }
   },
   watch: {
@@ -116,10 +19,20 @@ export default {
 
         _this.getDataTable()
           .then(data => {
-            // _this.distributeData(data)
+            _this.distributeData(data)
           })
+          .catch(err => console.log(err))
       },
     },
+  },
+  mounted () {
+    const _this = this
+
+    _this.getDataTable()
+      .then(data => {
+        _this.distributeData(data)
+      })
+      .catch(err => console.log(err))
   },
   filters: {
     /**
@@ -130,22 +43,27 @@ export default {
      * @return {String} str
      * */
     unknownValue (str) {
-      if (~str.indexOf('null')) {
+      if (str === null) {
         return 'Не указано'
       }
       return str
     },
   },
   methods: {
-    // /**
-    //  * Distribute the data in columns depending on the types of columns
-    //  *
-    //  * @param {Object) data
-    //  * */
-    // distributeData (data) {
-    //   // const _this = this
-    //   data
-    // },
+    /**
+     * Distribute the data in columns depending on the types of columns
+     *
+     * @param {Object} data
+     * */
+    distributeData (data) {
+      const _this = this
+
+      _this.headers.splice(0)
+      _this.items.splice(0)
+
+      data.headers.forEach(item => _this.headers.push(item))
+      data.items.forEach(item => _this.items.push(item))
+    },
     /**
      * Get the data and headers for the table
      *
@@ -160,9 +78,12 @@ export default {
       _this.loading = true
 
       return new Promise((resolve, reject) => {
-        headers = this.selectColumnHeaders(gridDataItems[0])
-        items = gridDataItems
+        headers = _this.selectColumnHeaders(gridDataItems[0])
+        items = _this.transformationItems(gridDataItems, headers)
         _this.loading = false
+
+        // filters
+        // graphics
 
         if (!!headers && !!items) {
           resolve({
@@ -212,12 +133,15 @@ export default {
             if (exampleKey === type) {
               typesData[key].forEach(item => {
                 let value = item.field
+                let newValue = item.newField
                 let parent = exampleData[exampleKey][item.field] ? null : key
 
                 headersTemp.push({
                   text: item.headTable,
                   value,
+                  newValue,
                   parent,
+                  type,
                 })
               })
             }
@@ -226,6 +150,38 @@ export default {
       }
 
       return headersTemp
+    },
+    /**
+     * Converting elements for output in a table
+     *
+     * @param {Array} items
+     * @param {Array} headers
+     *
+     * @return {Array} transformItems
+     * */
+    transformationItems (items, headers) {
+      let transformItems = []
+
+      items.forEach(item => {
+        let tempObj = {}
+
+        headers.forEach(header => {
+          let tempItemType = item[header.type]
+          let value = ''
+
+          if (tempItemType[header.value] !== undefined) {
+            value = tempItemType[header.value]
+          } else {
+            value = tempItemType[header.parent][header.value]
+          }
+
+          tempObj[header.newValue] = value
+        })
+
+        transformItems.push(tempObj)
+      })
+
+      return transformItems
     },
   },
 }

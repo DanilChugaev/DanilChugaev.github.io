@@ -5767,22 +5767,26 @@ export default new Vuex.Store({
         _current: [
           {
             field: 'id',
-            headTable: 'transaction_id',
+            newField: 'transaction_id',
+            headTable: 'id транзакции',
           },
           {
             field: 'transfer_date',
+            newField: 'transaction_transfer_date',
             headTable: 'Дата перевода',
           },
         ],
         project: [
           {
             field: 'name',
+            newField: 'project_name',
             headTable: 'Проект',
           },
         ],
         payment_method: [
           {
             field: 'name',
+            newField: 'payment_method_name',
             headTable: 'Платежная система',
           },
         ],
@@ -5791,14 +5795,17 @@ export default new Vuex.Store({
         _current: [
           {
             field: 'id',
+            newField: 'user_id',
             headTable: 'id пользователя',
           },
           {
             field: 'name',
+            newField: 'user_name',
             headTable: 'Имя',
           },
           {
             field: 'email',
+            newField: 'user_email',
             headTable: 'Email',
           },
         ],
@@ -5807,10 +5814,12 @@ export default new Vuex.Store({
         payment: [
           {
             field: 'currency',
+            newField: 'payment_details_currency',
             headTable: 'Валюта',
           },
           {
             field: 'amount',
+            newField: 'payment_details_amount',
             headTable: 'Сумма',
           },
         ],
@@ -5819,12 +5828,14 @@ export default new Vuex.Store({
         _current: [
           {
             field: 'virtual_items',
+            newField: 'purchase_virtual_items',
             headTable: 'Виртуальные объекты',
           },
         ],
         virtual_currency: [
           {
             field: 'name',
+            newField: 'purchase_virtual_currency',
             headTable: 'Виртуальная валюта',
           },
         ],
