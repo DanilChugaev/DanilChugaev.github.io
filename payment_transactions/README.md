@@ -1,5 +1,7 @@
 # payment_transactions
 
+<p>Демо можно посмотреть <a href="https://danilchugaev.github.io/payment_transactions/" target="_blank">тут</a></p>
+
 ## Project setup
 ```
 npm install
@@ -24,3 +26,4 @@ npm run lint
 ```
 npm run test:unit
 ```
+
