@@ -1,10 +1,10 @@
 <template>
   <v-data-table :headers="headers"
                 :items="items"
+                :item-key="items[0].transaction_id"
                 :rows-per-page-items="rowsPerPageItems"
                 no-data-text="Данных не найдено"
                 rows-per-page-text="Показывать по:"
-                item-key="name"
                 :loading="loading"
                 class="elevation-1"
   >
