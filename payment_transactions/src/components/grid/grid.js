@@ -1,5 +1,6 @@
 import list from 'vue-material-design-icons/format-list-numbers.vue'
 import chart from 'vue-material-design-icons/finance.vue'
+import rating from 'vue-material-design-icons/file-document-box-outline.vue'
 
 export default {
   name: 'Grid',
@@ -9,6 +10,7 @@ export default {
   components: {
     list,
     chart,
+    rating,
   },
   data () {
     return {
@@ -18,6 +20,8 @@ export default {
       items: [],
       actions: this.gridData.actions,
       projects: [],
+      ratingObj: {},
+      ratingArr: [],
     }
   },
   watch: {
@@ -90,16 +94,20 @@ export default {
       let items = []
       let gridDataItems = _this.gridData.items
 
+      _this.ratingArr.splice(0)
       _this.loading = true
 
       return new Promise((resolve, reject) => {
         headers = _this.selectColumnHeaders(gridDataItems[0])
         items = _this.transformationItems(gridDataItems, headers)
+
+        let {ratingObj, ratingArr} = _this.calcRating(items)
+
+        _this.ratingObj = Object.assign({}, _this.ratingObj, ratingObj)
+        _this.ratingArr.push(...ratingArr)
         _this.loading = false
 
         // filters
-        // graphics
-        // debugger
 
         if (!!headers && !!items) {
           resolve({
@@ -201,6 +209,43 @@ export default {
 
       return transformItems
     },
+    /**
+     * Calculates the popularity rating of payment systems and returns the result in several formats
+     *
+     * @param {Object} items
+     *
+     * @return {Object} rating
+     * */
+    calcRating (items) {
+      let ratingObj = {}
+      let ratingArr = []
+
+      items.forEach(item => {
+        if (ratingObj[item.payment_method_name] !== undefined) {
+          ratingObj[item.payment_method_name]++
+        } else {
+          ratingObj[item.payment_method_name] = 1
+        }
+      })
+
+      for (let item in ratingObj) {
+        if ({}.hasOwnProperty.call(ratingObj, item)) {
+          ratingArr.push({
+            name: item,
+            value: ratingObj[item],
+          })
+        }
+      }
+
+      ratingArr.sort((a, b) => b.value - a.value)
+
+      return {ratingObj, ratingArr}
+    },
+    /**
+     * Runs a method in this component by the passed name
+     *
+     * @param {String} methodName
+     * */
     runMethod (methodName) {
       this[methodName]()
     },
@@ -214,18 +259,26 @@ export default {
         const projects = new Set()
 
         _this.items.forEach(item => projects.add(item.project_name))
-        this.$emit('getListAllProjects', projects)
+        _this.$emit('getListAllProjects', projects)
 
         _this.projects.push(...projects)
       } else {
-        this.$emit('getListAllProjects', _this.projects)
+        _this.$emit('getListAllProjects', _this.projects)
       }
+    },
+    /**
+     * Sends a list with a rating to the parent element
+     * */
+    getRatingPopularityPaymentSystems () {
+      const _this = this
+
+      _this.$emit('getRatingPopularityPaymentSystems', _this.ratingArr)
     },
     // /**
     //  *
     //  * */
     // getChartPopularityPaymentSystems () {
-    //
+    //   this.$emit('getChartPopularityPaymentSystems')
     // },
   },
 }
