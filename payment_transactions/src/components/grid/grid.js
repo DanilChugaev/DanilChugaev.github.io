@@ -1,7 +1,14 @@
+import list from 'vue-material-design-icons/format-list-numbers.vue'
+import chart from 'vue-material-design-icons/finance.vue'
+
 export default {
   name: 'Grid',
   props: {
     gridData: Object,
+  },
+  components: {
+    list,
+    chart,
   },
   data () {
     return {
@@ -9,6 +16,8 @@ export default {
       rowsPerPageItems: [10, 20, 50, 100, 200],
       headers: [],
       items: [],
+      actions: this.gridData.actions,
+      projects: [],
     }
   },
   watch: {
@@ -28,11 +37,13 @@ export default {
   mounted () {
     const _this = this
 
-    _this.getDataTable()
-      .then(data => {
-        _this.distributeData(data)
-      })
-      .catch(err => console.log(err))
+    if (_this.gridData.items.length > 0) {
+      _this.getDataTable()
+        .then(data => {
+          _this.distributeData(data)
+        })
+        .catch(err => console.log(err))
+    }
   },
   filters: {
     /**
@@ -61,7 +72,11 @@ export default {
       _this.headers.splice(0)
       _this.items.splice(0)
 
-      data.headers.forEach(item => _this.headers.push(item))
+      data.headers.forEach(header => {
+        if (header.isVisible) {
+          _this.headers.push(header)
+        }
+      })
       data.items.forEach(item => _this.items.push(item))
     },
     /**
@@ -84,6 +99,7 @@ export default {
 
         // filters
         // graphics
+        // debugger
 
         if (!!headers && !!items) {
           resolve({
@@ -137,11 +153,13 @@ export default {
                 let parent = exampleData[exampleKey][item.field] ? null : key
 
                 headersTemp.push({
+                  sortable: false,
                   text: item.headTable,
                   value,
                   newValue,
                   parent,
                   type,
+                  isVisible: item.isVisible,
                 })
               })
             }
@@ -183,5 +201,31 @@ export default {
 
       return transformItems
     },
+    runMethod (methodName) {
+      this[methodName]()
+    },
+    /**
+     * Sends a collection of all projects to the parent element
+     * */
+    getListAllProjects () {
+      const _this = this
+
+      if (_this.projects.length === 0) {
+        const projects = new Set()
+
+        _this.items.forEach(item => projects.add(item.project_name))
+        this.$emit('getListAllProjects', projects)
+
+        _this.projects.push(...projects)
+      } else {
+        this.$emit('getListAllProjects', _this.projects)
+      }
+    },
+    // /**
+    //  *
+    //  * */
+    // getChartPopularityPaymentSystems () {
+    //
+    // },
   },
 }

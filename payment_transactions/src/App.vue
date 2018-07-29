@@ -3,50 +3,58 @@
     <v-app>
       <h1>Xsolla Summer School 2018</h1>
       <h2>Тестовое задание Frontend-потока</h2>
-      <grid :gridData="transactions"></grid>
+      
+      <grid :gridData="transactions"
+            @getListAllProjects="getListAllProjects"
+            
+      ></grid>
+      <!--@getChartPopularityPaymentSystems="getChartPopularityPaymentSystems"-->
+      <v-dialog v-model="dialogs.projects.state"
+                scrollable
+                width="500"
+      >
+        <v-card>
+          <v-card-title class="headline grey lighten-2"
+                        primary-title
+          >
+            Список всех проектов
+          </v-card-title>
+      
+          <v-card-text>
+            <v-list>
+              <template v-for="(item, index) in projects">
+                <v-list-tile :key="item.id"
+                             avatar
+                >
+                  <v-list-tile-content>
+                    <v-list-tile-title>{{ item }}</v-list-tile-title>
+                  </v-list-tile-content>
+                </v-list-tile>
+                <v-divider v-if="index + 1 < projects.length"
+                           :key="index"
+                ></v-divider>
+              </template>
+            </v-list>
+          </v-card-text>
+      
+          <v-divider></v-divider>
+      
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="primary"
+                   flat
+                   @click="dialogs.projects.state = false"
+            >
+              close
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
     </v-app>
   </div>
 </template>
 
-<script>
-import Grid from './components/grid'
-import {mapGetters} from 'vuex'
-
-export default {
-  name: 'app',
-  components: {
-    Grid,
-  },
-  data () {
-    return {
-      transactions: {
-        items: [],
-        typesData: {},
-        filters: {
-          user: null,
-          payment_method: null,
-          project: null,
-        },
-      },
-    }
-  },
-  mounted () {
-    const _this = this
-    
-    _this.transactions.items.push(..._this.getTransactions)
-    _this.transactions.typesData = Object.assign({}, _this.transactions.typesData, {..._this.getTypesDataTable})
-  },
-  computed: {
-    /**
-     * Mix the getters into computed with object spread operator
-     * */
-    ...mapGetters([
-      'getTransactions',
-      'getTypesDataTable',
-    ]),
-  },
-}
-</script>
+<script src="./App.js"></script>
 
 <style lang="scss">
 #app {
