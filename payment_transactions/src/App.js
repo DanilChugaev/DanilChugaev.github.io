@@ -1,6 +1,7 @@
 import Grid from './components/grid'
 import PieChart from './components/chart/index'
 import {mapGetters} from 'vuex'
+import randomInteger from './components/utils'
 
 export default {
   name: 'app',
@@ -49,25 +50,13 @@ export default {
       },
       projects: [],
       rating: [],
-      ratingSum: 0,
+      transactionsLength: 0,
       chart: {
-        data: {
-          labels: ['January', 'February', 'March', 'April', 'May', 'June'],
-          datasets: [
-            {
-              label: 'Data One',
-              data: [40, 39, 10, 40, 39, 80],
-              backgroundColor: [
-                'rgba(255, 99, 132, 0.7)',
-                'rgba(54, 162, 235, 0.7)',
-                'rgba(255, 206, 86, 0.7)',
-                'rgba(75, 192, 192, 0.7)',
-                'rgba(153, 102, 255, 0.7)',
-                'rgba(255, 159, 64, 0.7)',
-              ],
-            },
-          ],
-        },
+        labels: [],
+        datasets: [{
+          data: [],
+          backgroundColor: [],
+        }],
       },
     }
   },
@@ -104,27 +93,44 @@ export default {
      * Receives a list with a rating from the child element
      *
      * @param {Array} rating
+     * @param {Number} transactionsLength
      * */
-    getRatingPopularityPaymentSystems (rating) {
+    getRatingPopularityPaymentSystems (rating, transactionsLength) {
       const _this = this
 
       _this.rating.splice(0)
-      _this.ratingSum = 0
+      _this.transactionsLength = transactionsLength
 
       rating.forEach(item => {
         _this.rating.push(item)
-        _this.ratingSum += item.value
       })
 
       _this.dialogs.rating.state = true
     },
-    // /**
-    //  *
-    //  * */
-    // getChartPopularityPaymentSystems () {
-    //   const _this = this
-    //
-    //   _this.dialogs.chart.state = true
-    // },
+    /**
+     * Receives a list with a rating from the child and create chart
+     *
+     * @param {Array} rating
+     * @param {Number} transactionsLength
+     * */
+    getChartPopularityPaymentSystems (rating, transactionsLength) {
+      const _this = this
+      let chart = _this.chart
+
+      _this.transactionsLength = transactionsLength
+      chart.labels.splice(0)
+      chart.datasets[0].data.splice(0)
+      chart.datasets[0].backgroundColor.splice(0)
+
+      rating.forEach(item => {
+        let percent = (item.value / _this.transactionsLength) * 100
+
+        chart.labels.push(item.name)
+        chart.datasets[0].data.push(Math.round(percent))
+        chart.datasets[0].backgroundColor.push(`rgba(${randomInteger(0, 255)}, ${randomInteger(0, 255)}, ${randomInteger(0, 255)}, 0.7)`)
+      })
+
+      _this.dialogs.chart.state = true
+    },
   },
 }

@@ -272,13 +272,15 @@ export default {
     getRatingPopularityPaymentSystems () {
       const _this = this
 
-      _this.$emit('getRatingPopularityPaymentSystems', _this.ratingArr)
+      _this.$emit('getRatingPopularityPaymentSystems', _this.ratingArr, _this.items.length)
     },
-    // /**
-    //  *
-    //  * */
-    // getChartPopularityPaymentSystems () {
-    //   this.$emit('getChartPopularityPaymentSystems')
-    // },
+    /**
+     * Sends a list with a rating to the parent element for chart
+     * */
+    getChartPopularityPaymentSystems () {
+      const _this = this
+
+      _this.$emit('getChartPopularityPaymentSystems', _this.ratingArr, _this.items.length)
+    },
   },
 }

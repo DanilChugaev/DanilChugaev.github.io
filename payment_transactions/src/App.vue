@@ -7,9 +7,8 @@
       <grid :gridData="transactions"
             @getListAllProjects="getListAllProjects"
             @getRatingPopularityPaymentSystems="getRatingPopularityPaymentSystems"
-            
+            @getChartPopularityPaymentSystems="getChartPopularityPaymentSystems"
       ></grid>
-      <!--@getChartPopularityPaymentSystems="getChartPopularityPaymentSystems"-->
      
       <!---->
       <v-dialog v-model="dialogs.projects.state"
@@ -66,7 +65,7 @@
       
           <v-card-text>
             <pie-chart class="chart"
-                        :info="chart.data"
+                        :info="chart"
             ></pie-chart>
           </v-card-text>
       
@@ -105,7 +104,7 @@
                   </v-list-tile-content>
                   
                   <v-list-tile-action>
-                    <v-list-tile-action-text>{{ item.value }} / {{ ratingSum }}</v-list-tile-action-text>
+                    <v-list-tile-action-text>{{ item.value }} / {{ transactionsLength }}</v-list-tile-action-text>
                   </v-list-tile-action>
                 </v-list-tile>
                 <v-divider v-if="index + 1 < rating.length"
