@@ -1,6 +1,6 @@
 # payment_transactions
 
-<p>Демо можно посмотреть <a href="https://danilchugaev.github.io/payment_transactions/" target="_blank">тут</a></p>
+<p>Demo is <a href="https://danilchugaev.github.io/payment_transactions/" target="_blank">here</a></p>
 
 ## Project setup
 ```
