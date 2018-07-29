@@ -18,6 +18,8 @@ export default {
       rowsPerPageItems: [10, 20, 50, 100, 200],
       headers: [],
       items: [],
+      transactionsLength: 0,
+      projectsLength: 0,
       actions: this.gridData.actions,
       projects: [],
       ratingObj: {},
@@ -93,30 +95,49 @@ export default {
       let headers = []
       let items = []
       let gridDataItems = _this.gridData.items
+      let search = _this.gridData.search
 
-      _this.ratingArr.splice(0)
       _this.loading = true
 
       return new Promise((resolve, reject) => {
         headers = _this.selectColumnHeaders(gridDataItems[0])
         items = _this.transformationItems(gridDataItems, headers)
 
+        _this.transactionsLength = items.length
+
         let {ratingObj, ratingArr} = _this.calcRating(items)
+
+        _this.ratingArr.splice(0)
 
         _this.ratingObj = Object.assign({}, _this.ratingObj, ratingObj)
         _this.ratingArr.push(...ratingArr)
-        _this.loading = false
 
-        // filters
-
-        if (!!headers && !!items) {
-          resolve({
-            headers,
-            items,
+        if (search !== null && search !== '') {
+          items = items.filter(item => {
+            for (let key in item) {
+              if (String(item[key]).indexOf(search) + 1) {
+                return true
+              }
+            }
+            return false
           })
-        } else {
-          reject(new Error('Sorry, an unexpected error occurred!'))
         }
+
+        /**
+         * Imitation of the server response
+         * */
+        setTimeout(() => {
+          _this.loading = false
+
+          if (!!headers && !!items) {
+            resolve({
+              headers,
+              items,
+            })
+          } else {
+            reject(new Error('Sorry, an unexpected error occurred!'))
+          }
+        }, 1500)
       })
     },
     /**
@@ -254,17 +275,12 @@ export default {
      * */
     getListAllProjects () {
       const _this = this
+      const projects = new Set()
 
-      if (_this.projects.length === 0) {
-        const projects = new Set()
+      _this.items.forEach(item => projects.add(item.project_name))
+      _this.$emit('getListAllProjects', projects)
 
-        _this.items.forEach(item => projects.add(item.project_name))
-        _this.$emit('getListAllProjects', projects)
-
-        _this.projects.push(...projects)
-      } else {
-        _this.$emit('getListAllProjects', _this.projects)
-      }
+      _this.projects.push(...projects)
     },
     /**
      * Sends a list with a rating to the parent element
@@ -272,7 +288,7 @@ export default {
     getRatingPopularityPaymentSystems () {
       const _this = this
 
-      _this.$emit('getRatingPopularityPaymentSystems', _this.ratingArr, _this.items.length)
+      _this.$emit('getRatingPopularityPaymentSystems', _this.ratingArr, _this.transactionsLength)
     },
     /**
      * Sends a list with a rating to the parent element for chart
@@ -280,7 +296,7 @@ export default {
     getChartPopularityPaymentSystems () {
       const _this = this
 
-      _this.$emit('getChartPopularityPaymentSystems', _this.ratingArr, _this.items.length)
+      _this.$emit('getChartPopularityPaymentSystems', _this.ratingArr, _this.transactionsLength)
     },
   },
 }

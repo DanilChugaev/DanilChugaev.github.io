@@ -5878,6 +5878,8 @@ export default new Vuex.Store({
     },
     /**
      * Return an object with the required data types for the table
+     * The plus of this decision is, that you can manage the contents of the table,
+     * If the structure of the original JSON changes, without changing the source code
      *
      * @param {Object} state
      *

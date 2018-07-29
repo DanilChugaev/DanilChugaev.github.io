@@ -25,6 +25,7 @@
     >
       <v-progress-linear slot="progress"
                          color="blue"
+                         :height="3"
                          indeterminate
       ></v-progress-linear>
       <template slot="items"

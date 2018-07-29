@@ -2,6 +2,7 @@ import Grid from './components/grid'
 import PieChart from './components/chart/index'
 import {mapGetters} from 'vuex'
 import randomInteger from './components/utils'
+import lazySearch from './components/mixins/lazySearch'
 
 export default {
   name: 'app',
@@ -9,6 +10,9 @@ export default {
     Grid,
     PieChart,
   },
+  mixins: [
+    lazySearch,
+  ],
   data () {
     return {
       transactions: {
@@ -36,6 +40,7 @@ export default {
           payment_method: null,
           project: null,
         },
+        search: null,
       },
       dialogs: {
         projects: {
@@ -58,6 +63,7 @@ export default {
           backgroundColor: [],
         }],
       },
+      search: null,
     }
   },
   mounted () {

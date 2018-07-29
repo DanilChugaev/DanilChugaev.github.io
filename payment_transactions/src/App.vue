@@ -3,6 +3,19 @@
     <v-app>
       <h1>Xsolla Summer School 2018</h1>
       <h2>Тестовое задание Frontend-потока</h2>
+  
+      <v-container>
+        <v-layout>
+          <v-flex xs4>
+            <v-text-field label="Поиск"
+                          append-icon="search" hide-details
+                          v-model="search"
+                          @keyup="lazySearch('transactions', 'search')"
+            ></v-text-field>
+          </v-flex>
+        </v-layout>
+      </v-container>
+      
       
       <grid :gridData="transactions"
             @getListAllProjects="getListAllProjects"
@@ -10,7 +23,7 @@
             @getChartPopularityPaymentSystems="getChartPopularityPaymentSystems"
       ></grid>
      
-      <!---->
+      <!--The modal window shows a list of all projects-->
       <v-dialog v-model="dialogs.projects.state"
                 scrollable
                 width="500"
@@ -50,8 +63,53 @@
           </v-card-actions>
         </v-card>
       </v-dialog>
+  
+      <!--Modal window shows the popularity rating of payment systems-->
+      <v-dialog v-model="dialogs.rating.state"
+                scrollable
+                width="500"
+      >
+        <v-card>
+          <v-card-title class="headline grey lighten-2"
+                        primary-title
+          >
+            Рейтинг популярности платежных систем
+          </v-card-title>
       
-      <!---->
+          <v-card-text>
+            <v-list>
+              <template v-for="(item, index) in rating">
+                <v-list-tile :key="item.id">
+                  <v-list-tile-content>
+                    <v-list-tile-title>{{ item.name }}</v-list-tile-title>
+                  </v-list-tile-content>
+              
+                  <v-list-tile-action>
+                    <v-list-tile-action-text>{{ item.value }} / {{ transactionsLength }}</v-list-tile-action-text>
+                  </v-list-tile-action>
+                </v-list-tile>
+                <v-divider v-if="index + 1 < rating.length"
+                           :key="index"
+                ></v-divider>
+              </template>
+            </v-list>
+          </v-card-text>
+      
+          <v-divider></v-divider>
+      
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="primary"
+                   flat
+                   @click="dialogs.rating.state = false"
+            >
+              close
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+      
+      <!--Modal window shows the graph of the popularity of payment systems-->
       <v-dialog v-model="dialogs.chart.state"
                 scrollable
                 width="500"
@@ -76,51 +134,6 @@
             <v-btn color="primary"
                    flat
                    @click="dialogs.chart.state = false"
-            >
-              close
-            </v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
-      
-      <!---->
-      <v-dialog v-model="dialogs.rating.state"
-                scrollable
-                width="500"
-      >
-        <v-card>
-          <v-card-title class="headline grey lighten-2"
-                        primary-title
-          >
-            Рейтинг популярности платежных систем
-          </v-card-title>
-       
-          <v-card-text>
-            <v-list>
-              <template v-for="(item, index) in rating">
-                <v-list-tile :key="item.id">
-                  <v-list-tile-content>
-                    <v-list-tile-title>{{ item.name }}</v-list-tile-title>
-                  </v-list-tile-content>
-                  
-                  <v-list-tile-action>
-                    <v-list-tile-action-text>{{ item.value }} / {{ transactionsLength }}</v-list-tile-action-text>
-                  </v-list-tile-action>
-                </v-list-tile>
-                <v-divider v-if="index + 1 < rating.length"
-                           :key="index"
-                ></v-divider>
-              </template>
-            </v-list>
-          </v-card-text>
-      
-          <v-divider></v-divider>
-      
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn color="primary"
-                   flat
-                   @click="dialogs.rating.state = false"
             >
               close
             </v-btn>
@@ -167,5 +180,9 @@ a {
   canvas {
     margin: 0 auto;
   }
+}
+.container {
+  flex: none!important;
+  margin: 0!important;
 }
 </style>
