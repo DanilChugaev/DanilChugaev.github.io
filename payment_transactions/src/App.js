@@ -35,11 +35,6 @@ export default {
             method: 'getChartPopularityPaymentSystems',
           },
         ],
-        filters: {
-          user: null,
-          payment_method: null,
-          project: null,
-        },
         search: null,
       },
       dialogs: {
