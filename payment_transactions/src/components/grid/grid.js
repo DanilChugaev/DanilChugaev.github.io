@@ -36,7 +36,6 @@ export default {
           .then(data => {
             _this.distributeData(data)
           })
-          .catch(err => console.log(err))
       },
     },
   },
@@ -48,7 +47,6 @@ export default {
         .then(data => {
           _this.distributeData(data)
         })
-        .catch(err => console.log(err))
     }
   },
   filters: {
