@@ -5,7 +5,6 @@ export default {
   props: ['info'],
   data () {
     return {
-      chartData: this.info,
       options: {
         title: {
           display: true,
@@ -22,13 +21,13 @@ export default {
       handler () {
         const _this = this
 
-        _this.renderChart(_this.chartData, _this.options)
+        _this.renderChart(_this.info, _this.options)
       },
     },
   },
   mounted () {
     const _this = this
 
-    _this.renderChart(_this.chartData, _this.options)
+    _this.renderChart(_this.info, _this.options)
   },
 }
