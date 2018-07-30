@@ -220,6 +220,10 @@ export default {
             value = tempItemType[header.parent][header.value]
           }
 
+          if (header.newValue === 'transaction_transfer_date') {
+            value = new Date(Date.parse(value)).toLocaleString()
+          }
+
           tempObj[header.newValue] = value
         })
 
