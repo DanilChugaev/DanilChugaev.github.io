@@ -11,19 +11,19 @@
  * See https://goo.gl/2aRDsh
  */
 
-importScripts('https://storage.googleapis.com/workbox-cdn/releases/3.2.0/workbox-sw.js')
+importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.2.0/workbox-sw.js");
 
 importScripts(
-  '/precache-manifest.e417314cf558aea65653e2bd11758be3.js'
-)
+  "/precache-manifest.ea45849a0fbb6e490caab0b2b412d751.js"
+);
 
-workbox.core.setCacheNameDetails({prefix: 'vue-tdd-todo'})
+workbox.core.setCacheNameDetails({prefix: "vue-tdd-todo"});
 
 /**
  * The workboxSW.precacheAndRoute() method efficiently caches and responds to
  * requests for URLs in the manifest.
  * See https://goo.gl/S9QRab
  */
-self.__precacheManifest = [].concat(self.__precacheManifest || [])
-workbox.precaching.suppressWarnings()
-workbox.precaching.precacheAndRoute(self.__precacheManifest, {})
+self.__precacheManifest = [].concat(self.__precacheManifest || []);
+workbox.precaching.suppressWarnings();
+workbox.precaching.precacheAndRoute(self.__precacheManifest, {});

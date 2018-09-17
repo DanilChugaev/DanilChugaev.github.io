@@ -4,7 +4,7 @@
                          clipped fixed app
     >
       <v-list >
-        <router-link to="/" class="list__tile list__tile--link">
+        <router-link to="/vue-tdd-todo-example" class="list__tile list__tile--link">
           <v-list-tile>
             <v-list-tile-action>
               <v-icon>dashboard</v-icon>
@@ -16,7 +16,7 @@
           </v-list-tile>
         </router-link>
   
-        <router-link to="/history" class="list__tile list__tile--link">
+        <router-link to="/vue-tdd-todo-example/history" class="list__tile list__tile--link">
           <v-list-tile>
             <v-list-tile-action>
               <v-icon>dashboard</v-icon>
@@ -28,6 +28,7 @@
           </v-list-tile>
         </router-link>
       </v-list>
+      <v-btn @click="createPush">Вызвать push</v-btn>
     </v-navigation-drawer>
 
     <v-toolbar app fixed clipped-left>
@@ -46,6 +47,8 @@
 </template>
 
 <script>
+import Push from 'push.js'
+
 export default {
   data: () => ({
     drawer: true,
@@ -53,9 +56,30 @@ export default {
   props: {
     source: String,
   },
+  // created () {
+  //   window.addEventListener('beforeinstallprompt', (e) => {
+  //     // Prevent Chrome 67 and earlier from automatically showing the prompt
+  //     e.preventDefault()
+  //     // Stash the event so it can be triggered later.
+  //     deferredPrompt = e
+  //     // Update UI notify the user they can add to home screen
+  //     btnAdd.style.display = 'block'
+  //   })
+  // },
   methods: {
     temp () {
       console.log('click')
+    },
+    createPush () {
+      Push.create('Установи уведомления пуш', {
+        body: `Простое пуш уведомление`,
+        icon: 'assets/logo.png',
+        timeout: 4000,
+        onClick () {
+          window.focus()
+          this.close()
+        },
+      })
     },
   },
 }

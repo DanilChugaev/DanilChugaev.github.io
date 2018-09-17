@@ -8,7 +8,8 @@ Vue.use(Router)
 export default new Router({
   mode: 'history',
   routes: [
-    {path: '/', name: 'active', component: Active},
-    {path: '/history', name: 'history', component: History},
+    {path: '/', redirect: '/vue-tdd-todo-example'},
+    {path: '/vue-tdd-todo-example', name: 'active', component: Active},
+    {path: '/vue-tdd-todo-example/history', name: 'history', component: History},
   ],
 })
