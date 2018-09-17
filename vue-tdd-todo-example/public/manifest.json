@@ -1,6 +1,6 @@
 {
   "name": "vue-tdd-todo",
-  "short_name": "vue-tdd-todo",
+  "short_name": "todo",
   "icons": [
     {
       "src": "/img/icons/android-chrome-192x192.png",
@@ -15,6 +15,6 @@
   ],
   "start_url": "/index.html",
   "display": "standalone",
-  "background_color": "#000000",
+  "background_color": "#fff",
   "theme_color": "#4DBA87"
 }
