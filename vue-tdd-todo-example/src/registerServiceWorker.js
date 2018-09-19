@@ -3,7 +3,7 @@
 import {register} from 'register-service-worker'
 
 if (process.env.NODE_ENV === 'production') {
-  register(`/sw.js`, {
+  register(`/vue-tdd-todo-example/sw.js`, {
     ready () {
       console.log('App is being served from cache by a service worker.\n' +
           'For more details, visit https://goo.gl/AFskqB')
