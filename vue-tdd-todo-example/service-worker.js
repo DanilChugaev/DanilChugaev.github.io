@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.2.0/workbox-sw.js");
 
 importScripts(
-  "/vue-tdd-todo-example/precache-manifest.dcd8a78a4870e3b6a66f473ef8a9fad6.js"
+  "/precache-manifest.765554f43ce4db8c142773adc57058cf.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "vue-tdd-todo"});
