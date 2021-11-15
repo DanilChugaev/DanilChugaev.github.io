@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sapper</title>
+<script defer src="bundle.js"></script><link href="index.css" rel="stylesheet"></head>
+<body>
+  <h1 class="title">Сапер</h1>
+  <button type="button" id="start-game" class="start-game">Играть</button>
+  <select name="level" id="select-level" class="select-level"></select>
+  
+  <div id="game-container" class="game">
+    <div class="game__count-bomb">кол-во бомб</div>
+    <div class="game__time">сколько времени решал</div>
+    <canvas id="canvas" class="canvas"></canvas>
+  </div>
+</body>
+</html>
