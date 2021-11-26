@@ -11,13 +11,22 @@
   <select name="level" id="select-level" class="select-level"></select>
   
   <div id="game-container" class="game">
-    <div class="game__count-bomb">кол-во бомб</div>
-    <div class="game__time">сколько времени решал</div>
+    <div class="game__count-bomb">
+      <span>бомб:</span> <span id="left-bomb"></span>
+    </div>
 
     <dic class="canvas-container">
       <canvas id="canvas" class="canvas"></canvas>
 
+      <div class="hints">
+        <div class="hints__item" title="левая кнопка мыши">открыть - ЛКМ</div>
+        <div class="hints__item" title="правая кнопка мыши">флаг - ПКМ</div>
+      </div>
+
       <div class="result-container" id="result-container">
+        <div class="win-container" id="win-container">
+          <h2 class="win-container__title">Победа!</h1>
+        </div>
         <button type="button" onclick="location.reload()" class="button restart-game">Играть заново</button>
       </div>
     </dic>
