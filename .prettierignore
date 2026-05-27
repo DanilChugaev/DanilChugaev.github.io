@@ -1,0 +1,21 @@
+# Игнорировать папку content
+content/*
+
+# Игнорировать конкретный файл
+components.d.ts
+
+# Дополнительные исключения (по желанию)
+node_modules/*
+dist/*
+tools/*
+.output/*
+.nuxt/*
+*.sqlite
+*.md
+*.json
+*.xml
+.env
+.env.*
+.husky/*
+.idea/*
+*.sql
