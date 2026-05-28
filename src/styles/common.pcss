@@ -1,0 +1,22 @@
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.section {
+    padding: 100px 0;
+}
+
+/* Accessibility: Focus Visible */
+*:focus-visible {
+    outline: 3px solid var(--accent, #0066ff);
+    outline-offset: 3px;
+    border-radius: 4px;
+}
+
+/* Remove default outline for mouse users, keep for keyboard */
+a:focus:not(:focus-visible),
+button:focus:not(:focus-visible) {
+    outline: none;
+}

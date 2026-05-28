@@ -1,0 +1,13 @@
+node_modules/
+dist/
+
+.idea/
+.git/
+
+.eslintcache
+.env.*
+.vscode
+.DS_Store
+
+yarn-error.log
+yarn.lock

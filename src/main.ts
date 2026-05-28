@@ -1,7 +1,7 @@
 import { createApp } from 'vue';
 import App from './App.vue';
 import './styles/main.pcss';
-import './styles/classes.pcss';
+import './styles/common.pcss';
 
 const app = createApp(App);
 
