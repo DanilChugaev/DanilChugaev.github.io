@@ -10,7 +10,12 @@ export interface Project {
   image: string;
 }
 
-export type SectionIdType = 'about' | 'skills' | 'projects' | 'contact';
+export type SectionIdType =
+  | 'hero'
+  | 'about'
+  | 'skills'
+  | 'projects'
+  | 'contact';
 
 export interface NavItem {
   sectionId: SectionIdType;
