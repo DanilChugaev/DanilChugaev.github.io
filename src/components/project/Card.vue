@@ -25,29 +25,41 @@
           v-if="project.github"
           :href="project.github"
           target="_blank"
+          rel="noopener noreferrer"
           class="link-btn"
         >
           GitHub
         </a>
-        <a
-          v-if="project.demo"
-          :href="project.demo"
-          target="_blank"
-          class="link-btn primary"
-        >
+
+        <button v-if="project.demo" class="link-btn primary" @click="openDemo">
           Посмотреть демо
-        </a>
+        </button>
       </div>
     </div>
+
+    <DemoModal
+      v-if="project.demo"
+      v-model:is-open="isModalOpen"
+      :demo-url="project.demo"
+      :project-title="project.title"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue';
 import type { Project } from '@/types';
+import DemoModal from './DemoModal.vue';
 
 defineProps<{
   project: Project;
 }>();
+
+const isModalOpen = ref(false);
+
+function openDemo() {
+  isModalOpen.value = true;
+}
 </script>
 
 <style scoped lang="postcss">
@@ -64,7 +76,7 @@ defineProps<{
 }
 
 .project-card:hover {
-  transform: translateY(-8px);
+  transform: translateY(-5px);
   box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.3);
 }
 
@@ -78,11 +90,12 @@ defineProps<{
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: top;
   transition: transform 0.4s ease;
 }
 
 .project-card:hover .project-image {
-  transform: scale(1.08);
+  transform: scale(1.05);
 }
 
 .year-badge {
@@ -146,6 +159,7 @@ defineProps<{
   transition: all 0.2s;
   border: 1px solid #444;
   color: #ccc;
+  cursor: pointer;
 }
 
 .link-btn:hover {

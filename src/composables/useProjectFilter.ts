@@ -1,10 +1,10 @@
 import { ref, computed } from 'vue';
 import { projects } from '@/data/projects';
-import type { Project } from '@/types';
+import type { Project, ProjectType } from '@/types';
 
 export function useProjectFilter() {
   const selectedYear = ref<'all' | number>('all');
-  const selectedType = ref<'all' | 'pet' | 'test' | 'work'>('all');
+  const selectedType = ref<'all' | ProjectType>('all');
 
   const uniqueYears = computed(() => {
     const years = projects.map((p: Project) => p.year);

@@ -1,9 +1,11 @@
+export type ProjectType = 'service' | 'test' | 'game' | 'other';
+
 export interface Project {
   id: number;
   title: string;
   description: string;
   year: number;
-  type: 'pet' | 'test';
+  type: ProjectType;
   technologies: string[];
   github: string;
   demo?: string;

@@ -1,4 +1,5 @@
 <template>
+  <!-- todo: фильтр по технологиям -->
   <div class="projects-section">
     <div class="filters" role="group" aria-label="Фильтры проектов">
       <!-- Фильтр по году -->
@@ -33,16 +34,28 @@
             Все
           </button>
           <button
-            :class="{ active: selectedType === 'pet' }"
-            @click="selectedType = 'pet'"
+            :class="{ active: selectedType === 'game' }"
+            @click="selectedType = 'game'"
           >
-            Пет-проекты
+            Игры
+          </button>
+          <button
+            :class="{ active: selectedType === 'service' }"
+            @click="selectedType = 'service'"
+          >
+            Сервисы
           </button>
           <button
             :class="{ active: selectedType === 'test' }"
             @click="selectedType = 'test'"
           >
             Тестовые
+          </button>
+          <button
+            :class="{ active: selectedType === 'other' }"
+            @click="selectedType = 'other'"
+          >
+            Другое
           </button>
         </div>
       </div>
@@ -68,24 +81,23 @@ const { selectedYear, selectedType, uniqueYears, filteredProjects } =
 
 <style scoped lang="postcss">
 .filters {
-  display: flex;
-  gap: 40px;
   margin-bottom: 40px;
 }
 
 .filter-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
   margin-bottom: 24px;
 }
 
 .filter-group h3 {
-  margin-bottom: 12px;
   color: #ddd;
   font-size: 1.1rem;
 }
 
 .filter-buttons {
   display: flex;
-  flex-wrap: wrap;
   gap: 10px;
 }
 
