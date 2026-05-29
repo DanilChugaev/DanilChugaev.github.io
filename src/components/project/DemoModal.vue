@@ -38,7 +38,6 @@
             <iframe
               :src="demoUrl"
               :key="demoUrl"
-              ref="iframeRef"
               class="modal-iframe"
               @load="onIframeLoad"
               loading="lazy"
@@ -68,7 +67,6 @@ interface Emits {
 const props = defineProps<Props>();
 const emit = defineEmits<Emits>();
 
-const iframeRef = ref<HTMLIFrameElement | null>(null);
 const isLoaded = ref(false);
 
 function close() {
