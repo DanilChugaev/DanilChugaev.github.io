@@ -1,5 +1,7 @@
 import type { Project } from '@/types.ts';
 
+const IMAGE_DIR = '/img';
+
 export const projects: Project[] = [
   // ==================== ТЕСТОВЫЕ ЗАДАНИЯ ====================
   {
@@ -10,7 +12,7 @@ export const projects: Project[] = [
     type: 'test',
     technologies: ['Nuxt 3', 'Vue 3', 'Composition API', 'TypeScript'],
     github: 'https://github.com/DanilChugaev/rest-api-client',
-    image: '/src/assets/img/rest-api.webp',
+    image: `${IMAGE_DIR}/rest-api.webp`,
   },
   {
     id: 2,
@@ -27,7 +29,7 @@ export const projects: Project[] = [
     ],
     github: 'https://github.com/DanilChugaev/koshelek-crypto-market',
     demo: 'https://danilchugaev.github.io/koshelek-crypto-market/',
-    image: '/src/assets/img/koshelek-crypto-market.webp',
+    image: `${IMAGE_DIR}/koshelek-crypto-market.webp`,
   },
   {
     id: 3,
@@ -37,7 +39,7 @@ export const projects: Project[] = [
     type: 'test',
     technologies: ['JavaScript', 'TypeScript', 'Rollup'],
     github: 'https://github.com/DanilChugaev/wisebits-test',
-    image: '/src/assets/img/wisebits-test.webp',
+    image: `${IMAGE_DIR}/wisebits-test.webp`,
   },
   {
     id: 4,
@@ -56,7 +58,7 @@ export const projects: Project[] = [
     ],
     github: 'https://github.com/DanilChugaev/bulltrade-todo',
     demo: 'https://danilchugaev.github.io/bulltrade-todo/',
-    image: '/src/assets/img/bulltrade-todo.webp',
+    image: `${IMAGE_DIR}/bulltrade-todo.webp`,
   },
   {
     id: 5,
@@ -74,7 +76,7 @@ export const projects: Project[] = [
     ],
     github: 'https://github.com/DanilChugaev/foquz-docs',
     demo: 'https://danilchugaev.github.io/foquz-docs/',
-    image: '/src/assets/img/foquz-docs.webp',
+    image: `${IMAGE_DIR}/foquz-docs.webp`,
   },
   {
     id: 6,
@@ -93,7 +95,7 @@ export const projects: Project[] = [
     ],
     github: 'https://github.com/DanilChugaev/kmtt-admin',
     // demo: 'https://danilchugaev.github.io/kmtt-admin/',
-    image: '/src/assets/img/kmtt-admin.webp',
+    image: `${IMAGE_DIR}/kmtt-admin.webp`,
   },
 
   // ==================== ИГРЫ ====================
@@ -107,7 +109,7 @@ export const projects: Project[] = [
     technologies: ['TypeScript', 'Vite'],
     github: 'https://github.com/DanilChugaev/sapper',
     demo: 'https://danilchugaev.github.io/sapper/',
-    image: '/src/assets/img/sapper.webp',
+    image: `${IMAGE_DIR}/sapper.webp`,
   },
   {
     id: 8,
@@ -119,7 +121,7 @@ export const projects: Project[] = [
     technologies: ['TypeScript', 'Canvas', 'PWA', 'Vite'],
     github: 'https://github.com/DanilChugaev/labyrinth',
     demo: 'https://danilchugaev.github.io/labyrinth/',
-    image: '/src/assets/img/labyrinth.webp',
+    image: `${IMAGE_DIR}/labyrinth.webp`,
   },
 
   // ==================== СЕРВИСЫ ====================
@@ -132,7 +134,7 @@ export const projects: Project[] = [
     technologies: ['React 19', 'TypeScript', 'Vite', 'Dexie'],
     github: 'https://github.com/DanilChugaev/todos-daily',
     demo: 'https://danilchugaev.github.io/todos-daily/',
-    image: '/src/assets/img/todos-daily.webp',
+    image: `${IMAGE_DIR}/todos-daily.webp`,
   },
   {
     id: 10,
@@ -143,7 +145,7 @@ export const projects: Project[] = [
     technologies: ['Vue 3', 'TypeScript', 'Vite'],
     github: 'https://github.com/DanilChugaev/prompt-architect',
     demo: 'https://danilchugaev.github.io/prompt-architect/',
-    image: '/src/assets/img/prompt-architect.webp',
+    image: `${IMAGE_DIR}/prompt-architect.webp`,
   },
   {
     id: 11,
@@ -154,7 +156,7 @@ export const projects: Project[] = [
     technologies: ['Vue 3', 'TypeScript', 'Vite'],
     github: 'https://github.com/DanilChugaev/scheme-generator',
     demo: 'https://danilchugaev.github.io/scheme-generator/',
-    image: '/src/assets/img/scheme-generator.webp',
+    image: `${IMAGE_DIR}/scheme-generator.webp`,
   },
   {
     id: 12,
@@ -165,7 +167,7 @@ export const projects: Project[] = [
     technologies: ['Vue 3', 'TypeScript', 'Vite'],
     github: 'https://github.com/DanilChugaev/marketing-forms',
     demo: 'https://danilchugaev.github.io/marketing-forms/',
-    image: '/src/assets/img/marketing-forms.webp',
+    image: `${IMAGE_DIR}/marketing-forms.webp`,
   },
 
   // ==================== РАЗНОЕ ====================
@@ -178,7 +180,7 @@ export const projects: Project[] = [
     type: 'other',
     technologies: [],
     github: 'https://github.com/DanilChugaev/ostrovok-hackathon-2025',
-    image: '/src/assets/img/ostrovok-hackathon-2025.webp',
+    image: `${IMAGE_DIR}/ostrovok-hackathon-2025.webp`,
   },
   {
     id: 14,
@@ -188,6 +190,6 @@ export const projects: Project[] = [
     type: 'other',
     technologies: ['TypeScript', 'Web Speech API'],
     github: 'https://github.com/DanilChugaev/voice-to-text-obsidian-plugin',
-    image: '/src/assets/img/voice-to-text.webp',
+    image: `${IMAGE_DIR}/voice-to-text.webp`,
   },
 ];
