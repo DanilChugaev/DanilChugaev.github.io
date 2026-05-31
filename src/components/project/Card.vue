@@ -82,7 +82,7 @@ function openDemo() {
 
 .project-image-container {
   position: relative;
-  height: 200px;
+  height: 400px;
   overflow: hidden;
 }
 
