@@ -38,12 +38,26 @@ import Section from '@/components/layout/Section.vue';
   grid-template-columns: 2fr 1fr;
   gap: 60px;
   align-items: start;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  @media (max-width: 640px) {
+    gap: 24px;
+  }
 }
 
 .about-text p {
   font-size: 1.15rem;
   margin-bottom: 20px;
   color: var(--text-secondary);
+
+  @media (max-width: 640px) {
+    font-size: 1rem;
+    margin-bottom: 16px;
+  }
 }
 
 .about-info p {
@@ -51,6 +65,11 @@ import Section from '@/components/layout/Section.vue';
   margin-bottom: 16px;
   color: var(--text-secondary);
   line-height: 1.6;
+
+  @media (max-width: 640px) {
+    font-size: 1rem;
+    margin-bottom: 12px;
+  }
 }
 
 .about-info strong {
