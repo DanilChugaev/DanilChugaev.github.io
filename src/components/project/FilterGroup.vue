@@ -44,15 +44,12 @@
 </template>
 
 <script setup lang="ts">
-export interface FilterOption {
-  value: string;
-  label: string;
-}
+import type { FilterOption } from '@/types.ts';
 
 defineProps<{
   name: string;
   label: string;
-  options: FilterOption[];
+  options: FilterOption<string | number>[];
 }>();
 
 const modelValue = defineModel<string | number>();

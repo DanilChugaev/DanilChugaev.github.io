@@ -26,13 +26,15 @@
       />
     </div>
 
-    <div class="projects-grid">
+    <div v-if="filteredProjects.length" class="projects-grid">
       <Card
         v-for="project in filteredProjects"
         :key="project.id"
         :project="project"
       />
     </div>
+
+    <div v-else class="projects-empty">Нет таких</div>
   </Section>
 </template>
 
@@ -54,10 +56,10 @@ const {
   filteredProjects,
 } = useProjectFilter();
 
-const yearOptions = computed<FilterOption[]>(() =>
+const yearOptions = computed<FilterOption<number>[]>(() =>
   uniqueYears.value.map(year => ({
-    value: String(year),
-    label: String(year),
+    value: year,
+    label: year,
   })),
 );
 
@@ -83,6 +85,10 @@ const technologyOptions = computed<FilterOption[]>(() =>
   flex-wrap: wrap;
   gap: 0;
   margin-bottom: 40px;
+}
+
+.projects-empty {
+  text-align: center;
 }
 
 .projects-grid {

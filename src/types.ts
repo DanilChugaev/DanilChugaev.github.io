@@ -31,3 +31,8 @@ export interface Contact {
   icon: string;
   target?: string;
 }
+
+export interface FilterOption<T = string> {
+  value: T;
+  label: string;
+}
