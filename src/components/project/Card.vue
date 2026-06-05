@@ -83,16 +83,21 @@ function openDemo() {
 
 .project-image-container {
   position: relative;
-  height: 400px;
+
   overflow: hidden;
 }
 
 .project-image {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: top;
+  object-fit: contain;
+  object-position: center;
   transition: transform 0.4s ease;
+  min-height: 400px;
+
+  @media (max-width: 640px) {
+    min-height: 300px;
+  }
 }
 
 .project-card:hover .project-image {
@@ -149,6 +154,10 @@ function openDemo() {
   display: flex;
   gap: 12px;
   margin-top: auto;
+
+  @media (max-width: 399px) {
+    flex-direction: column;
+  }
 }
 
 .link-btn {
@@ -160,6 +169,7 @@ function openDemo() {
   border: 1px solid #444;
   color: #ccc;
   cursor: pointer;
+  text-align: center;
 }
 
 .link-btn:hover {
