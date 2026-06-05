@@ -19,7 +19,7 @@
       </div>
 
       <div class="about-info">
-        <p><strong>Город:</strong> Новосибирск (готов к удалённой работе)</p>
+        <p><strong>Город:</strong> Новосибирск</p>
         <p><strong>Опыт:</strong> 10+ лет</p>
         <p><strong>Английский:</strong> B2</p>
         <p><strong>Формат:</strong> Полная занятость, удалённо</p>

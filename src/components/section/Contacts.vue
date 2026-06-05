@@ -12,8 +12,7 @@
           >
             <span class="icon">{{ contact.icon }}</span>
             <div>
-              <strong>{{ contact.label }}</strong
-              ><br />
+              <strong>{{ contact.label }}</strong>
               {{ contact.value }}
             </div>
           </a>
@@ -62,7 +61,7 @@ import { contacts, location } from '@/data/contacts.ts';
 .contact-item {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 4px;
   padding: 20px;
   background: #1e1e1e;
   border-radius: 12px;
@@ -96,7 +95,6 @@ import { contacts, location } from '@/data/contacts.ts';
 }
 
 .contact-note p {
-  margin-bottom: 12px;
   color: #bbb;
 }
 
@@ -106,7 +104,7 @@ import { contacts, location } from '@/data/contacts.ts';
 }
 
 /* Мобильная адаптация */
-@media (max-width: 768px) {
+@media (max-width: 999px) {
   .contact-content {
     grid-template-columns: 1fr;
     gap: 50px;
