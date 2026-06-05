@@ -344,7 +344,7 @@ export const projects: Project[] = [
     type: 'other',
     technologies: [
       'TypeScript',
-      'Python',
+      'Python 3',
       'esbuild',
       'Eslint',
       'Web MediaRecorder API',

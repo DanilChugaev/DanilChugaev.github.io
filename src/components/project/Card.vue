@@ -127,7 +127,6 @@ function openDemo() {
   color: #b3b3b3;
   line-height: 1.5;
   margin-bottom: 16px;
-  flex-grow: 1;
 }
 
 .technologies {

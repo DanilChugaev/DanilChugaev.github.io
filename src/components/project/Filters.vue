@@ -1,68 +1,29 @@
 <template>
-  <!-- todo: фильтр по технологиям -->
   <div class="projects-section">
     <div class="filters" role="group" aria-label="Фильтры проектов">
       <!-- Фильтр по году -->
-      <div class="filter-group">
-        <h3 id="filter-year">Год</h3>
-        <div class="filter-buttons" role="group" aria-labelledby="filter-year">
-          <button
-            :class="{ active: selectedYear === 'all' }"
-            @click="selectedYear = 'all'"
-          >
-            Все
-          </button>
-          <button
-            v-for="year in uniqueYears"
-            :key="year"
-            :class="{ active: selectedYear === year }"
-            @click="selectedYear = year"
-          >
-            {{ year }}
-          </button>
-        </div>
-      </div>
+      <FilterGroup
+        v-model="selectedYear"
+        name="year"
+        label="Год"
+        :options="yearOptions"
+      />
 
       <!-- Фильтр по типу -->
-      <div class="filter-group">
-        <h3 id="filter-type">Тип проекта</h3>
-        <div class="filter-buttons" role="group" aria-labelledby="filter-type">
-          <button
-            :class="{ active: selectedType === 'all' }"
-            @click="selectedType = 'all'"
-          >
-            Все
-          </button>
+      <FilterGroup
+        v-model="selectedType"
+        name="type"
+        label="Тип проекта"
+        :options="typeOptions"
+      />
 
-          <button
-            :class="{ active: selectedType === 'service' }"
-            @click="selectedType = 'service'"
-          >
-            Сервисы
-          </button>
-
-          <button
-            :class="{ active: selectedType === 'test' }"
-            @click="selectedType = 'test'"
-          >
-            Тестовые
-          </button>
-
-          <button
-            :class="{ active: selectedType === 'game' }"
-            @click="selectedType = 'game'"
-          >
-            Игры
-          </button>
-
-          <button
-            :class="{ active: selectedType === 'other' }"
-            @click="selectedType = 'other'"
-          >
-            Другое
-          </button>
-        </div>
-      </div>
+      <!-- Фильтр по технологиям -->
+      <FilterGroup
+        v-model="selectedTechnology"
+        name="technology"
+        label="Технологии"
+        :options="technologyOptions"
+      />
     </div>
 
     <div class="projects-grid">
@@ -76,50 +37,50 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue';
 import { useProjectFilter } from '@/composables/useProjectFilter';
 import Card from './Card.vue';
+import FilterGroup from './FilterGroup.vue';
+import type { FilterOption } from './FilterGroup.vue';
 
-const { selectedYear, selectedType, uniqueYears, filteredProjects } =
-  useProjectFilter();
+const {
+  selectedYear,
+  selectedType,
+  selectedTechnology,
+  uniqueYears,
+  uniqueTechnologies,
+  filteredProjects,
+} = useProjectFilter();
+
+const yearOptions = computed<FilterOption[]>(() =>
+  uniqueYears.value.map(year => ({
+    value: String(year),
+    label: String(year),
+  })),
+);
+
+const typeOptions: FilterOption[] = [
+  { value: 'service', label: 'Сервисы' },
+  { value: 'test', label: 'Тестовые' },
+  { value: 'game', label: 'Игры' },
+  { value: 'other', label: 'Другое' },
+];
+
+const technologyOptions = computed<FilterOption[]>(() =>
+  uniqueTechnologies.value.map(tech => ({
+    value: tech,
+    label: tech,
+  })),
+);
 </script>
 
 <style scoped lang="postcss">
 .filters {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 0;
   margin-bottom: 40px;
-}
-
-.filter-group {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 24px;
-}
-
-.filter-group h3 {
-  color: #ddd;
-  font-size: 1.1rem;
-}
-
-.filter-buttons {
-  display: flex;
-  gap: 10px;
-}
-
-.filter-buttons button {
-  padding: 10px 20px;
-  background: #1e1e1e;
-  border: 1px solid #333;
-  color: #ccc;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.filter-buttons button.active,
-.filter-buttons button:hover {
-  background: #0066ff;
-  border-color: #0066ff;
-  color: white;
 }
 
 .projects-grid {
