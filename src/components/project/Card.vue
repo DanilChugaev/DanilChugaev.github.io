@@ -6,6 +6,7 @@
         :alt="project.title"
         class="project-image"
         loading="lazy"
+        decoding="async"
       />
       <div class="year-badge">{{ project.year }}</div>
     </div>
