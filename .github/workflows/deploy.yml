@@ -41,7 +41,8 @@ jobs:
           # Создаем или обновляем gh-pages ветку
           git checkout --orphan gh-pages || git checkout gh-pages
           git rm -rf .
-          git mv dist/* .
+          cp -r dist/* .
+          cp dist/.* . 2>/dev/null || true
           git add .
           git commit --allow-empty -m "chore: deploy build ${GITHUB_SHA::8}" || echo "No changes to commit"
           git push -f origin gh-pages
