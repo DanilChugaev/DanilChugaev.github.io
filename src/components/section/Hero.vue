@@ -104,6 +104,11 @@ defineEmits<{
   gap: 32px;
   margin-bottom: 50px;
   flex-wrap: wrap;
+
+  @media (max-width: 499px) {
+    flex-direction: column;
+    gap: 8px;
+  }
 }
 
 .highlight-item {
@@ -123,6 +128,10 @@ defineEmits<{
   gap: 16px;
   justify-content: center;
   flex-wrap: wrap;
+
+  @media (max-width: 640px) {
+    flex-direction: column;
+  }
 }
 
 .btn {
