@@ -13,9 +13,7 @@
           v-for="item in navigation"
           :key="item.sectionId"
           :href="`#${item.sectionId}`"
-          @click.prevent="
-            $emit('scrollToSection', item.sectionId as SectionIdType)
-          "
+          @click.prevent="scrollToSection(item.sectionId)"
         >
           {{ item.label }}
         </a>
@@ -23,9 +21,9 @@
 
       <button
         class="mobile-menu-btn"
-        @click="isMenuOpen = !isMenuOpen"
         :aria-label="isMenuOpen ? 'Закрыть меню' : 'Открыть меню'"
         :aria-expanded="isMenuOpen"
+        @click="isMenuOpen = !isMenuOpen"
       >
         {{ isMenuOpen ? '✕' : '☰' }}
       </button>
@@ -38,11 +36,16 @@ import { ref } from 'vue';
 import { navigation } from '@/data/navigation';
 import type { SectionIdType } from '@/types.ts';
 
-defineEmits<{
+const emit = defineEmits<{
   scrollToSection: [SectionIdType];
 }>();
 
 const isMenuOpen = ref(false);
+
+function scrollToSection(sectionId: SectionIdType) {
+  isMenuOpen.value = false;
+  emit('scrollToSection', sectionId);
+}
 </script>
 
 <style scoped lang="postcss">
