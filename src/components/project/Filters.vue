@@ -33,24 +33,28 @@
           >
             Все
           </button>
-          <button
-            :class="{ active: selectedType === 'game' }"
-            @click="selectedType = 'game'"
-          >
-            Игры
-          </button>
+
           <button
             :class="{ active: selectedType === 'service' }"
             @click="selectedType = 'service'"
           >
             Сервисы
           </button>
+
           <button
             :class="{ active: selectedType === 'test' }"
             @click="selectedType = 'test'"
           >
             Тестовые
           </button>
+
+          <button
+            :class="{ active: selectedType === 'game' }"
+            @click="selectedType = 'game'"
+          >
+            Игры
+          </button>
+
           <button
             :class="{ active: selectedType === 'other' }"
             @click="selectedType = 'other'"
