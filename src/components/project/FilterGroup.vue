@@ -7,11 +7,11 @@
       :aria-labelledby="`filter-${name}`"
     >
       <input
+        v-model="modelValue"
         type="radio"
         :id="`filter-${name}-all`"
         :name="`filter-${name}`"
         value="all"
-        v-model="modelValue"
       />
 
       <label
@@ -23,12 +23,12 @@
 
       <input
         v-for="option in options"
+        :key="option.value"
+        v-model="modelValue"
         type="radio"
         :id="`filter-${name}-${option.value}`"
         :name="`filter-${name}`"
         :value="option.value"
-        :key="option.value"
-        v-model="modelValue"
       />
 
       <label

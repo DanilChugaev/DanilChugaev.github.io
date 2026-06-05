@@ -43,9 +43,8 @@ import Section from '@/components/layout/Section.vue';
 import { computed } from 'vue';
 import { useProjectFilter } from '@/composables/useProjectFilter';
 import Card from '@/components/project/Card.vue';
-import FilterGroup, {
-  type FilterOption,
-} from '@/components/project/FilterGroup.vue';
+import FilterGroup from '@/components/project/FilterGroup.vue';
+import type { FilterOption } from '@/types.ts';
 
 const {
   selectedYear,
@@ -59,7 +58,7 @@ const {
 const yearOptions = computed<FilterOption<number>[]>(() =>
   uniqueYears.value.map(year => ({
     value: year,
-    label: year,
+    label: String(year),
   })),
 );
 
