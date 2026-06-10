@@ -371,4 +371,5 @@ export const projects: Project[] = [
     github: 'https://github.com/DanilChugaev/wifi_clock',
     image: `${IMAGE_DIR}/wifi_clock.webp`,
   },
+  // todo: добавить ссылку на портфолио
 ];

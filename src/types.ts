@@ -17,7 +17,7 @@ export type SectionIdType =
   | 'about'
   | 'skills'
   | 'projects'
-  | 'contact';
+  | 'contacts';
 
 export interface NavItem {
   sectionId: SectionIdType;
