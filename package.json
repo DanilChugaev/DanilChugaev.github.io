@@ -12,15 +12,21 @@
     "format": "prettier --write \"src/**/*.{js,ts,vue}\"",
     "ts:check": "vue-tsc -b",
     "test": "vitest",
-    "test:run": "vitest run",
-    "test:cov": "vitest run --coverage"
+    "test:unit": "vitest run",
+    "test:unit:cov": "vitest run --coverage",
+    "test:e2e": "playwright test",
+    "test:e2e:chromium": "playwright test --project=chromium",
+    "test:e2e:headed": "playwright test --headed",
+    "test:e2e:debug": "playwright test --debug",
+    "test:e2e:report": "playwright show-report"
   },
   "dependencies": {
     "vue": "^3.5.35"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
-    "@types/node": "^25.9.2",
+    "@playwright/test": "^1.60.0",
+    "@types/node": "^25.9.3",
     "@typescript-eslint/eslint-plugin": "^8.61.0",
     "@typescript-eslint/parser": "^8.61.0",
     "@vitejs/plugin-vue": "^6.0.7",
@@ -31,6 +37,7 @@
     "eslint-plugin-prettier": "^5.5.6",
     "eslint-plugin-vue": "^10.9.2",
     "jsdom": "^29.1.1",
+    "playwright": "^1.60.0",
     "postcss-custom-media": "^12.0.1",
     "postcss-nested": "^7.0.2",
     "prettier": "^3.8.4",
