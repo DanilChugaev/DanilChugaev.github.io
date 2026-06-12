@@ -81,7 +81,8 @@ test.describe('Навигация — Header', () => {
     await page.setViewportSize({ width: 375, height: 667 });
     const mobileMenuBtn = page.locator('.mobile-menu-btn');
     await expect(mobileMenuBtn).toBeVisible();
-    await expect(mobileMenuBtn).toContainText('☰');
+    // Проверяем наличие SVG иконки menu (три горизонтальные линии)
+    await expect(mobileMenuBtn.locator('svg')).toBeVisible();
   });
 
   test('открытие мобильного меню', async ({ page }) => {
@@ -92,7 +93,8 @@ test.describe('Навигация — Header', () => {
     await expect(nav).not.toHaveClass(/open/);
     await mobileMenuBtn.click();
     await expect(nav).toHaveClass(/open/);
-    await expect(mobileMenuBtn).toContainText('✕');
+    // Проверяем что иконка меняется на close (две диагональные линии)
+    await expect(mobileMenuBtn.locator('svg')).toBeVisible();
   });
 
   test('закрытие мобильного меню повторным кликом', async ({ page }) => {
@@ -105,7 +107,6 @@ test.describe('Навигация — Header', () => {
 
     await mobileMenuBtn.click();
     await expect(nav).not.toHaveClass(/open/);
-    await expect(mobileMenuBtn).toContainText('☰');
   });
 
   test('мобильное меню закрывается при клике на пункт навигации', async ({

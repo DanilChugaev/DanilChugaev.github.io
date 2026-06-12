@@ -25,7 +25,7 @@
         :aria-expanded="isMenuOpen"
         @click="isMenuOpen = !isMenuOpen"
       >
-        {{ isMenuOpen ? '✕' : '☰' }}
+        <SvgIcon :icon="isMenuOpen ? 'close' : 'menu'" :size="28" />
       </button>
     </div>
   </header>
@@ -35,6 +35,7 @@
 import { ref } from 'vue';
 import { navigation } from '@/data/navigation';
 import type { SectionIdType } from '@/types.ts';
+import SvgIcon from '@/icons/SvgIcon.vue';
 
 const emit = defineEmits<{
   scrollToSection: [SectionIdType];
@@ -88,11 +89,25 @@ function scrollToSection(sectionId: SectionIdType) {
 
 .mobile-menu-btn {
   display: none;
+  align-items: center;
+  justify-content: center;
   background: none;
-  border: none;
   color: var(--text-link-hover);
-  font-size: 1.8rem;
   cursor: pointer;
+  padding: 4px;
+  border: 1px solid var(--border-primary);
+  border-radius: 4px;
+  width: 40px;
+  height: 40px;
+  transition: border-color 0.3s;
+
+  &:hover {
+    border-color: var(--accent);
+  }
+}
+
+.mobile-menu-btn :deep(.svg-icon) {
+  color: currentColor;
 }
 
 /* Мобильная адаптация */
@@ -122,7 +137,7 @@ function scrollToSection(sectionId: SectionIdType) {
   }
 
   .mobile-menu-btn {
-    display: block;
+    display: flex;
   }
 
   .nav a {

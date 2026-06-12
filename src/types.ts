@@ -32,6 +32,15 @@ export interface Contact {
   target?: string;
 }
 
+export type IconType =
+  | 'email'
+  | 'telegram'
+  | 'github'
+  | 'phone'
+  | 'location'
+  | 'menu'
+  | 'close';
+
 export interface FilterOption<T = string> {
   value: T;
   label: string;

@@ -10,7 +10,7 @@
             v-bind="contact.target ? { target: contact.target } : {}"
             class="contact-item"
           >
-            <span class="icon">{{ contact.icon }}</span>
+            <SvgIcon class="icon" :icon="contact.icon as IconType" :size="24" />
             <div>
               <strong>{{ contact.label }}</strong>
               {{ contact.value }}
@@ -19,8 +19,9 @@
         </div>
       </div>
 
-      <div class="contact-note">
-        <p class="location">{{ location }}</p>
+      <div class="contact-note contact-item">
+        <SvgIcon :icon="location.icon as IconType" :size="20" />
+        {{ location.text }}
       </div>
     </div>
   </Section>
@@ -29,6 +30,8 @@
 <script setup lang="ts">
 import Section from '@/components/layout/Section.vue';
 import { contacts, location } from '@/data/contacts.ts';
+import SvgIcon from '@/icons/SvgIcon.vue';
+import type { IconType } from '@/types.ts';
 </script>
 
 <style scoped lang="postcss">
@@ -61,7 +64,7 @@ import { contacts, location } from '@/data/contacts.ts';
 .contact-item {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 20px;
   padding: 20px;
   background: var(--bg-card);
   border-radius: 12px;
@@ -77,8 +80,7 @@ import { contacts, location } from '@/data/contacts.ts';
 }
 
 .contact-item .icon {
-  font-size: 1.8rem;
-  width: 40px;
+  --icon-size: 24px;
 }
 
 .contact-item strong {
