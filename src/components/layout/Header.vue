@@ -54,10 +54,10 @@ function scrollToSection(sectionId: SectionIdType) {
   top: 0;
   left: 0;
   right: 0;
-  background: rgba(15, 15, 15, 0.95);
+  background: var(--bg-nav-overlay);
   backdrop-filter: blur(10px);
   z-index: 1000;
-  border-bottom: 1px solid #222;
+  border-bottom: 1px solid var(--border-primary);
 }
 
 .header-inner {
@@ -70,12 +70,12 @@ function scrollToSection(sectionId: SectionIdType) {
 .logo-link {
   font-size: 1.5rem;
   font-weight: 700;
-  color: white;
+  color: var(--text-link-hover);
   text-decoration: none;
 }
 
 .nav a {
-  color: #ccc;
+  color: var(--text-filter-btn);
   text-decoration: none;
   margin-left: 32px;
   font-weight: 500;
@@ -83,14 +83,14 @@ function scrollToSection(sectionId: SectionIdType) {
 }
 
 .nav a:hover {
-  color: #0066ff;
+  color: var(--accent);
 }
 
 .mobile-menu-btn {
   display: none;
   background: none;
   border: none;
-  color: white;
+  color: var(--text-link-hover);
   font-size: 1.8rem;
   cursor: pointer;
 }
@@ -104,10 +104,10 @@ function scrollToSection(sectionId: SectionIdType) {
     top: 80px;
     left: 0;
     right: 0;
-    background: #0f0f0f;
+    background: var(--bg-primary);
     padding: 20px;
     gap: 16px;
-    border-top: 1px solid #222;
+    border-top: 1px solid var(--border-primary);
     transform: translateY(-20px);
     opacity: 0;
     visibility: hidden;

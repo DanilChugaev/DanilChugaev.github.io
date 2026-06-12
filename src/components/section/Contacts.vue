@@ -33,7 +33,7 @@ import { contacts, location } from '@/data/contacts.ts';
 
 <style scoped lang="postcss">
 .contact-section {
-  background: #0a0a0a;
+  background: var(--bg-about-card);
 }
 
 .contact-content {
@@ -47,7 +47,7 @@ import { contacts, location } from '@/data/contacts.ts';
 
 .contact-text {
   font-size: 1.25rem;
-  color: #ccc;
+  color: var(--text-about-heading);
   margin-bottom: 40px;
   line-height: 1.5;
 }
@@ -63,17 +63,17 @@ import { contacts, location } from '@/data/contacts.ts';
   align-items: center;
   gap: 4px;
   padding: 20px;
-  background: #1e1e1e;
+  background: var(--bg-card);
   border-radius: 12px;
   text-decoration: none;
-  color: #ddd;
+  color: var(--text-link);
   transition: all 0.3s;
 }
 
 .contact-item:hover {
-  background: #252525;
+  background: var(--bg-card-hover);
   transform: translateY(-4px);
-  color: #fff;
+  color: var(--text-link-hover);
 }
 
 .contact-item .icon {
@@ -88,19 +88,19 @@ import { contacts, location } from '@/data/contacts.ts';
 }
 
 .contact-note {
-  background: #1a1a1a;
+  background: var(--bg-contact-note);
   padding: 32px;
   border-radius: 16px;
-  border-left: 5px solid #0066ff;
+  border-left: 5px solid var(--border-accent);
 }
 
 .contact-note p {
-  color: #bbb;
+  color: var(--text-contact-note);
 }
 
 .location {
   font-size: 1.1rem;
-  color: #888;
+  color: var(--text-muted);
 }
 
 /* Мобильная адаптация */

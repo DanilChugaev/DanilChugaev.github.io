@@ -31,10 +31,10 @@ const footerContacts = computed(() =>
 
 <style scoped lang="postcss">
 .footer {
-  background: #0a0a0a;
+  background: var(--bg-secondary);
   padding: 50px 0 30px;
   margin-top: 80px;
-  border-top: 1px solid #222;
+  border-top: 1px solid var(--border-primary);
 }
 
 .footer-content {
@@ -43,19 +43,19 @@ const footerContacts = computed(() =>
   align-items: center;
   flex-wrap: wrap;
   gap: 20px;
-  color: #888;
+  color: var(--text-muted);
   font-size: 0.95rem;
 }
 
 .social-links a {
-  color: #888;
+  color: var(--text-muted);
   text-decoration: none;
   margin-left: 24px;
   transition: color 0.3s;
 }
 
 .social-links a:hover {
-  color: #0066ff;
+  color: var(--accent);
 }
 
 @media (max-width: 768px) {

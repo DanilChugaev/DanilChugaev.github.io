@@ -111,13 +111,13 @@ onBeforeUnmount(() => {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(0, 0, 0, 0.8);
+  background: var(--bg-modal-overlay);
   padding: 20px;
 }
 
 .modal-content {
   position: relative;
-  background: #fff;
+  background: var(--white-modal);
   border-radius: 12px;
   width: 95%;
   max-width: 1200px;
@@ -125,7 +125,7 @@ onBeforeUnmount(() => {
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  box-shadow: var(--shadow-color);
 }
 
 .modal-header {
@@ -133,13 +133,13 @@ onBeforeUnmount(() => {
   align-items: center;
   justify-content: space-between;
   padding: 16px 20px;
-  border-bottom: 1px solid #333;
+  border-bottom: 1px solid var(--border-medium);
 }
 
 .modal-title {
   margin: 0;
   font-size: 1.2rem;
-  color: #fff;
+  color: var(--text-modal-title);
 }
 
 .modal-close {
@@ -152,7 +152,7 @@ onBeforeUnmount(() => {
   background: transparent;
   border: none;
   border-radius: 8px;
-  color: #aaa;
+  color: var(--text-modal-close);
   cursor: pointer;
   transition:
     background 0.2s,
@@ -160,8 +160,8 @@ onBeforeUnmount(() => {
 }
 
 .modal-close:hover {
-  background: #333;
-  color: #fff;
+  background: var(--border-medium);
+  color: var(--text-link-hover);
 }
 
 .modal-body {
@@ -181,7 +181,7 @@ onBeforeUnmount(() => {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #1e1e1e;
+  background: var(--bg-card);
   z-index: 1;
 }
 
@@ -192,7 +192,7 @@ onBeforeUnmount(() => {
 }
 
 .spinner-path {
-  stroke: #0066ff;
+  stroke: var(--spinner-color);
   stroke-dasharray: 80;
   stroke-dashoffset: 60;
   stroke-linecap: round;

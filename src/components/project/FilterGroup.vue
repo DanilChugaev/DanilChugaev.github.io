@@ -65,7 +65,7 @@ const modelValue = defineModel<string | number>();
 }
 
 .filter-group h3 {
-  color: #ddd;
+  color: var(--text-about-heading);
   font-size: 1.1rem;
   flex-shrink: 0;
 }
@@ -86,9 +86,9 @@ const modelValue = defineModel<string | number>();
 
 .filter-buttons label {
   padding: 10px 20px;
-  background: #1e1e1e;
-  border: 1px solid #333;
-  color: #ccc;
+  background: var(--bg-filter-btn);
+  border: 1px solid var(--border-filter-btn);
+  color: var(--text-filter-btn);
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.2s;
@@ -97,9 +97,9 @@ const modelValue = defineModel<string | number>();
 
 .filter-buttons label.active,
 .filter-buttons label:hover {
-  background: #0066ff;
-  border-color: #0066ff;
-  color: white;
+  background: var(--accent);
+  border-color: var(--border-filter-btn-active);
+  color: var(--text-link-hover);
 }
 
 @media (max-width: 768px) {

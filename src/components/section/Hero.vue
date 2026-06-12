@@ -61,7 +61,11 @@ defineEmits<{
   min-height: 100vh;
   display: flex;
   align-items: center;
-  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+  background: linear-gradient(
+    135deg,
+    var(--bg-gradient-start) 0%,
+    var(--bg-gradient-end) 100%
+  );
   text-align: center;
   position: relative;
   overflow: hidden;
@@ -74,14 +78,14 @@ defineEmits<{
 
 .hero-badge {
   display: inline-block;
-  background: rgba(0, 102, 255, 0.15);
-  color: #0066ff;
+  background: var(--accent-bg-light);
+  color: var(--accent);
   padding: 8px 20px;
   border-radius: 50px;
   font-size: 1.1rem;
   font-weight: 600;
   margin-bottom: 20px;
-  border: 1px solid rgba(0, 102, 255, 0.3);
+  border: 1px solid var(--accent-border-light);
 }
 
 .hero-title {
@@ -93,7 +97,7 @@ defineEmits<{
 
 .hero-subtitle {
   font-size: 1.45rem;
-  color: #b0b0b0;
+  color: var(--text-secondary);
   margin-bottom: 40px;
   line-height: 1.4;
 }
@@ -112,7 +116,7 @@ defineEmits<{
 }
 
 .highlight-item {
-  background: #1e1e1e;
+  background: var(--bg-hero-item);
   padding: 12px 24px;
   border-radius: 12px;
   font-size: 1.1rem;
@@ -120,7 +124,7 @@ defineEmits<{
 }
 
 .accent {
-  color: var(--accent);
+  color: var(--accent-bright);
 }
 
 .hero-buttons {
@@ -141,8 +145,8 @@ defineEmits<{
   font-weight: 600;
   transition: all 0.3s;
   display: inline-block;
-  border: 2px solid #444;
-  color: var(--text);
+  border: 2px solid var(--border-hero-item);
+  color: var(--text-primary);
 }
 
 .btn:hover {
@@ -157,7 +161,7 @@ defineEmits<{
 }
 
 .btn.primary:hover {
-  background: #0052cc;
+  background: var(--accent-hover);
   transform: translateY(-3px);
 }
 </style>

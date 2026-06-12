@@ -1,5 +1,6 @@
 import { createApp } from 'vue';
 import App from './App.vue';
+import '@/assets/styles/colors.pcss';
 import '@/assets/styles/main.pcss';
 import '@/assets/styles/common.pcss';
 

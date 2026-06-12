@@ -45,7 +45,7 @@ const skillCategories = [
 }
 
 .skill-tags span {
-  background: #1e1e1e;
+  background: var(--bg-skill-tag);
   padding: 10px 18px;
   border-radius: 9999px;
   font-size: 1rem;

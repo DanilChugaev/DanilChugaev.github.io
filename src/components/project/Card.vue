@@ -65,7 +65,7 @@ function openDemo() {
 
 <style scoped lang="postcss">
 .project-card {
-  background: #1e1e1e;
+  background: var(--bg-card);
   border-radius: 12px;
   overflow: hidden;
   transition:
@@ -78,7 +78,7 @@ function openDemo() {
 
 .project-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.3);
+  box-shadow: var(--shadow-card);
 }
 
 .project-image-container {
@@ -108,8 +108,8 @@ function openDemo() {
   position: absolute;
   top: 12px;
   right: 12px;
-  background: #000;
-  color: #fff;
+  background: var(--black);
+  color: var(--white);
   padding: 4px 10px;
   border-radius: 20px;
   font-size: 0.85rem;
@@ -126,11 +126,11 @@ function openDemo() {
 .project-title {
   margin: 0 0 12px 0;
   font-size: 1.35rem;
-  color: #fff;
+  color: var(--text-link-hover);
 }
 
 .project-description {
-  color: #b3b3b3;
+  color: var(--text-project-desc);
   line-height: 1.5;
   margin-bottom: 16px;
 }
@@ -143,8 +143,8 @@ function openDemo() {
 }
 
 .tech-tag {
-  background: #2a2a2a;
-  color: #aaa;
+  background: var(--bg-tech-tag);
+  color: var(--text-tech-tag);
   padding: 4px 10px;
   border-radius: 9999px;
   font-size: 0.85rem;
@@ -166,24 +166,24 @@ function openDemo() {
   text-decoration: none;
   font-weight: 500;
   transition: all 0.2s;
-  border: 1px solid #444;
-  color: #ccc;
+  border: 1px solid var(--border-tech-tag);
+  color: var(--text-filter-btn);
   cursor: pointer;
   text-align: center;
 }
 
 .link-btn:hover {
-  background: #333;
-  color: white;
+  background: var(--border-medium);
+  color: var(--text-link-hover);
 }
 
 .link-btn.primary {
-  background: #0066ff;
-  border-color: #0066ff;
-  color: white;
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--white);
 }
 
 .link-btn.primary:hover {
-  background: #0052cc;
+  background: var(--accent-hover);
 }
 </style>
