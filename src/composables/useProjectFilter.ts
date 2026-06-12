@@ -2,6 +2,14 @@ import { ref, computed } from 'vue';
 import { projects } from '@/data/projects';
 import type { Project, ProjectType } from '@/types';
 
+/**
+ * Композабл для фильтрации проектов.
+ *
+ * Ключевое изменение: вместо уничтожения DOM-элементов через v-if/v-for с filteredProjects,
+ * теперь все карточки всегда находятся в DOM (используется v-show), а фильтры только
+ * управляют видимостью через CSS display property. Это предотвращает повторную загрузку
+ * изображений при переключении фильтров.
+ */
 export function useProjectFilter() {
   const selectedYear = ref<'all' | number>('all');
   const selectedType = ref<'all' | ProjectType>('all');
@@ -25,23 +33,55 @@ export function useProjectFilter() {
       .map(([tech]) => tech);
   });
 
-  const filteredProjects = computed(() => {
-    return projects
-      .filter(
-        (p: Project) =>
-          selectedYear.value === 'all' || p.year === selectedYear.value,
-      )
-      .filter(
-        (p: Project) =>
-          selectedType.value === 'all' || p.type === selectedType.value,
-      )
-      .filter(
-        (p: Project) =>
-          selectedTechnology.value === 'all' ||
-          p.technologies.includes(selectedTechnology.value),
-      )
-      .sort((a: Project, b: Project) => b.year - a.year);
+  /**
+   * Проверяет, соответствует ли проект текущим фильтрам.
+   * Используется для определения видимости карточки через v-show.
+   */
+  function matchesFilters(project: Project): boolean {
+    const yearMatch =
+      selectedYear.value === 'all' || project.year === selectedYear.value;
+    const typeMatch =
+      selectedType.value === 'all' || project.type === selectedType.value;
+    const techMatch =
+      selectedTechnology.value === 'all' ||
+      project.technologies.includes(selectedTechnology.value);
+    return yearMatch && typeMatch && techMatch;
+  }
+
+  /**
+   * Сортировка по году (новые первыми).
+   * Список ВСЕГДА содержит все проекты — фильтры не удаляют элементы из массива.
+   */
+  function sortByYear(a: Project, b: Project): number {
+    return b.year - a.year;
+  }
+
+  /**
+   * Отсортированный список ВСЕХ проектов.
+   * Используется в v-for — все карточки всегда в DOM.
+   */
+  const sortedProjects = computed(() => [...projects].sort(sortByYear));
+
+  /**
+   * Карта видимости каждого проекта по id.
+   * Ключевая часть решения: вместо фильтрации массива проектов,
+   * мы храним boolean-карту и используем v-show="isVisible[project.id]" в шаблоне.
+   */
+  const isVisible = computed(() => {
+    const map: Record<number, boolean> = {};
+    projects.forEach((p: Project) => {
+      map[p.id] = matchesFilters(p);
+    });
+    return map;
   });
+
+  /**
+   * Есть ли хотя бы один видимый проект.
+   * Используется для показа сообщения "Нет таких".
+   */
+  const hasVisibleProjects = computed(() =>
+    sortedProjects.value.some(p => isVisible.value[p.id]),
+  );
 
   return {
     selectedYear,
@@ -49,6 +89,8 @@ export function useProjectFilter() {
     selectedTechnology,
     uniqueYears,
     uniqueTechnologies,
-    filteredProjects,
+    sortedProjects,
+    isVisible,
+    hasVisibleProjects,
   };
 }

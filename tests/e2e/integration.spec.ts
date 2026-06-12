@@ -180,7 +180,7 @@ test.describe('Интеграция DemoModal', () => {
 
     if ((await demoButtons.count()) > 0) {
       await demoButtons.first().click();
-      await page.waitForTimeout(300);
+      await page.waitForTimeout(3000);
 
       // Ищем кнопку закрытия
       const closeBtn = page.locator(

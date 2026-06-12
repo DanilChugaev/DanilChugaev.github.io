@@ -1,5 +1,5 @@
 <template>
-  <div class="project-card">
+  <div class="project-card" :data-type="project.type">
     <div class="project-image-container">
       <img
         :src="project.image"

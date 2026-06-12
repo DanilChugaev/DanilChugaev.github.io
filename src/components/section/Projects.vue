@@ -26,15 +26,16 @@
       />
     </div>
 
-    <div v-if="filteredProjects.length" class="projects-grid">
+    <div v-show="hasVisibleProjects" class="projects-grid">
       <Card
-        v-for="project in filteredProjects"
+        v-for="project in sortedProjects"
+        v-show="isVisible[project.id]"
         :key="project.id"
         :project="project"
       />
     </div>
 
-    <div v-else class="projects-empty">Нет таких</div>
+    <div v-show="!hasVisibleProjects" class="projects-empty">Нет таких</div>
   </Section>
 </template>
 
@@ -52,7 +53,9 @@ const {
   selectedTechnology,
   uniqueYears,
   uniqueTechnologies,
-  filteredProjects,
+  sortedProjects,
+  isVisible,
+  hasVisibleProjects,
 } = useProjectFilter();
 
 const yearOptions = computed<FilterOption<number>[]>(() =>

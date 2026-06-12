@@ -57,78 +57,151 @@ describe('useProjectFilter', () => {
     });
   });
 
-  describe('filteredProjects', () => {
-    it('должен возвращать все проекты когда фильтры равны "all"', async () => {
-      const { filteredProjects } = useProjectFilter();
+  describe('sortedProjects', () => {
+    it('должен возвращать ВСЕ проекты (фильтрация через v-show, не через filter)', async () => {
+      const { sortedProjects } = useProjectFilter();
       const { projects } = await import('@/data/projects');
 
-      expect(filteredProjects.value.length).toBe(projects.length);
+      expect(sortedProjects.value.length).toBe(projects.length);
     });
 
-    it('должен фильтровать проекты по году', async () => {
-      const { filteredProjects, selectedYear } = useProjectFilter();
+    it('должен сортировать проекты по году по убыванию', () => {
+      const { sortedProjects } = useProjectFilter();
+
+      for (let i = 0; i < sortedProjects.value.length - 1; i++) {
+        expect(sortedProjects.value[i].year).toBeGreaterThanOrEqual(
+          sortedProjects.value[i + 1].year,
+        );
+      }
+    });
+  });
+
+  describe('isVisible', () => {
+    it('должен содержать карту видимости для каждого проекта', async () => {
+      const { isVisible } = useProjectFilter();
+      const { projects } = await import('@/data/projects');
+
+      // Карта должна иметь запись для каждого проекта
+      for (const project of projects) {
+        expect(isVisible.value).toHaveProperty(String(project.id));
+      }
+    });
+
+    it('при инициализации все проекты должны быть видимы (фильтры = "all")', () => {
+      const { isVisible } = useProjectFilter();
+
+      for (const id in isVisible.value) {
+        expect(isVisible.value[Number(id)]).toBe(true);
+      }
+    });
+
+    it('должен скрывать проекты при выборе конкретного года', async () => {
+      const { isVisible, selectedYear, sortedProjects } = useProjectFilter();
       const { projects } = await import('@/data/projects');
 
       const year = projects[0].year;
       selectedYear.value = year;
 
-      expect(filteredProjects.value.every(p => p.year === year)).toBe(true);
+      // Все отфильтрованные проекты должны быть скрыты
+      const hiddenCount = sortedProjects.value.filter(
+        p => !isVisible.value[p.id],
+      ).length;
+      const yearProjects = projects.filter(p => p.year !== year).length;
+      expect(hiddenCount).toBe(yearProjects);
     });
 
-    it('должен фильтровать проекты по типу', async () => {
-      const { filteredProjects, selectedType } = useProjectFilter();
+    it('должен скрывать проекты при выборе конкретного типа', async () => {
+      const { isVisible, selectedType, sortedProjects } = useProjectFilter();
       const { projects } = await import('@/data/projects');
 
       const type = projects[0].type;
       selectedType.value = type;
 
-      expect(filteredProjects.value.every(p => p.type === type)).toBe(true);
+      // Все отфильтрованные проекты должны быть скрыты
+      const hiddenCount = sortedProjects.value.filter(
+        p => !isVisible.value[p.id],
+      ).length;
+      const typeProjects = projects.filter(p => p.type !== type).length;
+      expect(hiddenCount).toBe(typeProjects);
     });
 
-    it('должен фильтровать проекты по технологии', async () => {
-      const { filteredProjects, selectedTechnology } = useProjectFilter();
+    it('должен скрывать проекты при выборе конкретной технологии', async () => {
+      const { isVisible, selectedTechnology, sortedProjects } =
+        useProjectFilter();
       const { projects } = await import('@/data/projects');
 
       const tech = projects[0].technologies[0];
       selectedTechnology.value = tech;
 
-      expect(
-        filteredProjects.value.every(p => p.technologies.includes(tech)),
-      ).toBe(true);
+      // Все отфильтрованные проекты должны быть скрыты
+      const hiddenCount = sortedProjects.value.filter(
+        p => !isVisible.value[p.id],
+      ).length;
+      const techProjects = projects.filter(
+        p => !p.technologies.includes(tech),
+      ).length;
+      expect(hiddenCount).toBe(techProjects);
     });
 
-    it('должен применять несколько фильтров одновременно', async () => {
-      const { filteredProjects, selectedYear, selectedType } =
+    it('должен скрывать проекты при нескольких одновременных фильтрах', async () => {
+      const { isVisible, selectedYear, selectedType, sortedProjects } =
         useProjectFilter();
-      const { projects } = await import('@/data/projects');
 
-      const year = projects[0].year;
-      const type = projects[0].type;
+      selectedYear.value = 2024;
+      selectedType.value = 'test';
 
-      selectedYear.value = year;
-      selectedType.value = type;
+      const visibleCount = sortedProjects.value.filter(
+        p => isVisible.value[p.id],
+      ).length;
+      expect(visibleCount).toBeGreaterThan(0);
 
-      expect(
-        filteredProjects.value.every(p => p.year === year && p.type === type),
-      ).toBe(true);
+      // Все видимые проекты должны соответствовать обоим фильтрам
+      for (const project of sortedProjects.value) {
+        if (isVisible.value[project.id]) {
+          expect(project.year).toBe(2024);
+          expect(project.type).toBe('test');
+        }
+      }
     });
 
-    it('должен возвращать пустой массив при отсутствии совпадений', () => {
-      const { filteredProjects, selectedYear } = useProjectFilter();
+    it('должен вернуть все проекты видимыми при сбросе фильтров', () => {
+      const { isVisible, selectedYear, selectedType, selectedTechnology } =
+        useProjectFilter();
 
       selectedYear.value = 1900;
+      selectedType.value = 'game';
+      selectedTechnology.value = 'NonExistentTech';
 
-      expect(filteredProjects.value.length).toBe(0);
+      // Сбрасываем все фильтры
+      selectedYear.value = 'all';
+      selectedType.value = 'all';
+      selectedTechnology.value = 'all';
+
+      for (const id in isVisible.value) {
+        expect(isVisible.value[Number(id)]).toBe(true);
+      }
+    });
+  });
+
+  describe('hasVisibleProjects', () => {
+    it('должен быть true при инициализации', () => {
+      const { hasVisibleProjects } = useProjectFilter();
+      expect(hasVisibleProjects.value).toBe(true);
     });
 
-    it('должен сортировать проекты по году по убыванию', () => {
-      const { filteredProjects } = useProjectFilter();
+    it('должен стать false когда все проекты отфильтрованы', async () => {
+      const { hasVisibleProjects, selectedYear } = useProjectFilter();
 
-      for (let i = 0; i < filteredProjects.value.length - 1; i++) {
-        expect(filteredProjects.value[i].year).toBeGreaterThanOrEqual(
-          filteredProjects.value[i + 1].year,
-        );
-      }
+      selectedYear.value = 1900;
+      expect(hasVisibleProjects.value).toBe(false);
+    });
+
+    it('должен стать true снова после сброса фильтров', async () => {
+      const { hasVisibleProjects, selectedYear } = useProjectFilter();
+
+      selectedYear.value = 1900;
+      selectedYear.value = 'all';
+      expect(hasVisibleProjects.value).toBe(true);
     });
   });
 });
