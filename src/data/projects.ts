@@ -371,5 +371,23 @@ export const projects: Project[] = [
     github: 'https://github.com/DanilChugaev/wifi_clock',
     image: `${IMAGE_DIR}/wifi_clock.webp`,
   },
-  // todo: добавить ссылку на портфолио
+  {
+    id: 18,
+    title: 'Portfolio Website',
+    description: 'Персональное портфолио с анимациями и адаптивным дизайном',
+    year: 2026,
+    type: 'service',
+    technologies: [
+      'Vue 3',
+      'Composition API',
+      'TypeScript',
+      'Vite',
+      'PostCSS',
+      'ESLint',
+      'Prettier',
+      'GitHub Actions',
+    ],
+    github: 'https://github.com/DanilChugaev/DanilChugaev.github.io',
+    image: `${IMAGE_DIR}/portfolio.webp`,
+  },
 ];

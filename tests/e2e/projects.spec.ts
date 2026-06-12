@@ -137,7 +137,7 @@ test.describe('Projects секция', () => {
     // Теперь все проекты должны отображаться
     const visibleCards = page.locator('.project-card');
     const count = await visibleCards.count();
-    expect(count).toBeGreaterThan(7); // Должно быть много проектов
+    expect(count).toBeGreaterThan(15); // Должно быть много проектов
   });
 
   test('фильтр по типу — "Сервисы"', async ({ page }) => {
@@ -158,15 +158,15 @@ test.describe('Projects секция', () => {
     await expect(serviceLabel).toHaveClass('active');
 
     // Проверяем что отображаются только проекты с type='service'
-    // Из projects.ts: type='service' имеют id 10, 11, 12, 13
+    // Из projects.ts: type='service' имеют id 10, 11, 12, 13, 18
     const visibleCards = page.locator('.project-card');
     const count = await visibleCards.count();
     expect(count).toBeGreaterThan(0);
 
     // Каждый видимый проект должен иметь type='service' (проверяем по data атрибутам или другим признакам)
     // В данном случае проверяем что количество == количеству проектов типа service
-    // id 10, 11, 12, 13 = 4 проекта с type='service'
-    expect(count).toBe(4);
+    // id 10, 11, 12, 13, 18 = 5 проекта с type='service'
+    expect(count).toBe(5);
   });
 
   test('фильтр по типу — "Тестовые"', async ({ page }) => {
