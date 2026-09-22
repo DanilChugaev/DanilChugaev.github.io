@@ -32,38 +32,39 @@
 ## Структура проекта
 
 ```
-src/
-├── App.vue                      # Корневой компонент
-├── main.ts                      # Точка входа
-├── types.ts                     # Общие TypeScript типы
-├── components/
-│   ├── layout/                  # Компоненты разметки
-│   │   ├── Header.vue           # Шапка с навигацией
-│   │   ├── Footer.vue           # Подвал
-│   │   └── Section.vue          # Обёртка секции
-│   ├── project/                 # Компоненты проектов
-│   │   ├── Card.vue             # Карточка проекта
-│   │   ├── DemoModal.vue        # Модальное окно демо
-│   │   └── FilterGroup.vue      # Группа фильтров проектов
-│   └── section/                 # Секции страницы
-│       ├── Hero.vue             # Главный экран
-│       ├── About.vue            # О себе
-│       ├── Skills.vue           # Навыки
-│       ├── Projects.vue         # Проекты
-│       └── Contacts.vue         # Контакты
-├── composables/
-│   ├── useProjectFilter.ts      # Логика фильтрации проектов
-│   ├── useScrollToSection.ts    # Плавная прокрутка к секциям
-├── data/
-│   ├── contacts.ts              # Данные контактов
-│   ├── navigation.ts            # Пункты навигации
-│   ├── projects.ts              # Список проектов
-│   └── skills.ts                # Список навыков
-├── assets/
-│   └── styles/
-│       ├── main.pcss            # Глобальные стили, CSS-переменные (тёмная тема)
-│       ├── common.pcss          # Общие утилитарные стили
-│       └── colors.pcss          # Переменные цветов
+.
+├── .github/workflows/
+│   ├── deploy.yml                # Сборка и публикация на GitHub Pages
+│   └── quality.yml               # CI: lint, типы, тесты и сборка
+├── public/
+│   ├── Danil_Chugaev_cv.pdf      # Резюме для скачивания
+│   └── portfolio-*               # Иконки и favicon PWA
+├── src/
+│   ├── App.vue                   # Корневой компонент
+│   ├── main.ts                   # Точка входа и подключение глобальных стилей
+│   ├── types.ts                  # Общие TypeScript-типы
+│   ├── assets/styles/
+│   │   ├── colors.pcss           # Цветовые и семантические CSS-переменные
+│   │   ├── common.pcss           # Контейнер, секции и focus-стили
+│   │   └── main.pcss             # Глобальный reset и базовые стили
+│   ├── components/
+│   │   ├── layout/               # Шапка, подвал и обёртка секций
+│   │   ├── project/              # Карточки, фильтры и модальное окно демо
+│   │   └── section/              # Секции одностраничного сайта
+│   ├── composables/
+│   │   ├── useProjectFilter.ts   # Логика фильтрации проектов
+│   │   ├── useProjectFilter.spec.ts
+│   │   ├── useScrollToSection.ts # Плавная прокрутка к секциям
+│   │   └── useScrollToSection.spec.ts
+│   ├── data/                     # Типизированные данные проектов, навыков и контактов
+│   └── icons/SvgIcon.vue         # Набор SVG-иконок
+├── tests/
+│   ├── e2e/                      # E2E-тесты Playwright
+│   ├── fixtures/                 # Общие Playwright-фикстуры
+│   └── README.md                 # Документация по E2E-тестам
+├── playwright.config.ts           # Конфигурация Playwright
+├── vite.config.ts                 # Конфигурация Vite и PWA
+└── vitest.config.ts               # Конфигурация Vitest
 ```
 
 ## Начало работы
