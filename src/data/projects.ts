@@ -349,7 +349,7 @@ export const projects: Project[] = [
     github: 'https://github.com/DanilChugaev/ostrovok-hackathon-2025',
     image: `${IMAGE_DIR}/ostrovok-hackathon-2025.webp`,
     featuredDescription:
-      'Прототип «Секретного гостя» для платформы бронирования: финалист Ostrovok Tech, топ-10 из 221 команды. После распада команды 99% реализации выполнил самостоятельно.',
+      'Прототип «Секретного гостя» для платформы бронирования: финалист Ostrovok Tech, топ-10 из 221 команды.',
   },
   {
     id: 16,

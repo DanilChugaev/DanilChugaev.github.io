@@ -6,6 +6,7 @@
   <main id="main-content" role="main">
     <Hero @scroll-to-section="scrollToSection" />
     <About />
+    <Approach />
     <Skills />
     <Projects />
     <Contacts />
@@ -19,6 +20,7 @@ import Header from '@/components/layout/Header.vue';
 import Footer from '@/components/layout/Footer.vue';
 import Hero from '@/components/section/Hero.vue';
 import About from '@/components/section/About.vue';
+import Approach from '@/components/section/Approach.vue';
 import Skills from '@/components/section/Skills.vue';
 import Projects from '@/components/section/Projects.vue';
 import Contacts from '@/components/section/Contacts.vue';

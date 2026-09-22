@@ -16,6 +16,7 @@ export interface Project {
 export type SectionIdType =
   | 'hero'
   | 'about'
+  | 'approach'
   | 'skills'
   | 'projects'
   | 'contacts';

@@ -2,6 +2,7 @@ import type { NavItem } from '@/types.ts';
 
 export const navigation: NavItem[] = [
   { sectionId: 'about', label: 'Обо мне' },
+  { sectionId: 'approach', label: 'Подход' },
   { sectionId: 'skills', label: 'Навыки' },
   { sectionId: 'projects', label: 'Проекты' },
   { sectionId: 'contacts', label: 'Контакты' },

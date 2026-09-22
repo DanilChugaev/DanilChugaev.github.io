@@ -47,6 +47,23 @@ test.describe('About секция', () => {
   });
 });
 
+test.describe('Approach секция', () => {
+  test('секция «Подход к разработке» отображается', async ({ page }) => {
+    const approachSection = page.locator('section#approach');
+    await expect(approachSection).toBeVisible();
+    await expect(approachSection.locator('h2')).toHaveText(
+      'Подход к разработке',
+    );
+  });
+
+  test('отображаются шесть принципов разработки', async ({ page }) => {
+    const cards = page.locator('.approach-card');
+    await expect(cards).toHaveCount(6);
+    await expect(cards.first()).toContainText('Эволюция вместо переписывания');
+    await expect(cards.last()).toContainText('Знания остаются в команде');
+  });
+});
+
 test.describe('Skills секция', () => {
   test('заголовок секции "Ключевые навыки" отображается', async ({ page }) => {
     // Скроллим к Skills секции

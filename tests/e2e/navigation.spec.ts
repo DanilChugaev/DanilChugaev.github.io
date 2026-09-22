@@ -14,11 +14,12 @@ test.describe('Навигация — Header', () => {
 
   test('все пункты навигации отображаются', async ({ page }) => {
     const navLinks = page.locator('.nav a');
-    await expect(navLinks).toHaveCount(4);
+    await expect(navLinks).toHaveCount(5);
     await expect(navLinks.nth(0)).toHaveText('Обо мне');
-    await expect(navLinks.nth(1)).toHaveText('Навыки');
-    await expect(navLinks.nth(2)).toHaveText('Проекты');
-    await expect(navLinks.nth(3)).toHaveText('Контакты');
+    await expect(navLinks.nth(1)).toHaveText('Подход');
+    await expect(navLinks.nth(2)).toHaveText('Навыки');
+    await expect(navLinks.nth(3)).toHaveText('Проекты');
+    await expect(navLinks.nth(4)).toHaveText('Контакты');
   });
 
   test('скролл к секции "Обо мне" через навигацию', async ({ page }) => {
@@ -33,8 +34,21 @@ test.describe('Навигация — Header', () => {
     expect(box!.y).toBeGreaterThanOrEqual(-100); // близко к верху viewport
   });
 
+  test('скролл к секции «Подход к разработке» через навигацию', async ({
+    page,
+  }) => {
+    const navLink = page.locator('.nav a').nth(1);
+    await navLink.click();
+
+    await page.waitForTimeout(300);
+    const approachSection = page.locator('section#approach');
+    const box = await approachSection.boundingBox();
+    expect(box).not.toBeNull();
+    expect(box!.y).toBeGreaterThanOrEqual(-100);
+  });
+
   test('скролл к секции "Навыки" через навигацию', async ({ page }) => {
-    const navLink = page.locator('.nav a').nth(1); // Навыки
+    const navLink = page.locator('.nav a').nth(2); // Навыки
     await navLink.click();
 
     await page.waitForTimeout(300);
@@ -45,7 +59,7 @@ test.describe('Навигация — Header', () => {
   });
 
   test('скролл к секции "Проекты" через навигацию', async ({ page }) => {
-    const navLink = page.locator('.nav a').nth(2); // Проекты
+    const navLink = page.locator('.nav a').nth(3); // Проекты
     await navLink.click();
 
     await page.waitForTimeout(300);
@@ -56,7 +70,7 @@ test.describe('Навигация — Header', () => {
   });
 
   test('скролл к секции "Контакты" через навигацию', async ({ page }) => {
-    const navLink = page.locator('.nav a').nth(3); // Контакты
+    const navLink = page.locator('.nav a').nth(4); // Контакты
     await navLink.click();
 
     await page.waitForTimeout(300);
@@ -148,11 +162,12 @@ test.describe('Навигация — Header', () => {
     await mobileMenuBtn.click();
 
     const navLinks = nav.locator('a');
-    await expect(navLinks).toHaveCount(4);
+    await expect(navLinks).toHaveCount(5);
     await expect(navLinks.nth(0)).toHaveAttribute('href', '#about');
-    await expect(navLinks.nth(1)).toHaveAttribute('href', '#skills');
-    await expect(navLinks.nth(2)).toHaveAttribute('href', '#projects');
-    await expect(navLinks.nth(3)).toHaveAttribute('href', '#contacts');
+    await expect(navLinks.nth(1)).toHaveAttribute('href', '#approach');
+    await expect(navLinks.nth(2)).toHaveAttribute('href', '#skills');
+    await expect(navLinks.nth(3)).toHaveAttribute('href', '#projects');
+    await expect(navLinks.nth(4)).toHaveAttribute('href', '#contacts');
   });
 
   test('навигация на десктопе без мобильного меню', async ({ page }) => {
