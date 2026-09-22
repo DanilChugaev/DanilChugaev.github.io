@@ -80,6 +80,49 @@ test.describe('Интеграция FilterGroup', () => {
     await expect(yearFilter.locator('input:checked')).toHaveCount(2);
   });
 
+  test('несовместимые варианты становятся disabled и переносятся вниз', async ({
+    page,
+  }) => {
+    const yearFilter = page.locator('.filter-group').filter({ hasText: 'Год' });
+    const typeFilter = page
+      .locator('.filter-group')
+      .filter({ hasText: 'Тип проекта' });
+
+    await yearFilter.locator('.filter-trigger').click();
+    await yearFilter.locator('label').filter({ hasText: '2026' }).click();
+    await typeFilter.locator('.filter-trigger').click();
+
+    const testOption = typeFilter
+      .locator('.filter-option')
+      .filter({ hasText: 'Тестовые' });
+    await expect(testOption.locator('input')).toBeDisabled();
+
+    const optionClasses = await typeFilter
+      .locator('.filter-option')
+      .evaluateAll(options => options.map(option => option.className));
+    expect(optionClasses.at(-1)).toContain('disabled');
+  });
+
+  test('счётчик найденных проектов и сброс фильтров работают', async ({
+    page,
+  }) => {
+    const summary = page.locator('.filter-summary');
+    await expect(summary).toContainText('Найдено: 18');
+    await expect(summary.getByRole('button')).toHaveCount(0);
+
+    const yearFilter = page.locator('.filter-group').filter({ hasText: 'Год' });
+    await yearFilter.locator('.filter-trigger').click();
+    await yearFilter.locator('label').filter({ hasText: '2026' }).click();
+
+    await expect(summary).toContainText('Найдено: 6');
+    const resetButton = summary.getByRole('button', { name: 'Сбросить все' });
+    await expect(resetButton).toBeVisible();
+    await resetButton.click();
+
+    await expect(summary).toContainText('Найдено: 18');
+    await expect(resetButton).toBeHidden();
+  });
+
   test('фильтры имеют правильную структуру accessibility', async ({ page }) => {
     const filterGroups = page.locator('.filter-group');
     const count = await filterGroups.count();

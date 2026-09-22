@@ -25,9 +25,14 @@
       <label
         v-for="option in options"
         :key="option.value"
-        class="filter-option"
+        :class="['filter-option', { disabled: option.disabled }]"
       >
-        <input v-model="modelValue" type="checkbox" :value="option.value" />
+        <input
+          v-model="modelValue"
+          type="checkbox"
+          :value="option.value"
+          :disabled="option.disabled"
+        />
         <span>{{ option.label }}</span>
       </label>
     </div>
@@ -149,6 +154,15 @@ onBeforeUnmount(() =>
 
 .filter-option:hover {
   background: var(--bg-card-hover);
+}
+
+.filter-option.disabled {
+  color: var(--text-muted);
+  cursor: not-allowed;
+}
+
+.filter-option.disabled:hover {
+  background: transparent;
 }
 
 .filter-option input {

@@ -73,6 +73,15 @@ describe('useProjectFilter', () => {
     }
   });
 
+  it('оставляет в других фильтрах только совместимые значения', () => {
+    const { availableTypes, selectedYears } = useProjectFilter();
+    selectedYears.value = [2026];
+
+    expect(availableTypes.value).not.toContain('test');
+    expect(availableTypes.value).toContain('service');
+    expect(availableTypes.value).toContain('game');
+  });
+
   it('скрывает все проекты при отсутствии совпадений', () => {
     const { hasVisibleProjects, selectedYears } = useProjectFilter();
     selectedYears.value = [1900];

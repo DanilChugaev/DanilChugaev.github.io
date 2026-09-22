@@ -1,90 +1,113 @@
-import { ref, computed } from 'vue';
+import { computed, ref } from 'vue';
 import { projects } from '@/data/projects';
 import type { Project, ProjectType } from '@/types';
 
-/**
- * Композабл для фильтрации проектов.
- *
- * Ключевое изменение: вместо уничтожения DOM-элементов через v-if/v-for с filteredProjects,
- * теперь все карточки всегда находятся в DOM (используется v-show), а фильтры только
- * управляют видимостью через CSS display property. Это предотвращает повторную загрузку
- * изображений при переключении фильтров.
- */
 export function useProjectFilter() {
   const selectedYears = ref<number[]>([]);
   const selectedTypes = ref<ProjectType[]>([]);
   const selectedTechnologies = ref<string[]>([]);
 
-  const uniqueYears = computed(() => {
-    const years = projects.map((p: Project) => p.year);
-    return [...new Set(years)].sort((a: number, b: number) => b - a);
-  });
+  const uniqueYears = computed(() =>
+    [...new Set(projects.map(project => project.year))].sort((a, b) => b - a),
+  );
 
   const uniqueTechnologies = computed(() => {
     const techCount = new Map<string, number>();
-    projects.forEach((p: Project) => {
-      p.technologies.forEach((t: string) => {
-        techCount.set(t, (techCount.get(t) ?? 0) + 1);
+    projects.forEach(project => {
+      project.technologies.forEach(technology => {
+        techCount.set(technology, (techCount.get(technology) ?? 0) + 1);
       });
     });
+
     return [...techCount.entries()]
       .filter(([, count]) => count >= 2)
-      .sort((a, b) => b[1] - a[1])
-      .map(([tech]) => tech);
+      .sort((first, second) => second[1] - first[1])
+      .map(([technology]) => technology);
   });
 
-  /**
-   * Проверяет, соответствует ли проект текущим фильтрам.
-   * Используется для определения видимости карточки через v-show.
-   */
-  function matchesFilters(project: Project): boolean {
-    const yearMatch =
+  function matchesSelectedYears(project: Project): boolean {
+    return (
       selectedYears.value.length === 0 ||
-      selectedYears.value.includes(project.year);
-    const typeMatch =
+      selectedYears.value.includes(project.year)
+    );
+  }
+
+  function matchesSelectedTypes(project: Project): boolean {
+    return (
       selectedTypes.value.length === 0 ||
-      selectedTypes.value.includes(project.type);
-    const techMatch =
+      selectedTypes.value.includes(project.type)
+    );
+  }
+
+  function matchesSelectedTechnologies(project: Project): boolean {
+    return (
       selectedTechnologies.value.length === 0 ||
       selectedTechnologies.value.some(technology =>
         project.technologies.includes(technology),
-      );
-    return yearMatch && typeMatch && techMatch;
+      )
+    );
   }
 
-  /**
-   * Сортировка по году (новые первыми).
-   * Список ВСЕГДА содержит все проекты — фильтры не удаляют элементы из массива.
-   */
-  function sortByYear(a: Project, b: Project): number {
-    return b.year - a.year;
+  function matchesFilters(project: Project): boolean {
+    return (
+      matchesSelectedYears(project) &&
+      matchesSelectedTypes(project) &&
+      matchesSelectedTechnologies(project)
+    );
   }
 
-  /**
-   * Отсортированный список ВСЕХ проектов.
-   * Используется в v-for — все карточки всегда в DOM.
-   */
-  const sortedProjects = computed(() => [...projects].sort(sortByYear));
+  const sortedProjects = computed(() =>
+    [...projects].sort((a, b) => b.year - a.year),
+  );
 
-  /**
-   * Карта видимости каждого проекта по id.
-   * Ключевая часть решения: вместо фильтрации массива проектов,
-   * мы храним boolean-карту и используем v-show="isVisible[project.id]" в шаблоне.
-   */
   const isVisible = computed(() => {
     const map: Record<number, boolean> = {};
-    projects.forEach((p: Project) => {
-      map[p.id] = matchesFilters(p);
+    projects.forEach(project => {
+      map[project.id] = matchesFilters(project);
     });
     return map;
   });
 
-  /**
-   * Есть ли хотя бы один видимый проект.
-   * Используется для показа сообщения "Нет таких".
-   */
   const hasVisibleProjects = computed(() =>
-    sortedProjects.value.some(p => isVisible.value[p.id]),
+    sortedProjects.value.some(project => isVisible.value[project.id]),
+  );
+
+  const availableYears = computed(
+    () =>
+      new Set(
+        projects
+          .filter(
+            project =>
+              matchesSelectedTypes(project) &&
+              matchesSelectedTechnologies(project),
+          )
+          .map(project => project.year),
+      ),
+  );
+
+  const availableTypes = computed(
+    () =>
+      new Set(
+        projects
+          .filter(
+            project =>
+              matchesSelectedYears(project) &&
+              matchesSelectedTechnologies(project),
+          )
+          .map(project => project.type),
+      ),
+  );
+
+  const availableTechnologies = computed(
+    () =>
+      new Set(
+        projects
+          .filter(
+            project =>
+              matchesSelectedYears(project) && matchesSelectedTypes(project),
+          )
+          .flatMap(project => project.technologies),
+      ),
   );
 
   return {
@@ -93,6 +116,9 @@ export function useProjectFilter() {
     selectedTechnologies,
     uniqueYears,
     uniqueTechnologies,
+    availableYears,
+    availableTypes,
+    availableTechnologies,
     sortedProjects,
     isVisible,
     hasVisibleProjects,

@@ -46,4 +46,5 @@ export type IconType =
 export interface FilterOption<T = string> {
   value: T;
   label: string;
+  disabled?: boolean;
 }
