@@ -1,5 +1,34 @@
 import { test, expect } from '../fixtures/base-fixtures';
 
+async function setFilter(
+  page: import('@playwright/test').Page,
+  filterLabel: string,
+  optionLabel: string,
+) {
+  const filter = page.locator('.filter-group').filter({ hasText: filterLabel });
+  const trigger = filter.locator('.filter-trigger');
+  await trigger.click();
+  await filter
+    .locator('.filter-option')
+    .filter({ hasText: optionLabel })
+    .click();
+}
+
+async function clearFilter(
+  page: import('@playwright/test').Page,
+  filterLabel: string,
+) {
+  const filter = page.locator('.filter-group').filter({ hasText: filterLabel });
+  const checkedOptions = filter.locator('.filter-option input:checked');
+
+  if ((await checkedOptions.count()) === 0) return;
+
+  await filter.locator('.filter-trigger').click();
+  while ((await checkedOptions.count()) > 0) {
+    await checkedOptions.first().click();
+  }
+}
+
 test.describe('Projects секция', () => {
   test('секция проектов отображается', async ({ page }) => {
     const projectsSection = page.locator('section#projects');
@@ -42,26 +71,14 @@ test.describe('Projects секция', () => {
     const allCards = page.locator('.all-projects .project-card');
     const totalCount = await allCards.count();
 
-    // Фильтруем по году — используем JS click т.к. input[type="radio"] скрыты CSS
-    await page.evaluate(() => {
-      const input = document.querySelector(
-        'input[id="filter-year-2024"]',
-      ) as HTMLInputElement;
-      if (input) input.click();
-    });
+    await setFilter(page, 'Год', '2024');
     await page.waitForTimeout(300);
 
     // Даже с активным фильтром все проекты должны оставаться в DOM
     const totalAfterFilter = await allCards.count();
     expect(totalAfterFilter).toBe(totalCount);
 
-    // Сбрасываем фильтр
-    await page.evaluate(() => {
-      const input = document.querySelector(
-        'input[id="filter-year-all"]',
-      ) as HTMLInputElement;
-      if (input) input.click();
-    });
+    await clearFilter(page, 'Год');
   });
 
   test('каждая карточка содержит заголовок проекта', async ({ page }) => {
@@ -140,17 +157,11 @@ test.describe('Projects секция', () => {
 
   test('фильтр по году — выбор 2026', async ({ page }) => {
     // Скроллим к проектам
-    const projectsLink = page.locator('.nav a').nth(2);
+    const projectsLink = page.locator('.nav a').nth(3);
     await projectsLink.click();
     await page.waitForTimeout(300);
 
-    // Используем JS click т.к. input[type="radio"] скрыты CSS
-    await page.evaluate(() => {
-      const input = document.querySelector(
-        'input[id="filter-year-2026"]',
-      ) as HTMLInputElement;
-      if (input) input.click();
-    });
+    await setFilter(page, 'Год', '2026');
     await page.waitForTimeout(300);
 
     // Проверяем что все видимые карточки имеют год 2026
@@ -173,26 +184,11 @@ test.describe('Projects секция', () => {
 
     expect(visibleCount).toBeGreaterThan(0);
 
-    // Сбрасываем фильтр
-    await page.evaluate(() => {
-      const input = document.querySelector(
-        'input[id="filter-year-all"]',
-      ) as HTMLInputElement;
-      if (input) input.click();
-    });
+    await clearFilter(page, 'Год');
   });
 
   test('фильтр по году — выбор "Все"', async ({ page }) => {
-    // Убедимся что фильтр на "все"
-    const allInput = page.locator('input[id="filter-year-all"]');
-    if (!(await allInput.isChecked())) {
-      await page.evaluate(() => {
-        const input = document.querySelector(
-          'input[id="filter-year-all"]',
-        ) as HTMLInputElement;
-        if (input) input.click();
-      });
-    }
+    await clearFilter(page, 'Год');
     await page.waitForTimeout(300);
 
     const visibleCards = page.locator('.all-projects .project-card');
@@ -201,13 +197,7 @@ test.describe('Projects секция', () => {
   });
 
   test('фильтр по типу — "Сервисы"', async ({ page }) => {
-    // Используем JS click т.к. input[type="radio"] скрыты CSS
-    await page.evaluate(() => {
-      const input = document.querySelector(
-        'input[id="filter-type-service"]',
-      ) as HTMLInputElement;
-      if (input) input.click();
-    });
+    await setFilter(page, 'Тип проекта', 'Сервисы');
     await page.waitForTimeout(300);
 
     // Проверяем что видимые карточки имеют тип "Сервисы" через data-type атрибут
@@ -229,102 +219,65 @@ test.describe('Projects секция', () => {
 
     expect(visibleCount).toBeGreaterThan(0);
 
-    // Сбрасываем фильтр
-    await page.evaluate(() => {
-      const input = document.querySelector(
-        'input[id="filter-type-all"]',
-      ) as HTMLInputElement;
-      if (input) input.click();
-    });
+    await clearFilter(page, 'Тип проекта');
   });
 
   test('фильтр по типу — "Тестовые"', async ({ page }) => {
-    const testInput = page.locator('input[id="filter-type-test"]');
-    if (await testInput.isVisible()) {
-      await page.evaluate(() => {
-        const input = document.querySelector(
-          'input[id="filter-type-test"]',
-        ) as HTMLInputElement;
-        if (input) input.click();
-      });
-      await page.waitForTimeout(300);
-    }
+    await setFilter(page, 'Тип проекта', 'Тестовые');
+    await expect(
+      page
+        .locator('.filter-group')
+        .filter({ hasText: 'Тип проекта' })
+        .locator('.filter-trigger'),
+    ).toHaveText('Тестовые');
   });
 
   test('фильтр по типу — "Игры"', async ({ page }) => {
-    const gameInput = page.locator('input[id="filter-type-game"]');
-    if (await gameInput.isVisible()) {
-      await page.evaluate(() => {
-        const input = document.querySelector(
-          'input[id="filter-type-game"]',
-        ) as HTMLInputElement;
-        if (input) input.click();
-      });
-      await page.waitForTimeout(300);
-    }
+    await setFilter(page, 'Тип проекта', 'Игры');
+    await expect(
+      page
+        .locator('.filter-group')
+        .filter({ hasText: 'Тип проекта' })
+        .locator('.filter-trigger'),
+    ).toHaveText('Игры');
   });
 
   test('фильтр по типу — "Другое"', async ({ page }) => {
-    const otherInput = page.locator('input[id="filter-type-other"]');
-    if (await otherInput.isVisible()) {
-      await page.evaluate(() => {
-        const input = document.querySelector(
-          'input[id="filter-type-other"]',
-        ) as HTMLInputElement;
-        if (input) input.click();
-      });
-      await page.waitForTimeout(300);
-    }
+    await setFilter(page, 'Тип проекта', 'Другое');
+    await expect(
+      page
+        .locator('.filter-group')
+        .filter({ hasText: 'Тип проекта' })
+        .locator('.filter-trigger'),
+    ).toHaveText('Другое');
   });
 
   test('комбинированная фильтрация: год + тип', async ({ page }) => {
-    // Сначала фильтр по году через JS
-    await page.evaluate(() => {
-      const input = document.querySelector(
-        'input[id="filter-year-2024"]',
-      ) as HTMLInputElement;
-      if (input) input.click();
-    });
+    await setFilter(page, 'Год', '2024');
     await page.waitForTimeout(300);
 
-    // Затем фильтр по типу через JS
-    await page.evaluate(() => {
-      const input = document.querySelector(
-        'input[id="filter-type-service"]',
-      ) as HTMLInputElement;
-      if (input) input.click();
-    });
+    await setFilter(page, 'Тип проекта', 'Сервисы');
     await page.waitForTimeout(300);
 
-    // Проверяем что активные фильтры есть
-    const activeFilters = page.locator('.filter-buttons label.active');
-    const activeCount = await activeFilters.count();
-    expect(activeCount).toBeGreaterThan(1);
+    await expect(
+      page
+        .locator('.filter-group')
+        .filter({ hasText: 'Год' })
+        .locator('.filter-trigger'),
+    ).toHaveText('2024');
+    await expect(
+      page
+        .locator('.filter-group')
+        .filter({ hasText: 'Тип проекта' })
+        .locator('.filter-trigger'),
+    ).toHaveText('Сервисы');
 
-    // Сбрасываем фильтры
-    await page.evaluate(() => {
-      const input = document.querySelector(
-        'input[id="filter-year-all"]',
-      ) as HTMLInputElement;
-      if (input) input.click();
-    });
-
-    await page.evaluate(() => {
-      const input = document.querySelector(
-        'input[id="filter-type-all"]',
-      ) as HTMLInputElement;
-      if (input) input.click();
-    });
+    await clearFilter(page, 'Год');
+    await clearFilter(page, 'Тип проекта');
   });
 
   test('сброс всех фильтров показывает все проекты', async ({ page }) => {
-    // Сбрасываем фильтр через "Все" input
-    await page.evaluate(() => {
-      const input = document.querySelector(
-        'input[id="filter-year-all"]',
-      ) as HTMLInputElement;
-      if (input) input.click();
-    });
+    await clearFilter(page, 'Год');
     await page.waitForTimeout(300);
 
     const visibleCards = page.locator('.all-projects .project-card');
@@ -357,25 +310,13 @@ test.describe('Projects секция', () => {
     const allCards = page.locator('.all-projects .project-card');
     const initialCount = await allCards.count();
 
-    // Применяем фильтр по типу "Сервисы" через JS click
-    await page.evaluate(() => {
-      const input = document.querySelector(
-        'input[id="filter-type-service"]',
-      ) as HTMLInputElement;
-      if (input) input.click();
-    });
+    await setFilter(page, 'Тип проекта', 'Сервисы');
     await page.waitForTimeout(300);
 
     // Количество ВСЕХ карточек в DOM должно остаться тем же
     const countInDom = await allCards.count();
     expect(countInDom).toBe(initialCount);
 
-    // Сбрасываем фильтр
-    await page.evaluate(() => {
-      const input = document.querySelector(
-        'input[id="filter-type-all"]',
-      ) as HTMLInputElement;
-      if (input) input.click();
-    });
+    await clearFilter(page, 'Тип проекта');
   });
 });

@@ -11,9 +11,9 @@ import type { Project, ProjectType } from '@/types';
  * изображений при переключении фильтров.
  */
 export function useProjectFilter() {
-  const selectedYear = ref<'all' | number>('all');
-  const selectedType = ref<'all' | ProjectType>('all');
-  const selectedTechnology = ref<'all' | string>('all');
+  const selectedYears = ref<number[]>([]);
+  const selectedTypes = ref<ProjectType[]>([]);
+  const selectedTechnologies = ref<string[]>([]);
 
   const uniqueYears = computed(() => {
     const years = projects.map((p: Project) => p.year);
@@ -39,12 +39,16 @@ export function useProjectFilter() {
    */
   function matchesFilters(project: Project): boolean {
     const yearMatch =
-      selectedYear.value === 'all' || project.year === selectedYear.value;
+      selectedYears.value.length === 0 ||
+      selectedYears.value.includes(project.year);
     const typeMatch =
-      selectedType.value === 'all' || project.type === selectedType.value;
+      selectedTypes.value.length === 0 ||
+      selectedTypes.value.includes(project.type);
     const techMatch =
-      selectedTechnology.value === 'all' ||
-      project.technologies.includes(selectedTechnology.value);
+      selectedTechnologies.value.length === 0 ||
+      selectedTechnologies.value.some(technology =>
+        project.technologies.includes(technology),
+      );
     return yearMatch && typeMatch && techMatch;
   }
 
@@ -84,9 +88,9 @@ export function useProjectFilter() {
   );
 
   return {
-    selectedYear,
-    selectedType,
-    selectedTechnology,
+    selectedYears,
+    selectedTypes,
+    selectedTechnologies,
     uniqueYears,
     uniqueTechnologies,
     sortedProjects,

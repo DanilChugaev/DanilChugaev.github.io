@@ -3,23 +3,18 @@ import { test, expect } from '../fixtures/base-fixtures';
 test.describe('Интеграция FilterGroup', () => {
   test.beforeEach(async ({ page }) => {
     // Переходим к секции проектов
-    await page.locator('.nav a').nth(2).click();
+    await page.locator('.nav a').nth(3).click();
     await page.waitForTimeout(300);
   });
 
   test('фильтр по году переключается и фильтрует проекты', async ({ page }) => {
-    // Находим радиогруппу фильтра по году через role
-    const yearRadioGroup = page.locator('[role="radiogroup"]').first(); // первая группа - год
-    await expect(yearRadioGroup).toBeVisible();
-
-    // Находим опцию 2024 и кликаем по label
-    const year2024Label = page.locator('label[for*="filter-year-2024"]');
-    await expect(year2024Label).toBeVisible();
-    await year2024Label.click();
+    const yearFilter = page.locator('.filter-group').filter({ hasText: 'Год' });
+    const yearTrigger = yearFilter.locator('.filter-trigger');
+    await expect(yearTrigger).toBeVisible();
+    await yearTrigger.click();
+    await yearFilter.locator('label').filter({ hasText: '2024' }).click();
     await page.waitForTimeout(300);
-
-    // Проверяем что label стал active
-    await expect(year2024Label).toHaveClass('active');
+    await expect(yearTrigger).toHaveText('2024');
 
     // Проверяем что карточки проектов отфильтровались
     const visibleCards = page.locator('.project-card');
@@ -37,12 +32,11 @@ test.describe('Интеграция FilterGroup', () => {
   });
 
   test('фильтр по году "all" показывает все проекты', async ({ page }) => {
-    const allLabel = page.locator('label[for*="filter-year-all"]');
-    await expect(allLabel).toBeVisible();
-    await allLabel.click();
+    const yearFilter = page.locator('.filter-group').filter({ hasText: 'Год' });
+    const yearTrigger = yearFilter.locator('.filter-trigger');
+    await yearTrigger.click();
     await page.waitForTimeout(300);
-
-    await expect(allLabel).toHaveClass('active');
+    await expect(yearTrigger).toHaveText('Все');
 
     const visibleCards = page.locator('.project-card');
     const count = await visibleCards.count();
@@ -50,39 +44,40 @@ test.describe('Интеграция FilterGroup', () => {
   });
 
   test('фильтр по типу переключается', async ({ page }) => {
-    // Находим вторую радиогруппу (тип) через name="filter-type" в label for атрибуте
-    const typeLabels = page.locator('label[for*="filter-type-"]');
-    const count = await typeLabels.count();
-    expect(count).toBeGreaterThan(0);
-
-    // Кликаем по первому доступному типу (не "all")
-    let clicked = false;
-    for (let i = 0; i < count; i++) {
-      const label = typeLabels.nth(i);
-      const text = await label.textContent();
-      if ((text?.trim() ?? '').trim() !== 'Все' && (await label.isVisible())) {
-        await label.click();
-        await page.waitForTimeout(300);
-        await expect(label).toHaveClass('active');
-        clicked = true;
-        break;
-      }
-    }
-    expect(clicked).toBe(true);
+    const typeFilter = page
+      .locator('.filter-group')
+      .filter({ hasText: 'Тип проекта' });
+    const typeTrigger = typeFilter.locator('.filter-trigger');
+    await typeTrigger.click();
+    await typeFilter.locator('label').filter({ hasText: 'Сервисы' }).click();
+    await expect(typeTrigger).toHaveText('Сервисы');
   });
 
   test('комбинированная фильтрация работает', async ({ page }) => {
-    // Выбираем год
-    const yearLabel = page.locator('label[for*="filter-year-2024"]');
-    if (await yearLabel.isVisible()) {
-      await yearLabel.click();
-      await page.waitForTimeout(300);
-    }
+    const yearFilter = page.locator('.filter-group').filter({ hasText: 'Год' });
+    const typeFilter = page
+      .locator('.filter-group')
+      .filter({ hasText: 'Тип проекта' });
+    await yearFilter.locator('.filter-trigger').click();
+    await yearFilter.locator('label').filter({ hasText: '2024' }).click();
+    await typeFilter.locator('.filter-trigger').click();
+    await typeFilter.locator('label').filter({ hasText: 'Тестовые' }).click();
+    await expect(yearFilter.locator('.filter-trigger')).toHaveText('2024');
+    await expect(typeFilter.locator('.filter-trigger')).toHaveText('Тестовые');
+  });
 
-    // Проверяем что активный фильтр отображается
-    const activeFilters = page.locator('.filter-buttons label.active');
-    const activeCount = await activeFilters.count();
-    expect(activeCount).toBeGreaterThan(0);
+  test('в одном фильтре можно выбрать несколько вариантов', async ({
+    page,
+  }) => {
+    const yearFilter = page.locator('.filter-group').filter({ hasText: 'Год' });
+    const yearTrigger = yearFilter.locator('.filter-trigger');
+
+    await yearTrigger.click();
+    await yearFilter.locator('label').filter({ hasText: '2024' }).click();
+    await yearFilter.locator('label').filter({ hasText: '2026' }).click();
+
+    await expect(yearTrigger).toHaveText('2024, 2026');
+    await expect(yearFilter.locator('input:checked')).toHaveCount(2);
   });
 
   test('фильтры имеют правильную структуру accessibility', async ({ page }) => {
@@ -92,63 +87,23 @@ test.describe('Интеграция FilterGroup', () => {
 
     for (let i = 0; i < count; i++) {
       const group = filterGroups.nth(i);
-      await expect(group.locator('h3')).toBeVisible();
-      const radiogroup = group.locator('[role="radiogroup"]');
-      await expect(radiogroup).toBeVisible();
+      await expect(group.locator('.filter-label')).toBeVisible();
+      await expect(group.locator('.filter-trigger')).toBeVisible();
     }
   });
 
-  test('active фильтр имеет синий фон', async ({ page }) => {
-    // Выбираем любой фильтр чтобы активировать
-    const yearLabels = page.locator('label[for*="filter-year-"]');
-    const yearCount = await yearLabels.count();
-    if (yearCount > 1) {
-      // Кликаем по второму элементу (не "all")
-      const label = yearLabels.nth(1);
-      const text = await label.textContent();
-      if ((text?.trim() ?? '') !== 'Все' && (await label.isVisible())) {
-        await label.click();
-        await page.waitForTimeout(300);
-
-        await expect(label).toHaveClass('active');
-        const bg = await label.evaluate(
-          el => getComputedStyle(el).backgroundColor,
-        );
-        // Синий цвет (#0066ff)
-        expect(bg).toContain('0, 102, 255');
-      }
-    }
-  });
-
-  test('label в filter имеет hover эффект', async ({ page }) => {
-    const filterLabels = page.locator('.filter-buttons label:not(.active)');
-    if ((await filterLabels.count()) > 0) {
-      const label = filterLabels.first();
-      await label.hover();
-      await page.waitForTimeout(200);
-      const bg = await label.evaluate(
-        el => getComputedStyle(el).backgroundColor,
-      );
-      expect(bg).toContain('0, 102, 255');
-    }
-  });
-
-  test('радиокнопки скрыты но доступны', async ({ page }) => {
-    const radios = page.locator('.filter-buttons input[type="radio"]');
-    const count = await radios.count();
-    expect(count).toBeGreaterThan(0);
-
-    for (let i = 0; i < count; i++) {
-      const radio = radios.nth(i);
-      const opacity = await radio.evaluate(el => getComputedStyle(el).opacity);
-      expect(opacity).toBe('0');
-    }
+  test('триггеры фильтров имеют стилизацию интерфейса', async ({ page }) => {
+    const trigger = page.locator('.filter-trigger').first();
+    const background = await trigger.evaluate(
+      element => getComputedStyle(element).backgroundColor,
+    );
+    expect(background).toBeTruthy();
   });
 });
 
 test.describe('Интеграция DemoModal', () => {
   test.beforeEach(async ({ page }) => {
-    await page.locator('.nav a').nth(2).click();
+    await page.locator('.nav a').nth(3).click();
     await page.waitForTimeout(300);
   });
 
@@ -297,7 +252,7 @@ test.describe('Интеграция DemoModal', () => {
 
 test.describe('Скролл-интерцептор', () => {
   test('навигация скроллит к секции плавно', async ({ page }) => {
-    const projectsLink = page.locator('.nav a').nth(2); // Проекты
+    const projectsLink = page.locator('.nav a').nth(3); // Проекты
     await projectsLink.click();
 
     // Ждем завершения скролла

@@ -22,7 +22,7 @@
       <div class="filters" role="group" aria-label="Фильтры проектов">
         <!-- Фильтр по году -->
         <FilterGroup
-          v-model="selectedYear"
+          v-model="selectedYears"
           name="year"
           label="Год"
           :options="yearOptions"
@@ -30,7 +30,7 @@
 
         <!-- Фильтр по типу -->
         <FilterGroup
-          v-model="selectedType"
+          v-model="selectedTypes"
           name="type"
           label="Тип проекта"
           :options="typeOptions"
@@ -38,7 +38,7 @@
 
         <!-- Фильтр по технологиям -->
         <FilterGroup
-          v-model="selectedTechnology"
+          v-model="selectedTechnologies"
           name="technology"
           label="Технологии"
           :options="technologyOptions"
@@ -71,9 +71,9 @@ import { projects } from '@/data/projects';
 const FEATURED_PROJECT_IDS = [11, 10, 16, 9, 15] as const;
 
 const {
-  selectedYear,
-  selectedType,
-  selectedTechnology,
+  selectedYears,
+  selectedTypes,
+  selectedTechnologies,
   uniqueYears,
   uniqueTechnologies,
   sortedProjects,
@@ -114,9 +114,8 @@ const technologyOptions = computed<FilterOption[]>(() =>
 <style scoped lang="postcss">
 .filters {
   display: flex;
-  flex-direction: column;
   flex-wrap: wrap;
-  gap: 0;
+  gap: 20px;
   margin-bottom: 40px;
 }
 
