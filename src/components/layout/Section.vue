@@ -1,7 +1,7 @@
 <template>
-  <section class="section" :id :aria-labelledby>
+  <section class="section" :id :aria-labelledby="title ? titleId : undefined">
     <div class="container">
-      <h2 v-if="title" class="section__title">{{ title }}</h2>
+      <h2 v-if="title" :id="titleId" class="section__title">{{ title }}</h2>
 
       <slot name="default" />
     </div>
@@ -11,16 +11,12 @@
 <script setup lang="ts">
 import type { SectionIdType } from '@/types.ts';
 
-withDefaults(
-  defineProps<{
-    id: SectionIdType;
-    title?: string;
-    ariaLabelledby?: string;
-  }>(),
-  {
-    ariaLabelledby: '',
-  },
-);
+const props = defineProps<{
+  id: SectionIdType;
+  title?: string;
+}>();
+
+const titleId = `${props.id}-title`;
 </script>
 
 <style scoped lang="postcss">

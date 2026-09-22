@@ -10,6 +10,7 @@
             :key="contact.label"
             :href="contact.href"
             v-bind="contact.target ? { target: contact.target } : {}"
+            :rel="contact.target ? 'noopener noreferrer' : undefined"
           >
             {{ contact.label }}
           </a>

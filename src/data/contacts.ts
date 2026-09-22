@@ -1,4 +1,4 @@
-import type { Contact } from '@/types.ts';
+import type { Contact, IconType } from '@/types.ts';
 
 export const contacts: Contact[] = [
   {
@@ -32,4 +32,4 @@ export const contacts: Contact[] = [
 export const location = {
   text: 'Новосибирск, Россия',
   icon: 'location',
-};
+} satisfies { text: string; icon: IconType };

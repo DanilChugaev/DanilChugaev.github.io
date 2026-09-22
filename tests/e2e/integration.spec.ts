@@ -229,7 +229,7 @@ test.describe('Интеграция DemoModal', () => {
       await page.waitForTimeout(300);
 
       // Клик вне контента модалки
-      await page.locator('body').click();
+      await page.locator('.modal-overlay').click({ position: { x: 5, y: 5 } });
       await page.waitForTimeout(300);
 
       const modal = page.locator('.demo-modal, [role="dialog"], .modal');

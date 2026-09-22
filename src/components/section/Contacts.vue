@@ -8,9 +8,10 @@
             :key="contact.label"
             :href="contact.href"
             v-bind="contact.target ? { target: contact.target } : {}"
+            :rel="contact.target ? 'noopener noreferrer' : undefined"
             class="contact-item"
           >
-            <SvgIcon class="icon" :icon="contact.icon as IconType" :size="24" />
+            <SvgIcon class="icon" :icon="contact.icon" :size="24" />
             <div>
               <strong>{{ contact.label }}</strong>
               {{ contact.value }}
@@ -20,7 +21,7 @@
       </div>
 
       <div class="contact-note contact-item">
-        <SvgIcon :icon="location.icon as IconType" :size="20" />
+        <SvgIcon :icon="location.icon" :size="20" />
         {{ location.text }}
       </div>
     </div>
@@ -31,7 +32,6 @@
 import Section from '@/components/layout/Section.vue';
 import { contacts, location } from '@/data/contacts.ts';
 import SvgIcon from '@/icons/SvgIcon.vue';
-import type { IconType } from '@/types.ts';
 </script>
 
 <style scoped lang="postcss">

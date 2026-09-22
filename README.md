@@ -91,7 +91,7 @@ yarn preview
 | `yarn format`      | Отформатировать код через Prettier                  |
 | `yarn ts:check`    | Только проверка типов TypeScript                    |
 | `yarn test`        | Запустить все тесты (Vitest)                        |
-| `yarn test:unit`   | Запустить юнит-тесты с покрытием                    |
+| `yarn test:unit`   | Запустить юнит-тесты                                |
 | `yarn test:unit:cov` | Запустить юнит-тесты с отчётом о покрытии          |
 | `yarn test:e2e`    | Запустить E2E тесты (Playwright)                    |
 | `yarn test:e2e:chromium` | Запустить E2E тесты на Chromium               |

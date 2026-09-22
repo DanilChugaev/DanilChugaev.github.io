@@ -32,7 +32,12 @@
           GitHub
         </a>
 
-        <button v-if="project.demo" class="link-btn primary" @click="openDemo">
+        <button
+          v-if="project.demo"
+          ref="demoButton"
+          class="link-btn primary"
+          @click="openDemo"
+        >
           Посмотреть демо
         </button>
       </div>
@@ -43,6 +48,7 @@
       v-model:is-open="isModalOpen"
       :demo-url="project.demo"
       :project-title="project.title"
+      :return-focus-to="demoButton"
     />
   </div>
 </template>
@@ -57,6 +63,7 @@ defineProps<{
 }>();
 
 const isModalOpen = ref(false);
+const demoButton = ref<HTMLButtonElement | null>(null);
 
 function openDemo() {
   isModalOpen.value = true;

@@ -102,6 +102,11 @@ const modelValue = defineModel<string | number>();
   color: var(--text-link-hover);
 }
 
+.filter-buttons input:focus-visible + label {
+  outline: 3px solid var(--border-accent);
+  outline-offset: 3px;
+}
+
 @media (max-width: 768px) {
   .filter-buttons {
     width: 100%;

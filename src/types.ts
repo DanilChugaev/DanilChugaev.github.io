@@ -28,8 +28,8 @@ export interface Contact {
   label: string;
   href: string;
   value: string;
-  icon: string;
-  target?: string;
+  icon: IconType;
+  target?: '_blank';
 }
 
 export type IconType =

@@ -2,10 +2,25 @@
   <Teleport to="body">
     <Transition name="modal">
       <div v-if="isOpen" class="modal-overlay" @click.self="close">
-        <div class="modal-content">
+        <div
+          ref="modalContent"
+          class="modal-content"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="demo-modal-title"
+          tabindex="-1"
+          @keydown.tab="trapFocus"
+        >
           <div class="modal-header">
-            <h2 class="modal-title">{{ projectTitle }}</h2>
-            <button class="modal-close" @click="close" aria-label="Закрыть">
+            <h2 id="demo-modal-title" class="modal-title">
+              {{ projectTitle }}
+            </h2>
+            <button
+              ref="closeButton"
+              class="modal-close"
+              @click="close"
+              aria-label="Закрыть"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -52,12 +67,13 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch, onBeforeUnmount } from 'vue';
+import { nextTick, onBeforeUnmount, ref, watch } from 'vue';
 
 interface Props {
   isOpen: boolean;
   demoUrl: string;
   projectTitle: string;
+  returnFocusTo: HTMLButtonElement | null;
 }
 
 interface Emits {
@@ -68,6 +84,17 @@ const props = defineProps<Props>();
 const emit = defineEmits<Emits>();
 
 const isLoaded = ref(false);
+const modalContent = ref<HTMLElement | null>(null);
+const closeButton = ref<HTMLButtonElement | null>(null);
+
+const focusableSelector = [
+  'a[href]',
+  'button:not([disabled])',
+  'input:not([disabled])',
+  'select:not([disabled])',
+  'textarea:not([disabled])',
+  '[tabindex]:not([tabindex="-1"])',
+].join(', ');
 
 function close() {
   emit('update:isOpen', false);
@@ -83,16 +110,41 @@ function onKeydown(event: KeyboardEvent) {
   }
 }
 
+function trapFocus(event: KeyboardEvent) {
+  const focusableElements =
+    modalContent.value?.querySelectorAll<HTMLElement>(focusableSelector);
+
+  if (!focusableElements?.length) {
+    event.preventDefault();
+    modalContent.value?.focus();
+    return;
+  }
+
+  const firstElement = focusableElements[0];
+  const lastElement = focusableElements[focusableElements.length - 1];
+
+  if (event.shiftKey && document.activeElement === firstElement) {
+    event.preventDefault();
+    lastElement.focus();
+  } else if (!event.shiftKey && document.activeElement === lastElement) {
+    event.preventDefault();
+    firstElement.focus();
+  }
+}
+
 watch(
   () => props.isOpen,
-  newValue => {
+  async newValue => {
     if (newValue) {
       isLoaded.value = false;
       document.addEventListener('keydown', onKeydown);
       document.body.style.overflow = 'hidden';
+      await nextTick();
+      closeButton.value?.focus();
     } else {
       document.removeEventListener('keydown', onKeydown);
       document.body.style.overflow = '';
+      props.returnFocusTo?.focus();
     }
   },
 );
