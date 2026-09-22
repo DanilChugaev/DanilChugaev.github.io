@@ -1,6 +1,20 @@
 # Portfolio — Danil Chugaev
 
+[![Quality checks](https://github.com/DanilChugaev/DanilChugaev.github.io/actions/workflows/quality.yml/badge.svg?branch=master)](https://github.com/DanilChugaev/DanilChugaev.github.io/actions/workflows/quality.yml)
+[![Deploy to GitHub Pages](https://github.com/DanilChugaev/DanilChugaev.github.io/actions/workflows/deploy.yml/badge.svg?branch=master)](https://github.com/DanilChugaev/DanilChugaev.github.io/actions/workflows/deploy.yml)
+[![Vue 3](https://img.shields.io/badge/Vue-3-42b883?logo=vuedotjs&logoColor=white)](https://vuejs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178c6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Tests](https://img.shields.io/badge/tests-Vitest%20%2B%20Playwright-6e9f18)](https://vitest.dev/)
+
 Персональный сайт-портфолио с pet-проектами и тестовыми заданиями frontend-разработчика Данила Чугаева.
+
+## Качество и производительность
+
+- Проверки GitHub Actions запускают ESLint, строгую проверку TypeScript, unit-тесты, production-сборку и E2E-тесты в Chromium.
+- Lighthouse / PageSpeed Insights: на момент ручной проверки 22 сентября 2026 года сайт получил **100/100** по всем категориям в мобильной и десктопной стратегии; также пройдено **2 из 2** проверок агентного просмотра.
+- Повторить измерения можно в [PageSpeed Insights для мобильных устройств](https://pagespeed.web.dev/analysis?url=https%3A%2F%2Fdanilchugaev.github.io%2F&form_factor=mobile) и [для настольных устройств](https://pagespeed.web.dev/analysis?url=https%3A%2F%2Fdanilchugaev.github.io%2F&form_factor=desktop).
+
+> Результаты PageSpeed Insights зависят от времени запуска, версии браузера, сети и содержимого сторонних ресурсов. Поэтому число 100 — зафиксированный результат замера, а не постоянная гарантия.
 
 ## Технологический стек
 
