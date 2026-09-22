@@ -6,8 +6,8 @@ export const projects: Project[] = [
   // ==================== ТЕСТОВЫЕ ЗАДАНИЯ ====================
   {
     id: 1,
-    title: 'Rest API Client',
-    description: 'Упрощенный REST клиент для вызова back API в SPA приложении',
+    title: 'REST API Client',
+    description: 'Упрощённый REST API-клиент для вызова API бэкенда в SPA',
     year: 2024,
     type: 'test',
     technologies: [
@@ -29,7 +29,7 @@ export const projects: Project[] = [
   {
     id: 2,
     title: 'Koshelek Crypto Market',
-    description: 'Современный крипто-маркет с реал-тайм данными',
+    description: 'Современный криптомаркет с данными в реальном времени',
     year: 2024,
     type: 'test',
     technologies: [
@@ -70,8 +70,8 @@ export const projects: Project[] = [
   },
   {
     id: 4,
-    title: 'Bulltrade todo',
-    description: 'TODO-приложение',
+    title: 'Bulltrade Todo',
+    description: 'Todo-приложение',
     year: 2023,
     type: 'test',
     technologies: [
@@ -138,7 +138,7 @@ export const projects: Project[] = [
   {
     id: 7,
     title: 'Online Store',
-    description: 'Онлайн магазин строительных материалов',
+    description: 'Интернет-магазин строительных материалов',
     year: 2024,
     type: 'test',
     technologies: [
@@ -193,7 +193,7 @@ export const projects: Project[] = [
       'PWA',
       'Web Workers',
       'Vite',
-      'Eslint',
+      'ESLint',
       'GitHub Actions',
     ],
     github: 'https://github.com/DanilChugaev/labyrinth',
@@ -204,8 +204,8 @@ export const projects: Project[] = [
   // ==================== СЕРВИСЫ ====================
   {
     id: 10,
-    title: 'TODOS daily',
-    description: 'To-do лист для ежедневного пользования',
+    title: 'TODOS Daily',
+    description: 'Список задач для ежедневного использования',
     year: 2026,
     type: 'service',
     technologies: [
@@ -214,7 +214,7 @@ export const projects: Project[] = [
       'Vite',
       'PWA',
       'Dexie',
-      'Indexed DB',
+      'IndexedDB',
     ],
     github: 'https://github.com/DanilChugaev/todos-daily',
     demo: 'https://danilchugaev.github.io/todos-daily/',
@@ -223,7 +223,7 @@ export const projects: Project[] = [
   {
     id: 11,
     title: 'Prompt Architect',
-    description: 'Конструктор промптов для локальных ИИ моделей',
+    description: 'Конструктор промптов для локальных ИИ-моделей',
     year: 2026,
     type: 'service',
     technologies: [
@@ -258,7 +258,7 @@ export const projects: Project[] = [
       'Tailwind CSS',
       'PostCSS',
       'Konva',
-      'Vue Konva',
+      'vue-konva',
       'VueUse',
       'ESLint',
       'Vitest',
@@ -297,7 +297,7 @@ export const projects: Project[] = [
     id: 14,
     title: 'Pironman5 GO',
     description:
-      'HTTP-сервер для управления периферией Pironman 5 (кейс для Raspberry Pi с вентиляторами, RGB LED и OLED экраном) на языке Go',
+      'HTTP-сервер на Go для управления периферией Pironman 5: вентиляторами, RGB-подсветкой и OLED-экраном',
     year: 2026,
     type: 'other',
     technologies: [
@@ -353,8 +353,8 @@ export const projects: Project[] = [
       'TypeScript',
       'Python 3',
       'esbuild',
-      'Eslint',
-      'Web MediaRecorder API',
+      'ESLint',
+      'MediaRecorder API',
       'FFmpeg',
       'Vosk',
     ],
@@ -363,7 +363,7 @@ export const projects: Project[] = [
   },
   {
     id: 17,
-    title: 'Wifi clock',
+    title: 'Wi-Fi Clock',
     description: 'Часы для запуска на Wemos D1 mini',
     year: 2022,
     type: 'other',
@@ -372,7 +372,7 @@ export const projects: Project[] = [
       'FastLED',
       'WiFiManager',
       'NTPClient',
-      'icroDS3231',
+      'microDS3231',
       'EncButton2',
     ],
     github: 'https://github.com/DanilChugaev/wifi_clock',

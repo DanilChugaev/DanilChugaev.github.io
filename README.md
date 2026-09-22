@@ -1,6 +1,6 @@
 # Portfolio — Danil Chugaev
 
-Персональный портфель-сайт, демонстрирующий пет-проекты и тестовые задания фронтенд-разработчика Данила Чугаева.
+Персональный сайт-портфолио с pet-проектами и тестовыми заданиями frontend-разработчика Данила Чугаева.
 
 ## Технологический стек
 
@@ -10,7 +10,7 @@
 | **Язык**         | TypeScript 6.0                                                           |
 | **Bundler**      | Vite 8                                                                   |
 | **Стилизация**   | PostCSS + `postcss-nested` + `postcss-custom-media` (`.pcss` файлы)       |
-| **PWA**          | vite-plugin-pwa (service worker, manifest, offline поддержка)              |
+| **PWA**          | vite-plugin-pwa (Service Worker, manifest, офлайн-поддержка)               |
 | **Линтинг**      | ESLint 10 + eslint-plugin-vue + eslint-plugin-prettier + @typescript-eslint |
 | **Форматирование** | Prettier 3                                                              |
 | **Типизация**    | vue-tsc (строгая проверка типов для Vue SFC)                               |
@@ -83,8 +83,8 @@ yarn preview
 
 | Команда            | Описание                                           |
 |--------------------|----------------------------------------------------|
-| `yarn dev`         | Запустить dev-сервер с hot-reload                  |
-| `yarn build`       | Типо-проверка (vue-tsc) + production сборка         |
+| `yarn dev`         | Запустить dev-сервер с HMR                          |
+| `yarn build`       | Проверка типов (vue-tsc) + production-сборка        |
 | `yarn preview`     | Локальный предпросмотр production-сборки            |
 | `yarn lint`        | Запустить ESLint                                   |
 | `yarn lint:fix`    | Запустить ESLint с автоисправлением                 |
@@ -93,10 +93,10 @@ yarn preview
 | `yarn test`        | Запустить все тесты (Vitest)                        |
 | `yarn test:unit`   | Запустить юнит-тесты                                |
 | `yarn test:unit:cov` | Запустить юнит-тесты с отчётом о покрытии          |
-| `yarn test:e2e`    | Запустить E2E тесты (Playwright)                    |
-| `yarn test:e2e:chromium` | Запустить E2E тесты на Chromium               |
-| `yarn test:e2e:headed`   | Запустить E2E тесты в видимом режиме          |
-| `yarn test:e2e:report`   | Показать отчёт E2E тестов                        |
+| `yarn test:e2e`    | Запустить E2E-тесты (Playwright)                   |
+| `yarn test:e2e:chromium` | Запустить E2E-тесты на Chromium              |
+| `yarn test:e2e:headed`   | Запустить E2E-тесты в видимом режиме         |
+| `yarn test:e2e:report`   | Показать отчёт E2E-тестов                      |
 
 ## Тестирование
 
@@ -110,18 +110,18 @@ yarn test:unit:cov
 # Запустить все E2E тесты
 yarn test:e2e
 
-# Показать интерактивный отчет E2E тестов
+# Показать интерактивный отчёт E2E-тестов
 yarn test:e2e:report
 ```
 
 ## Особенности
 
-- **PWA** — приложение устанавливается как Progressive Web App с автообновлением service worker
+- **PWA** — приложение устанавливается как Progressive Web App с автообновлением Service Worker
 - **Тёмная тема** — дизайн построен на CSS-переменных с тёмной цветовой схемой
 - **Доступность** — skip-link для навигации с клавиатуры, семантическая разметка, ARIA-роли
-- **Фильтрация проектов** — переключение между тестовыми заданиями и пет-проектами через FilterGroup
-- **Тестирование** — юнит-тесты (Vitest + jsdom) + E2E тесты (Playwright)
-- **Плавная навигация** — smooth scroll к секциям с учётом высоты шапки
+- **Фильтрация проектов** — переключение между тестовыми заданиями и pet-проектами через FilterGroup
+- **Тестирование** — юнит-тесты (Vitest + jsdom) и E2E-тесты (Playwright)
+- **Плавная навигация** — плавная прокрутка к секциям с учётом высоты шапки
 - **Typed data layer** — все данные вынесены в отдельные модули с TypeScript типизацией
 
 ## Лицензия
