@@ -185,6 +185,7 @@ function resetFilters() {
 .filter-summary {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 16px;
   min-height: 42px;
   margin-left: auto;
