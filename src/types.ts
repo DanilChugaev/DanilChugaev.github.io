@@ -10,6 +10,7 @@ export interface Project {
   github: string;
   demo?: string;
   image: string;
+  featuredDescription?: string;
 }
 
 export type SectionIdType =

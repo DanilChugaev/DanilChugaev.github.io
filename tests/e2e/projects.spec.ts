@@ -6,8 +6,26 @@ test.describe('Projects секция', () => {
     await expect(projectsSection).toBeVisible();
   });
 
+  test('блок избранных проектов содержит пять выбранных работ', async ({
+    page,
+  }) => {
+    const featuredProjects = page.locator('.featured-projects');
+    await expect(featuredProjects).toBeVisible();
+    await expect(featuredProjects.locator('.project-card')).toHaveCount(5);
+
+    for (const title of [
+      'Prompt Architect',
+      'TODOS Daily',
+      'Voice-to-Text Obsidian Plugin',
+      'Labyrinth',
+      'Хакатон в Островке',
+    ]) {
+      await expect(featuredProjects).toContainText(title);
+    }
+  });
+
   test('карточки проектов отображаются', async ({ page }) => {
-    const projectCards = page.locator('.project-card');
+    const projectCards = page.locator('.all-projects .project-card');
     const count = await projectCards.count();
     expect(count).toBeGreaterThan(0);
   });
@@ -21,7 +39,7 @@ test.describe('Projects секция', () => {
     page,
   }) => {
     // Получаем общее количество всех карточек включая скрытые
-    const allCards = page.locator('.project-card');
+    const allCards = page.locator('.all-projects .project-card');
     const totalCount = await allCards.count();
 
     // Фильтруем по году — используем JS click т.к. input[type="radio"] скрыты CSS
@@ -47,7 +65,7 @@ test.describe('Projects секция', () => {
   });
 
   test('каждая карточка содержит заголовок проекта', async ({ page }) => {
-    const projectCards = page.locator('.project-card');
+    const projectCards = page.locator('.all-projects .project-card');
     const count = await projectCards.count();
     expect(count).toBeGreaterThan(0);
 
@@ -60,7 +78,7 @@ test.describe('Projects секция', () => {
   });
 
   test('каждая карточка содержит описание', async ({ page }) => {
-    const projectCards = page.locator('.project-card');
+    const projectCards = page.locator('.all-projects .project-card');
     const count = await projectCards.count();
 
     for (let i = 0; i < Math.min(count, 5); i++) {
@@ -71,7 +89,7 @@ test.describe('Projects секция', () => {
   });
 
   test('каждая карточка содержит год', async ({ page }) => {
-    const projectCards = page.locator('.project-card');
+    const projectCards = page.locator('.all-projects .project-card');
     const count = await projectCards.count();
 
     for (let i = 0; i < Math.min(count, 5); i++) {
@@ -85,7 +103,7 @@ test.describe('Projects секция', () => {
   });
 
   test('каждая карточка содержит теги технологий', async ({ page }) => {
-    const projectCards = page.locator('.project-card');
+    const projectCards = page.locator('.all-projects .project-card');
     const count = await projectCards.count();
 
     for (let i = 0; i < Math.min(count, 5); i++) {
@@ -97,7 +115,7 @@ test.describe('Projects секция', () => {
   });
 
   test('каждая карточка содержит ссылку на GitHub', async ({ page }) => {
-    const projectCards = page.locator('.project-card');
+    const projectCards = page.locator('.all-projects .project-card');
     const count = await projectCards.count();
 
     for (let i = 0; i < Math.min(count, 5); i++) {
@@ -136,7 +154,7 @@ test.describe('Projects секция', () => {
     await page.waitForTimeout(300);
 
     // Проверяем что все видимые карточки имеют год 2026
-    const allCards = page.locator('.project-card');
+    const allCards = page.locator('.all-projects .project-card');
     const totalCards = await allCards.count();
 
     let visibleCount = 0;
@@ -177,7 +195,7 @@ test.describe('Projects секция', () => {
     }
     await page.waitForTimeout(300);
 
-    const visibleCards = page.locator('.project-card');
+    const visibleCards = page.locator('.all-projects .project-card');
     const count = await visibleCards.count();
     expect(count).toBeGreaterThan(15); // Должно быть много проектов
   });
@@ -193,7 +211,7 @@ test.describe('Projects секция', () => {
     await page.waitForTimeout(300);
 
     // Проверяем что видимые карточки имеют тип "Сервисы" через data-type атрибут
-    const allCards = page.locator('.project-card');
+    const allCards = page.locator('.all-projects .project-card');
     const totalCards = await allCards.count();
 
     let visibleCount = 0;
@@ -309,13 +327,13 @@ test.describe('Projects секция', () => {
     });
     await page.waitForTimeout(300);
 
-    const visibleCards = page.locator('.project-card');
+    const visibleCards = page.locator('.all-projects .project-card');
     const count = await visibleCards.count();
     expect(count).toBeGreaterThan(5);
   });
 
   test('при наведении на карточку есть hover эффект', async ({ page }) => {
-    const projectCards = page.locator('.project-card');
+    const projectCards = page.locator('.all-projects .project-card');
     const firstCard = projectCards.first();
 
     const initialBox = await firstCard.boundingBox();
@@ -328,7 +346,7 @@ test.describe('Projects секция', () => {
   });
 
   test('карточки отображаются в grid', async ({ page }) => {
-    const projectsGrid = page.locator('.projects-grid');
+    const projectsGrid = page.locator('.all-projects .projects-grid');
     await expect(projectsGrid).toBeVisible();
   });
 
@@ -336,7 +354,7 @@ test.describe('Projects секция', () => {
     page,
   }) => {
     // Получаем количество всех карточек
-    const allCards = page.locator('.project-card');
+    const allCards = page.locator('.all-projects .project-card');
     const initialCount = await allCards.count();
 
     // Применяем фильтр по типу "Сервисы" через JS click

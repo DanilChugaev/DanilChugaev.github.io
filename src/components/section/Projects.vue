@@ -1,41 +1,61 @@
 <template>
   <Section id="projects" title="Проекты" class="projects-section">
-    <div class="filters" role="group" aria-label="Фильтры проектов">
-      <!-- Фильтр по году -->
-      <FilterGroup
-        v-model="selectedYear"
-        name="year"
-        label="Год"
-        :options="yearOptions"
-      />
+    <div class="featured-projects">
+      <h3 class="projects-subtitle">Избранные проекты</h3>
+      <p class="projects-intro">
+        Пять публичных работ, которые лучше всего показывают мой технический
+        подход и разнообразие инженерных задач
+      </p>
 
-      <!-- Фильтр по типу -->
-      <FilterGroup
-        v-model="selectedType"
-        name="type"
-        label="Тип проекта"
-        :options="typeOptions"
-      />
-
-      <!-- Фильтр по технологиям -->
-      <FilterGroup
-        v-model="selectedTechnology"
-        name="technology"
-        label="Технологии"
-        :options="technologyOptions"
-      />
+      <div class="projects-grid featured-projects-grid">
+        <Card
+          v-for="project in featuredProjects"
+          :key="project.id"
+          :project="project"
+          featured
+        />
+      </div>
     </div>
 
-    <div v-show="hasVisibleProjects" class="projects-grid">
-      <Card
-        v-for="project in sortedProjects"
-        v-show="isVisible[project.id]"
-        :key="project.id"
-        :project="project"
-      />
-    </div>
+    <div class="all-projects">
+      <h3 class="projects-subtitle">Все проекты</h3>
+      <div class="filters" role="group" aria-label="Фильтры проектов">
+        <!-- Фильтр по году -->
+        <FilterGroup
+          v-model="selectedYear"
+          name="year"
+          label="Год"
+          :options="yearOptions"
+        />
 
-    <div v-show="!hasVisibleProjects" class="projects-empty">Нет таких</div>
+        <!-- Фильтр по типу -->
+        <FilterGroup
+          v-model="selectedType"
+          name="type"
+          label="Тип проекта"
+          :options="typeOptions"
+        />
+
+        <!-- Фильтр по технологиям -->
+        <FilterGroup
+          v-model="selectedTechnology"
+          name="technology"
+          label="Технологии"
+          :options="technologyOptions"
+        />
+      </div>
+
+      <div v-show="hasVisibleProjects" class="projects-grid">
+        <Card
+          v-for="project in sortedProjects"
+          v-show="isVisible[project.id]"
+          :key="project.id"
+          :project="project"
+        />
+      </div>
+
+      <div v-show="!hasVisibleProjects" class="projects-empty">Нет таких</div>
+    </div>
   </Section>
 </template>
 
@@ -46,6 +66,9 @@ import { useProjectFilter } from '@/composables/useProjectFilter';
 import Card from '@/components/project/Card.vue';
 import FilterGroup from '@/components/project/FilterGroup.vue';
 import type { FilterOption } from '@/types.ts';
+import { projects } from '@/data/projects';
+
+const FEATURED_PROJECT_IDS = [11, 10, 16, 9, 15] as const;
 
 const {
   selectedYear,
@@ -57,6 +80,14 @@ const {
   isVisible,
   hasVisibleProjects,
 } = useProjectFilter();
+
+const featuredProjects = computed(() =>
+  FEATURED_PROJECT_IDS.map(id =>
+    projects.find(project => project.id === id),
+  ).filter(
+    (project): project is (typeof projects)[number] => project !== undefined,
+  ),
+);
 
 const yearOptions = computed<FilterOption<number>[]>(() =>
   uniqueYears.value.map(year => ({
@@ -87,6 +118,25 @@ const technologyOptions = computed<FilterOption[]>(() =>
   flex-wrap: wrap;
   gap: 0;
   margin-bottom: 40px;
+}
+
+.featured-projects {
+  margin-bottom: 100px;
+}
+
+.projects-subtitle {
+  margin-bottom: 16px;
+  color: var(--text-link-hover);
+  font-size: 1.75rem;
+}
+
+.projects-intro {
+  margin-bottom: 32px;
+  color: var(--text-secondary);
+}
+
+.featured-projects-grid {
+  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
 }
 
 .projects-empty {

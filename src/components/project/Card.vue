@@ -13,7 +13,13 @@
 
     <div class="project-info">
       <h3 class="project-title">{{ project.title }}</h3>
-      <p class="project-description">{{ project.description }}</p>
+      <p class="project-description">
+        {{
+          featured && project.featuredDescription
+            ? project.featuredDescription
+            : project.description
+        }}
+      </p>
 
       <div class="technologies">
         <span v-for="tech in project.technologies" :key="tech" class="tech-tag">
@@ -60,6 +66,7 @@ import DemoModal from './DemoModal.vue';
 
 defineProps<{
   project: Project;
+  featured?: boolean;
 }>();
 
 const isModalOpen = ref(false);

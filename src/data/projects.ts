@@ -199,6 +199,8 @@ export const projects: Project[] = [
     github: 'https://github.com/DanilChugaev/labyrinth',
     demo: 'https://danilchugaev.github.io/labyrinth/',
     image: `${IMAGE_DIR}/labyrinth.webp`,
+    featuredDescription:
+      'Игра-лабиринт с процедурной генерацией уникальных уровней, Canvas и вычислениями в Web Workers.',
   },
 
   // ==================== СЕРВИСЫ ====================
@@ -219,6 +221,8 @@ export const projects: Project[] = [
     github: 'https://github.com/DanilChugaev/todos-daily',
     demo: 'https://danilchugaev.github.io/todos-daily/',
     image: `${IMAGE_DIR}/todos-daily.webp`,
+    featuredDescription:
+      'Минималистичный offline-first менеджер задач с локальным хранением данных в IndexedDB.',
   },
   {
     id: 11,
@@ -242,6 +246,8 @@ export const projects: Project[] = [
     github: 'https://github.com/DanilChugaev/prompt-architect',
     demo: 'https://danilchugaev.github.io/prompt-architect/',
     image: `${IMAGE_DIR}/prompt-architect.webp`,
+    featuredDescription:
+      'Интерактивный редактор структурированных промптов для локальных ИИ-моделей на Vue 3 с PWA-возможностями.',
   },
   {
     id: 12,
@@ -342,6 +348,8 @@ export const projects: Project[] = [
     ],
     github: 'https://github.com/DanilChugaev/ostrovok-hackathon-2025',
     image: `${IMAGE_DIR}/ostrovok-hackathon-2025.webp`,
+    featuredDescription:
+      'Прототип «Секретного гостя» для платформы бронирования: финалист Ostrovok Tech, топ-10 из 221 команды. После распада команды 99% реализации выполнил самостоятельно.',
   },
   {
     id: 16,
@@ -360,6 +368,8 @@ export const projects: Project[] = [
     ],
     github: 'https://github.com/DanilChugaev/voice-to-text-obsidian-plugin',
     image: `${IMAGE_DIR}/voice-to-text.webp`,
+    featuredDescription:
+      'Плагин Obsidian для локального преобразования речи в текст: MediaRecorder API, FFmpeg, Vosk и Python.',
   },
   {
     id: 17,
