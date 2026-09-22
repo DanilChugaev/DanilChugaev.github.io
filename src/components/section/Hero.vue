@@ -1,7 +1,7 @@
 <template>
   <Section id="hero" class="hero" aria-labelledby="hero-title">
     <div class="hero-content">
-      <div class="hero-badge">Senior Frontend Developer</div>
+      <div class="hero-badge">Публичное техническое портфолио</div>
 
       <h1 id="hero-title" class="hero-title">Данил Чугаев</h1>
 
@@ -11,11 +11,14 @@
 
       <div class="hero-highlights">
         <div class="highlight-item">
-          <span class="accent">LCP</span> ×2 ускорение
+          Pet-проекты, тестовые задания и open source
         </div>
-        <div class="highlight-item"><span class="accent">DAU</span> +18%</div>
-        <div class="highlight-item">MTTR 3ч → 20мин</div>
       </div>
+
+      <p class="hero-description">
+        Здесь можно изучить публичный код, архитектурные решения и работающие
+        демо. Коммерческий опыт — в резюме.
+      </p>
 
       <div class="hero-buttons">
         <a
@@ -26,12 +29,8 @@
           Смотреть проекты
         </a>
 
-        <a
-          href="#about"
-          class="btn"
-          @click.prevent="$emit('scrollToSection', 'about')"
-        >
-          Обо мне
+        <a href="/Danil_Chugaev_cv.pdf" class="btn" download>
+          Скачать резюме
         </a>
 
         <a
@@ -106,7 +105,7 @@ defineEmits<{
   display: flex;
   justify-content: center;
   gap: 32px;
-  margin-bottom: 50px;
+  margin-bottom: 20px;
   flex-wrap: wrap;
 
   @media (max-width: 499px) {
@@ -121,6 +120,13 @@ defineEmits<{
   border-radius: 12px;
   font-size: 1.1rem;
   font-weight: 500;
+}
+
+.hero-description {
+  max-width: 680px;
+  margin: 0 auto 50px;
+  color: var(--text-secondary);
+  font-size: 1.05rem;
 }
 
 .accent {

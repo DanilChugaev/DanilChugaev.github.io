@@ -7,10 +7,10 @@ test.describe('Hero секция', () => {
     await expect(heroTitle).toHaveText('Данил Чугаев');
   });
 
-  test('badge "Senior Frontend Developer" отображается', async ({ page }) => {
+  test('badge с назначением портфолио отображается', async ({ page }) => {
     const badge = page.locator('.hero-badge');
     await expect(badge).toBeVisible();
-    await expect(badge).toHaveText('Senior Frontend Developer');
+    await expect(badge).toHaveText('Публичное техническое портфолио');
   });
 
   test('подзаголовок отображается', async ({ page }) => {
@@ -20,18 +20,20 @@ test.describe('Hero секция', () => {
     await expect(subtitle).toContainText('Эксперт Vue 3 / Nuxt 4 / TypeScript');
   });
 
-  test('метрики отображаются (LCP, DAU, MTTR)', async ({ page }) => {
+  test('назначение портфолио и ссылка на резюме отображаются', async ({
+    page,
+  }) => {
     const highlights = page.locator('.hero-highlights');
     await expect(highlights).toBeVisible();
 
     const items = highlights.locator('.highlight-item');
-    await expect(items).toHaveCount(3);
-    await expect(items.nth(0)).toContainText('LCP');
-    await expect(items.nth(0)).toContainText('×2 ускорение');
-    await expect(items.nth(1)).toContainText('DAU');
-    await expect(items.nth(1)).toContainText('+18%');
-    await expect(items.nth(2)).toContainText('MTTR');
-    await expect(items.nth(2)).toContainText('3ч → 20мин');
+    await expect(items).toHaveCount(1);
+    await expect(items.first()).toContainText(
+      'Pet-проекты, тестовые задания и open source',
+    );
+
+    const description = page.locator('.hero-description');
+    await expect(description).toContainText('Коммерческий опыт — в резюме');
   });
 
   test('три кнопки в hero секции', async ({ page }) => {
@@ -46,12 +48,12 @@ test.describe('Hero секция', () => {
     await expect(primaryBtn).toHaveAttribute('href', '#projects');
   });
 
-  test('кнопка "Обо мне" имеет href="#about"', async ({ page }) => {
+  test('кнопка "Скачать резюме" загружает PDF', async ({ page }) => {
     const buttons = page.locator('.hero-buttons .btn');
-    // Вторая кнопка — "Обо мне" (не primary)
-    const aboutBtn = buttons.nth(1);
-    await expect(aboutBtn).toHaveText('Обо мне');
-    await expect(aboutBtn).toHaveAttribute('href', '#about');
+    const cvBtn = buttons.nth(1);
+    await expect(cvBtn).toHaveText('Скачать резюме');
+    await expect(cvBtn).toHaveAttribute('href', '/Danil_Chugaev_cv.pdf');
+    await expect(cvBtn).toHaveAttribute('download', '');
   });
 
   test('кнопка "GitHub" ведет на внешний ресурс', async ({ page }) => {
@@ -73,17 +75,6 @@ test.describe('Hero секция', () => {
     await page.waitForTimeout(300);
     const projectsSection = page.locator('section#projects');
     const box = await projectsSection.boundingBox();
-    expect(box).not.toBeNull();
-    expect(box!.y).toBeGreaterThanOrEqual(-100);
-  });
-
-  test('кнопка "Обо мне" скроллит к about', async ({ page }) => {
-    const aboutBtn = page.locator('.hero-buttons .btn').nth(1);
-    await aboutBtn.click();
-
-    await page.waitForTimeout(300);
-    const aboutSection = page.locator('section#about');
-    const box = await aboutSection.boundingBox();
     expect(box).not.toBeNull();
     expect(box!.y).toBeGreaterThanOrEqual(-100);
   });
