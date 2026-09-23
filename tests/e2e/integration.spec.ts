@@ -303,6 +303,28 @@ test.describe('Интеграция DemoModal', () => {
     }
   });
 
+  test('модальное окно даёт ссылку на демо и подпись iframe', async ({
+    page,
+  }) => {
+    const demoButtons = page.locator(
+      '.link-btn.primary:has-text("Посмотреть демо")',
+    );
+
+    if ((await demoButtons.count()) > 0) {
+      await demoButtons.first().click();
+      await page.waitForTimeout(300);
+
+      const dialog = page.locator('[role="dialog"]');
+      await expect(
+        dialog.getByRole('link', { name: 'Открыть отдельно' }),
+      ).toHaveAttribute('target', '_blank');
+      await expect(dialog.locator('iframe')).toHaveAttribute(
+        'title',
+        /Демо проекта/,
+      );
+    }
+  });
+
   test('фокус попадает в модальное окно при открытии', async ({ page }) => {
     const demoButtons = page.locator(
       '.link-btn.primary:has-text("Посмотреть демо")',

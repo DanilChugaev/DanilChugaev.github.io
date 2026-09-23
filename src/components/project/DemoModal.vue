@@ -12,33 +12,51 @@
           @keydown.tab="trapFocus"
         >
           <div class="modal-header">
-            <h2 id="demo-modal-title" class="modal-title">
-              {{ projectTitle }}
-            </h2>
-            <button
-              ref="closeButton"
-              class="modal-close"
-              @click="close"
-              aria-label="Закрыть"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+            <div class="modal-heading">
+              <span class="modal-kicker">Демо проекта</span>
+              <h2 id="demo-modal-title" class="modal-title">
+                {{ projectTitle }}
+              </h2>
+            </div>
+            <div class="modal-actions">
+              <a
+                :href="demoUrl"
+                class="modal-open-link"
+                target="_blank"
+                rel="noopener noreferrer"
               >
-                <line x1="18" y1="6" x2="6" y2="18" />
-                <line x1="6" y1="6" x2="18" y2="18" />
-              </svg>
-            </button>
+                Открыть отдельно
+              </a>
+              <button
+                ref="closeButton"
+                class="modal-close"
+                @click="close"
+                aria-label="Закрыть"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <line x1="18" y1="6" x2="6" y2="18" />
+                  <line x1="6" y1="6" x2="18" y2="18" />
+                </svg>
+              </button>
+            </div>
           </div>
           <div class="modal-body">
-            <div v-if="!isLoaded" class="preloader">
+            <div
+              v-if="!isLoaded"
+              class="preloader"
+              role="status"
+              aria-live="polite"
+            >
               <svg class="spinner" viewBox="0 0 50 50">
                 <circle
                   class="spinner-path"
@@ -49,10 +67,14 @@
                   stroke-width="5"
                 />
               </svg>
+              <span class="visually-hidden"
+                >Загрузка демо {{ projectTitle }}</span
+              >
             </div>
             <iframe
               :src="demoUrl"
               :key="demoUrl"
+              :title="`Демо проекта ${projectTitle}`"
               class="modal-iframe"
               @load="onIframeLoad"
               loading="lazy"
@@ -164,34 +186,78 @@ onBeforeUnmount(() => {
   align-items: center;
   justify-content: center;
   background: var(--bg-modal-overlay);
-  padding: 20px;
+  padding: 12px;
 }
 
 .modal-content {
   position: relative;
-  background: var(--white-modal);
-  border-radius: 12px;
-  width: 95%;
-  max-width: 1200px;
-  height: 90vh;
+  width: 100%;
+  height: 100%;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-primary);
+  border-radius: 16px;
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  box-shadow: var(--shadow-color);
+  box-shadow: 0 24px 80px var(--shadow-color);
 }
 
 .modal-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 16px 20px;
+  min-height: 76px;
+  padding: 12px 16px 12px 24px;
+  background: var(--bg-secondary);
   border-bottom: 1px solid var(--border-medium);
+}
+
+.modal-heading {
+  min-width: 0;
+}
+
+.modal-kicker {
+  display: block;
+  margin-bottom: 2px;
+  color: var(--accent-bright);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 .modal-title {
   margin: 0;
-  font-size: 1.2rem;
+  overflow: hidden;
+  color: var(--text-link-hover);
+  font-size: 1.1rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.modal-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.modal-open-link {
+  padding: 8px 12px;
+  border: 1px solid var(--border-dark);
+  border-radius: 6px;
   color: var(--text-modal-title);
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition:
+    border-color 0.2s,
+    color 0.2s;
+}
+
+.modal-open-link:hover {
+  border-color: var(--accent);
+  color: var(--white);
 }
 
 .modal-close {
@@ -201,8 +267,8 @@ onBeforeUnmount(() => {
   width: 36px;
   height: 36px;
   padding: 0;
-  background: transparent;
-  border: none;
+  background: var(--bg-card);
+  border: 1px solid var(--border-dark);
   border-radius: 8px;
   color: var(--text-modal-close);
   cursor: pointer;
@@ -212,12 +278,15 @@ onBeforeUnmount(() => {
 }
 
 .modal-close:hover {
-  background: var(--border-medium);
+  background: var(--bg-card-hover);
+  border-color: var(--accent);
   color: var(--text-link-hover);
 }
 
 .modal-body {
   flex: 1;
+  min-height: 0;
+  background: var(--white);
   overflow: hidden;
 }
 
@@ -235,6 +304,39 @@ onBeforeUnmount(() => {
   justify-content: center;
   background: var(--bg-card);
   z-index: 1;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (max-width: 640px) {
+  .modal-overlay {
+    padding: 0;
+  }
+
+  .modal-content {
+    border: 0;
+    border-radius: 0;
+  }
+
+  .modal-header {
+    min-height: 64px;
+    padding: 10px 12px 10px 16px;
+  }
+
+  .modal-kicker,
+  .modal-open-link {
+    display: none;
+  }
 }
 
 .spinner {
