@@ -1,15 +1,20 @@
 <template>
-  <div ref="filterGroup" class="filter-group">
+  <div
+    ref="filterGroup"
+    class="filter-group"
+    @focusout="closeOnFocusOut"
+    @keydown.escape.stop="closeAndRestoreFocus"
+  >
     <span :id="`filter-${name}-label`" class="filter-label">{{ label }}</span>
     <button
       :id="`filter-${name}`"
+      ref="trigger"
       class="filter-trigger"
       type="button"
       :aria-expanded="isOpen"
       :aria-controls="`filter-${name}-options`"
       :aria-labelledby="`filter-${name}-label filter-${name}`"
-      @click="isOpen = !isOpen"
-      @keydown.escape="isOpen = false"
+      @click="toggle"
     >
       <span>{{ selectionLabel }}</span>
       <span class="filter-chevron" aria-hidden="true"></span>
@@ -28,6 +33,7 @@
         :class="['filter-option', { disabled: option.disabled }]"
       >
         <input
+          ref="optionInputs"
           v-model="modelValue"
           type="checkbox"
           :value="option.value"
@@ -40,7 +46,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onBeforeUnmount, onMounted, ref } from 'vue';
+import { computed, nextTick, onBeforeUnmount, onMounted, ref } from 'vue';
 import type { FilterOption } from '@/types.ts';
 
 const props = defineProps<{
@@ -52,6 +58,8 @@ const props = defineProps<{
 const modelValue = defineModel<(string | number)[]>({ default: () => [] });
 const isOpen = ref(false);
 const filterGroup = ref<HTMLElement | null>(null);
+const trigger = ref<HTMLButtonElement | null>(null);
+const optionInputs = ref<HTMLInputElement[]>([]);
 
 const selectionLabel = computed(() => {
   if (modelValue.value.length === 0) return 'Все';
@@ -65,6 +73,28 @@ const selectionLabel = computed(() => {
 
 function closeOnOutsideClick(event: MouseEvent) {
   if (!filterGroup.value?.contains(event.target as Node)) {
+    isOpen.value = false;
+  }
+}
+
+async function toggle() {
+  isOpen.value = !isOpen.value;
+
+  if (isOpen.value) {
+    await nextTick();
+    optionInputs.value.find(input => !input.disabled)?.focus();
+  }
+}
+
+function closeAndRestoreFocus() {
+  isOpen.value = false;
+  trigger.value?.focus();
+}
+
+function closeOnFocusOut(event: FocusEvent) {
+  const nextFocusedElement = event.relatedTarget as Node | null;
+
+  if (nextFocusedElement && !filterGroup.value?.contains(nextFocusedElement)) {
     isOpen.value = false;
   }
 }

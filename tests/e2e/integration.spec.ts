@@ -142,6 +142,33 @@ test.describe('Интеграция FilterGroup', () => {
     );
     expect(background).toBeTruthy();
   });
+
+  test('фокус переходит в меню и возвращается на триггер по Escape', async ({
+    page,
+  }) => {
+    const yearFilter = page.locator('.filter-group').filter({ hasText: 'Год' });
+    const trigger = yearFilter.locator('.filter-trigger');
+
+    await trigger.focus();
+    await page.keyboard.press('Enter');
+    await expect(yearFilter.locator('input').first()).toBeFocused();
+
+    await page.keyboard.press('Escape');
+    await expect(trigger).toBeFocused();
+    await expect(yearFilter.locator('.filter-options')).toHaveCount(0);
+  });
+
+  test('меню закрывается, когда фокус покидает фильтр', async ({ page }) => {
+    const yearFilter = page.locator('.filter-group').filter({ hasText: 'Год' });
+    const trigger = yearFilter.locator('.filter-trigger');
+
+    await trigger.focus();
+    await page.keyboard.press('Enter');
+    await expect(yearFilter.locator('.filter-options')).toBeVisible();
+
+    await page.locator('.logo-link').focus();
+    await expect(yearFilter.locator('.filter-options')).toHaveCount(0);
+  });
 });
 
 test.describe('Интеграция DemoModal', () => {
