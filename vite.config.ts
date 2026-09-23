@@ -36,6 +36,9 @@ export default defineConfig({
       },
       workbox: {
         globPatterns: ['**/*.{js,css,html,png,svg,woff2}'],
+        // Портфолио публикуется в корне домена и его Service Worker контролирует
+        // также страницы демо в подпапках. Не подменяем их index.html портфолио.
+        navigateFallbackDenylist: [/^\/.+/],
       },
     }),
   ],
