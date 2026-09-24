@@ -16,9 +16,10 @@ export default defineConfig({
     VitePWA({
       registerType: 'autoUpdate',
       manifest: {
-        name: '️Portfolio',
-        short_name: '️Portfolio',
-        description: 'Danil Chugaev`s Pet Projects',
+        name: 'Danil Chugaev — Portfolio',
+        short_name: 'Danil Chugaev',
+        description:
+          'Публичное техническое портфолио: pet-проекты, тестовые задания и open source.',
         display: 'standalone',
         theme_color: '#1e1e1e',
         icons: [
