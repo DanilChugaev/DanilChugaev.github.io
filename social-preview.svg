@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title description">
+  <title id="title">Данил Чугаев — публичное техническое портфолио</title>
+  <desc id="description">Pet-проекты, тестовые задания и open source frontend-разработчика</desc>
+  <defs>
+    <linearGradient id="background" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0a0a0a"/>
+      <stop offset="1" stop-color="#1e1e1e"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#3388ff"/>
+      <stop offset="1" stop-color="#0066ff"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#background)"/>
+  <circle cx="1090" cy="-30" r="295" fill="#0066ff" opacity=".12"/>
+  <circle cx="1130" cy="-20" r="190" fill="#3388ff" opacity=".1"/>
+  <rect x="70" y="75" width="310" height="46" rx="23" fill="#0066ff" fill-opacity=".15" stroke="#0066ff" stroke-opacity=".4"/>
+  <text x="100" y="105" fill="#3388ff" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="700">FRONTEND DEVELOPER</text>
+  <text x="70" y="230" fill="#fff" font-family="Arial, Helvetica, sans-serif" font-size="76" font-weight="700">Данил Чугаев</text>
+  <text x="70" y="295" fill="#b0b0b0" font-family="Arial, Helvetica, sans-serif" font-size="32">Публичное техническое портфолио</text>
+  <line x1="70" y1="352" x2="1130" y2="352" stroke="#333" stroke-width="2"/>
+  <text x="70" y="425" fill="#ddd" font-family="Arial, Helvetica, sans-serif" font-size="29">Vue 3 · Nuxt · React · TypeScript · PWA</text>
+  <text x="70" y="482" fill="#b0b0b0" font-family="Arial, Helvetica, sans-serif" font-size="27">Pet-проекты, тестовые задания и open source</text>
+  <rect x="70" y="530" width="320" height="6" rx="3" fill="url(#accent)"/>
+  <text x="70" y="588" fill="#888" font-family="Arial, Helvetica, sans-serif" font-size="24">danilchugaev.github.io</text>
+</svg>
