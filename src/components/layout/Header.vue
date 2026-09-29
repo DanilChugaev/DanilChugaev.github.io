@@ -6,6 +6,7 @@
       </div>
 
       <nav
+        ref="navigationRef"
         :class="['nav', { open: isMenuOpen }]"
         aria-label="Основная навигация"
       >
@@ -20,6 +21,7 @@
       </nav>
 
       <button
+        ref="menuButtonRef"
         class="mobile-menu-btn"
         :aria-label="isMenuOpen ? 'Закрыть меню' : 'Открыть меню'"
         :aria-expanded="isMenuOpen"
@@ -32,7 +34,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { onBeforeUnmount, onMounted, ref } from 'vue';
 import { navigation } from '@/data/navigation';
 import type { SectionIdType } from '@/types.ts';
 import SvgIcon from '@/icons/SvgIcon.vue';
@@ -42,6 +44,33 @@ const emit = defineEmits<{
 }>();
 
 const isMenuOpen = ref(false);
+const navigationRef = ref<HTMLElement | null>(null);
+const menuButtonRef = ref<HTMLButtonElement | null>(null);
+
+function closeMenuOnOutsidePointerDown(event: PointerEvent) {
+  if (
+    !isMenuOpen.value ||
+    !window.matchMedia('(max-width: 768px)').matches ||
+    !(event.target instanceof Node)
+  ) {
+    return;
+  }
+
+  const isClickInsideNavigation = navigationRef.value?.contains(event.target);
+  const isClickOnMenuButton = menuButtonRef.value?.contains(event.target);
+
+  if (!isClickInsideNavigation && !isClickOnMenuButton) {
+    isMenuOpen.value = false;
+  }
+}
+
+onMounted(() => {
+  document.addEventListener('pointerdown', closeMenuOnOutsidePointerDown);
+});
+
+onBeforeUnmount(() => {
+  document.removeEventListener('pointerdown', closeMenuOnOutsidePointerDown);
+});
 
 function scrollToSection(sectionId: SectionIdType) {
   isMenuOpen.value = false;

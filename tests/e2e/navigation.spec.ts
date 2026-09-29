@@ -123,6 +123,41 @@ test.describe('Навигация — Header', () => {
     await expect(nav).not.toHaveClass(/open/);
   });
 
+  test('мобильное меню закрывается при клике вне него', async ({ page }) => {
+    await page.setViewportSize({ width: 375, height: 667 });
+    const mobileMenuBtn = page.locator('.mobile-menu-btn');
+    const nav = page.locator('.nav');
+
+    await mobileMenuBtn.click();
+    await expect(nav).toHaveClass(/open/);
+    await expect(mobileMenuBtn).toHaveAttribute('aria-expanded', 'true');
+
+    await page
+      .locator('main')
+      .click({ position: { x: 16, y: 500 }, force: true });
+
+    await expect(nav).not.toHaveClass(/open/);
+    await expect(mobileMenuBtn).toHaveAttribute('aria-expanded', 'false');
+  });
+
+  test('мобильное меню снова открывается после закрытия внешним кликом', async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 375, height: 667 });
+    const mobileMenuBtn = page.locator('.mobile-menu-btn');
+    const nav = page.locator('.nav');
+
+    await mobileMenuBtn.click();
+    await page
+      .locator('main')
+      .click({ position: { x: 16, y: 500 }, force: true });
+    await expect(nav).not.toHaveClass(/open/);
+
+    await mobileMenuBtn.click();
+    await expect(nav).toHaveClass(/open/);
+    await expect(mobileMenuBtn).toHaveAttribute('aria-expanded', 'true');
+  });
+
   test('мобильное меню закрывается при клике на пункт навигации', async ({
     page,
   }) => {
