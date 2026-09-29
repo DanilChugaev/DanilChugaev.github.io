@@ -99,6 +99,10 @@ defineEmits<{
   color: var(--text-secondary);
   margin-bottom: 40px;
   line-height: 1.4;
+
+  @media (max-width: 640px) {
+    margin-bottom: 28px;
+  }
 }
 
 .hero-highlights {
@@ -127,6 +131,10 @@ defineEmits<{
   margin: 0 auto 50px;
   color: var(--text-secondary);
   font-size: 1.05rem;
+
+  @media (max-width: 640px) {
+    margin-bottom: 32px;
+  }
 }
 
 .accent {
@@ -141,6 +149,7 @@ defineEmits<{
 
   @media (max-width: 640px) {
     flex-direction: column;
+    gap: 12px;
   }
 }
 

@@ -210,6 +210,10 @@ function resetFilters() {
 
 .featured-projects {
   margin-bottom: 100px;
+
+  @media (max-width: 640px) {
+    margin-bottom: 64px;
+  }
 }
 
 .projects-subtitle {

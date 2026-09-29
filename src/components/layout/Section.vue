@@ -25,6 +25,10 @@ const titleId = `${props.id}-title`;
     font-size: 2.5rem;
     text-align: center;
     margin-bottom: 60px;
+
+    @media (max-width: 640px) {
+      margin-bottom: 36px;
+    }
   }
 }
 </style>

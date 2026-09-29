@@ -116,4 +116,10 @@ import SvgIcon from '@/icons/SvgIcon.vue';
     grid-template-columns: 1fr;
   }
 }
+
+@media (max-width: 640px) {
+  .contact-content {
+    gap: 32px;
+  }
+}
 </style>
