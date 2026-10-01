@@ -110,7 +110,7 @@ function openDemo() {
   min-height: 400px;
 
   @media (max-width: 640px) {
-    min-height: 300px;
+    min-height: initial;
   }
 }
 
