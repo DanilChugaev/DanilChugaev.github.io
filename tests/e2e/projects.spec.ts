@@ -47,7 +47,7 @@ test.describe('Projects секция', () => {
       'TODOS Daily',
       'Voice-to-Text Obsidian Plugin',
       'Labyrinth',
-      'Хакатон в Островке',
+      'Scheme generator',
     ]) {
       await expect(featuredProjects).toContainText(title);
     }
