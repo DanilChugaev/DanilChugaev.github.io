@@ -16,6 +16,7 @@
     "test:unit:cov": "vitest run --coverage",
     "test:e2e": "playwright test",
     "test:e2e:chromium": "playwright test --project=chromium",
+    "test:e2e:mobile": "playwright test --project='Mobile Chrome'",
     "test:e2e:headed": "playwright test --headed",
     "test:e2e:debug": "playwright test --debug",
     "test:e2e:report": "playwright show-report"

@@ -1,33 +1,54 @@
 import { test, expect } from '../fixtures/base-fixtures';
 
+async function selectFilterOption(
+  page: import('@playwright/test').Page,
+  filterLabel: string,
+  optionLabel: string,
+) {
+  const filter = page.locator('.filter-group').filter({ hasText: filterLabel });
+  const trigger = filter.locator('.filter-trigger');
+  if ((await trigger.getAttribute('aria-expanded')) !== 'true') {
+    await trigger.click();
+  }
+  await filter
+    .locator('.filter-option')
+    .filter({ hasText: optionLabel })
+    .locator('input')
+    .click();
+}
+
+async function openDemoModal(page: import('@playwright/test').Page) {
+  const demoButton = page
+    .locator('.all-projects .link-btn.primary:has-text("Посмотреть демо")')
+    .first();
+  await expect(demoButton).toBeVisible();
+  await demoButton.click();
+
+  const dialog = page.getByRole('dialog');
+  await expect(dialog).toBeVisible();
+  return dialog;
+}
+
 test.describe('Интеграция FilterGroup', () => {
   test.beforeEach(async ({ page }) => {
-    // Переходим к секции проектов
-    await page.locator('.nav a').nth(3).click();
-    await page.waitForTimeout(300);
+    await page.locator('.nav a[href="#projects"]').click();
   });
 
   test('фильтр по году переключается и фильтрует проекты', async ({ page }) => {
     const yearFilter = page.locator('.filter-group').filter({ hasText: 'Год' });
     const yearTrigger = yearFilter.locator('.filter-trigger');
     await expect(yearTrigger).toBeVisible();
-    await yearTrigger.click();
-    await yearFilter.locator('label').filter({ hasText: '2024' }).click();
+    await selectFilterOption(page, 'Год', '2024');
     await page.waitForTimeout(300);
     await expect(yearTrigger).toHaveText('2024');
 
-    // Проверяем что карточки проектов отфильтровались
-    const visibleCards = page.locator('.project-card');
+    const visibleCards = page.locator('.all-projects .project-card:visible');
     const count = await visibleCards.count();
-    expect(count).toBeGreaterThanOrEqual(0);
+    expect(count).toBeGreaterThan(0);
 
-    if (count > 0) {
-      for (let i = 0; i < count; i++) {
-        const card = visibleCards.nth(i);
-        // Проверяем что у карточки есть какой-то текст (проект отображается)
-        const innerText = await card.textContent();
-        expect(innerText?.length).toBeGreaterThan(0);
-      }
+    for (let i = 0; i < count; i++) {
+      const card = visibleCards.nth(i);
+      await expect(card.locator('.year-badge')).toHaveText('2024');
     }
   });
 
@@ -38,7 +59,7 @@ test.describe('Интеграция FilterGroup', () => {
     await page.waitForTimeout(300);
     await expect(yearTrigger).toHaveText('Все');
 
-    const visibleCards = page.locator('.project-card');
+    const visibleCards = page.locator('.all-projects .project-card:visible');
     const count = await visibleCards.count();
     expect(count).toBeGreaterThan(5);
   });
@@ -48,8 +69,7 @@ test.describe('Интеграция FilterGroup', () => {
       .locator('.filter-group')
       .filter({ hasText: 'Тип проекта' });
     const typeTrigger = typeFilter.locator('.filter-trigger');
-    await typeTrigger.click();
-    await typeFilter.locator('label').filter({ hasText: 'Сервисы' }).click();
+    await selectFilterOption(page, 'Тип проекта', 'Сервисы');
     await expect(typeTrigger).toHaveText('Сервисы');
   });
 
@@ -58,10 +78,8 @@ test.describe('Интеграция FilterGroup', () => {
     const typeFilter = page
       .locator('.filter-group')
       .filter({ hasText: 'Тип проекта' });
-    await yearFilter.locator('.filter-trigger').click();
-    await yearFilter.locator('label').filter({ hasText: '2024' }).click();
-    await typeFilter.locator('.filter-trigger').click();
-    await typeFilter.locator('label').filter({ hasText: 'Тестовые' }).click();
+    await selectFilterOption(page, 'Год', '2024');
+    await selectFilterOption(page, 'Тип проекта', 'Тестовые');
     await expect(yearFilter.locator('.filter-trigger')).toHaveText('2024');
     await expect(typeFilter.locator('.filter-trigger')).toHaveText('Тестовые');
   });
@@ -72,9 +90,8 @@ test.describe('Интеграция FilterGroup', () => {
     const yearFilter = page.locator('.filter-group').filter({ hasText: 'Год' });
     const yearTrigger = yearFilter.locator('.filter-trigger');
 
-    await yearTrigger.click();
-    await yearFilter.locator('label').filter({ hasText: '2024' }).click();
-    await yearFilter.locator('label').filter({ hasText: '2026' }).click();
+    await selectFilterOption(page, 'Год', '2024');
+    await selectFilterOption(page, 'Год', '2026');
 
     await expect(yearTrigger).toHaveText('2024, 2026');
     await expect(yearFilter.locator('input:checked')).toHaveCount(2);
@@ -83,13 +100,11 @@ test.describe('Интеграция FilterGroup', () => {
   test('несовместимые варианты становятся disabled и переносятся вниз', async ({
     page,
   }) => {
-    const yearFilter = page.locator('.filter-group').filter({ hasText: 'Год' });
     const typeFilter = page
       .locator('.filter-group')
       .filter({ hasText: 'Тип проекта' });
 
-    await yearFilter.locator('.filter-trigger').click();
-    await yearFilter.locator('label').filter({ hasText: '2026' }).click();
+    await selectFilterOption(page, 'Год', '2026');
     await typeFilter.locator('.filter-trigger').click();
 
     const testOption = typeFilter
@@ -110,9 +125,7 @@ test.describe('Интеграция FilterGroup', () => {
     await expect(summary).toContainText('Найдено: 18');
     await expect(summary.getByRole('button')).toHaveCount(0);
 
-    const yearFilter = page.locator('.filter-group').filter({ hasText: 'Год' });
-    await yearFilter.locator('.filter-trigger').click();
-    await yearFilter.locator('label').filter({ hasText: '2026' }).click();
+    await selectFilterOption(page, 'Год', '2026');
 
     await expect(summary).toContainText('Найдено: 6');
     const resetButton = summary.getByRole('button', { name: 'Сбросить все' });
@@ -173,172 +186,63 @@ test.describe('Интеграция FilterGroup', () => {
 
 test.describe('Интеграция DemoModal', () => {
   test.beforeEach(async ({ page }) => {
-    await page.locator('.nav a').nth(3).click();
-    await page.waitForTimeout(300);
+    await page.locator('.nav a[href="#projects"]').click();
   });
 
   test('клик по "Посмотреть демо" открывает модальное окно', async ({
     page,
   }) => {
-    const demoButtons = page.locator(
-      '.link-btn.primary:has-text("Посмотреть демо")',
-    );
-    const count = await demoButtons.count();
-    expect(count).toBeGreaterThan(0);
-
-    if (count > 0) {
-      await demoButtons.first().click();
-      await page.waitForTimeout(300);
-
-      // Модальное окно должно появиться
-      const modal = page.locator('.demo-modal, [role="dialog"], .modal');
-      if ((await modal.count()) > 0) {
-        await expect(modal).toBeVisible();
-      }
-    }
+    await openDemoModal(page);
   });
 
   test('модальное окно закрывается по крестику', async ({ page }) => {
-    const demoButtons = page.locator(
-      '.link-btn.primary:has-text("Посмотреть демо")',
-    );
-
-    if ((await demoButtons.count()) > 0) {
-      await demoButtons.first().click();
-      await page.waitForTimeout(3000);
-
-      // Ищем кнопку закрытия
-      const closeBtn = page.locator(
-        '.close-btn, [aria-label="Закрыть"], .modal-close',
-      );
-      if ((await closeBtn.count()) > 0) {
-        await closeBtn.click();
-        await page.waitForTimeout(300);
-
-        // Модальное окно должно исчезнуть
-        const modal = page.locator('.demo-modal, [role="dialog"], .modal');
-        if ((await modal.count()) > 0) {
-          await expect(modal).not.toBeVisible();
-        }
-      }
-    }
+    const dialog = await openDemoModal(page);
+    await dialog.getByRole('button', { name: 'Закрыть' }).click();
+    await expect(dialog).not.toBeVisible();
   });
 
   test('модальное окно закрывается по ESC', async ({ page }) => {
-    const demoButtons = page.locator(
-      '.link-btn.primary:has-text("Посмотреть демо")',
-    );
-
-    if ((await demoButtons.count()) > 0) {
-      await demoButtons.first().click();
-      await page.waitForTimeout(300);
-
-      // Нажимаем ESC
-      await page.keyboard.press('Escape');
-      await page.waitForTimeout(300);
-
-      const modal = page.locator('.demo-modal, [role="dialog"], .modal');
-      if ((await modal.count()) > 0) {
-        await expect(modal).not.toBeVisible();
-      }
-    }
+    const dialog = await openDemoModal(page);
+    await page.keyboard.press('Escape');
+    await expect(dialog).not.toBeVisible();
   });
 
   test('модальное окно закрывается по клику вне контента', async ({ page }) => {
-    const demoButtons = page.locator(
-      '.link-btn.primary:has-text("Посмотреть демо")',
-    );
-
-    if ((await demoButtons.count()) > 0) {
-      await demoButtons.first().click();
-      await page.waitForTimeout(300);
-
-      // Клик вне контента модалки
-      await page.locator('.modal-overlay').click({ position: { x: 5, y: 5 } });
-      await page.waitForTimeout(300);
-
-      const modal = page.locator('.demo-modal, [role="dialog"], .modal');
-      if ((await modal.count()) > 0) {
-        await expect(modal).not.toBeVisible();
-      }
-    }
+    const dialog = await openDemoModal(page);
+    await page.locator('.modal-overlay').click({ position: { x: 5, y: 5 } });
+    await expect(dialog).not.toBeVisible();
   });
 
   test('модальное окно имеет затемненный фон', async ({ page }) => {
-    const demoButtons = page.locator(
-      '.link-btn.primary:has-text("Посмотреть демо")',
-    );
-
-    if ((await demoButtons.count()) > 0) {
-      await demoButtons.first().click();
-      await page.waitForTimeout(300);
-
-      // Ищем overlay (backdrop) по всем возможным селекторам
-      const overlay = page.locator('.modal-overlay, .backdrop');
-      if ((await overlay.count()) > 0) {
-        const bg = await overlay.evaluate(
-          el => getComputedStyle(el).backgroundColor,
-        );
-        // Фон может быть rgba(0, 0, 0, 0.8) или rgba(0, 0, 0, 0.5)
-        expect(bg).toContain('0, 0, 0');
-      }
-    }
+    await openDemoModal(page);
+    const overlay = page.locator('.modal-overlay');
+    await expect(overlay).toBeVisible();
+    await expect(overlay).toHaveCSS('background-color', 'rgba(0, 0, 0, 0.8)');
   });
 
   test('модальное окно имеет кнопку закрытия с aria-label', async ({
     page,
   }) => {
-    const demoButtons = page.locator(
-      '.link-btn.primary:has-text("Посмотреть демо")',
-    );
-
-    if ((await demoButtons.count()) > 0) {
-      await demoButtons.first().click();
-      await page.waitForTimeout(300);
-
-      const closeBtn = page.locator('[aria-label="Закрыть"], .close-btn');
-      if ((await closeBtn.count()) > 0) {
-        await expect(closeBtn).toHaveAttribute('aria-label', 'Закрыть');
-      }
-    }
+    const dialog = await openDemoModal(page);
+    await expect(dialog.getByRole('button', { name: 'Закрыть' })).toBeVisible();
   });
 
   test('модальное окно даёт ссылку на демо и подпись iframe', async ({
     page,
   }) => {
-    const demoButtons = page.locator(
-      '.link-btn.primary:has-text("Посмотреть демо")',
+    const dialog = await openDemoModal(page);
+    await expect(
+      dialog.getByRole('link', { name: 'Открыть отдельно' }),
+    ).toHaveAttribute('target', '_blank');
+    await expect(dialog.locator('iframe')).toHaveAttribute(
+      'title',
+      /Демо проекта/,
     );
-
-    if ((await demoButtons.count()) > 0) {
-      await demoButtons.first().click();
-      await page.waitForTimeout(300);
-
-      const dialog = page.locator('[role="dialog"]');
-      await expect(
-        dialog.getByRole('link', { name: 'Открыть отдельно' }),
-      ).toHaveAttribute('target', '_blank');
-      await expect(dialog.locator('iframe')).toHaveAttribute(
-        'title',
-        /Демо проекта/,
-      );
-    }
   });
 
   test('фокус попадает в модальное окно при открытии', async ({ page }) => {
-    const demoButtons = page.locator(
-      '.link-btn.primary:has-text("Посмотреть демо")',
-    );
-
-    if ((await demoButtons.count()) > 0) {
-      await demoButtons.first().click();
-      await page.waitForTimeout(300);
-
-      // Фocused элемент должен быть внутри модалки
-      const activeElement = page.locator(':focus');
-      const count = await activeElement.count();
-      expect(count).toBeGreaterThan(0);
-    }
+    const dialog = await openDemoModal(page);
+    await expect(dialog.getByRole('button', { name: 'Закрыть' })).toBeFocused();
   });
 });
 

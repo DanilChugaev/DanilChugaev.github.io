@@ -3,7 +3,7 @@
 
   <Header @scroll-to-section="scrollToSection" />
 
-  <main id="main-content" role="main">
+  <main id="main-content" tabindex="-1">
     <Hero @scroll-to-section="scrollToSection" />
     <About />
     <Approach />

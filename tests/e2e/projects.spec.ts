@@ -11,6 +11,7 @@ async function setFilter(
   await filter
     .locator('.filter-option')
     .filter({ hasText: optionLabel })
+    .locator('input')
     .click();
 }
 
@@ -54,7 +55,7 @@ test.describe('Projects секция', () => {
   });
 
   test('карточки проектов отображаются', async ({ page }) => {
-    const projectCards = page.locator('.all-projects .project-card');
+    const projectCards = page.locator('.all-projects .project-card:visible');
     const count = await projectCards.count();
     expect(count).toBeGreaterThan(0);
   });
@@ -82,7 +83,7 @@ test.describe('Projects секция', () => {
   });
 
   test('каждая карточка содержит заголовок проекта', async ({ page }) => {
-    const projectCards = page.locator('.all-projects .project-card');
+    const projectCards = page.locator('.all-projects .project-card:visible');
     const count = await projectCards.count();
     expect(count).toBeGreaterThan(0);
 
@@ -95,8 +96,9 @@ test.describe('Projects секция', () => {
   });
 
   test('каждая карточка содержит описание', async ({ page }) => {
-    const projectCards = page.locator('.all-projects .project-card');
+    const projectCards = page.locator('.all-projects .project-card:visible');
     const count = await projectCards.count();
+    expect(count).toBeGreaterThan(0);
 
     for (let i = 0; i < Math.min(count, 5); i++) {
       const card = projectCards.nth(i);
@@ -106,8 +108,9 @@ test.describe('Projects секция', () => {
   });
 
   test('каждая карточка содержит год', async ({ page }) => {
-    const projectCards = page.locator('.all-projects .project-card');
+    const projectCards = page.locator('.all-projects .project-card:visible');
     const count = await projectCards.count();
+    expect(count).toBeGreaterThan(0);
 
     for (let i = 0; i < Math.min(count, 5); i++) {
       const card = projectCards.nth(i);
@@ -120,8 +123,9 @@ test.describe('Projects секция', () => {
   });
 
   test('каждая карточка содержит теги технологий', async ({ page }) => {
-    const projectCards = page.locator('.all-projects .project-card');
+    const projectCards = page.locator('.all-projects .project-card:visible');
     const count = await projectCards.count();
+    expect(count).toBeGreaterThan(0);
 
     for (let i = 0; i < Math.min(count, 5); i++) {
       const card = projectCards.nth(i);
@@ -132,8 +136,9 @@ test.describe('Projects секция', () => {
   });
 
   test('каждая карточка содержит ссылку на GitHub', async ({ page }) => {
-    const projectCards = page.locator('.all-projects .project-card');
+    const projectCards = page.locator('.all-projects .project-card:visible');
     const count = await projectCards.count();
+    expect(count).toBeGreaterThan(0);
 
     for (let i = 0; i < Math.min(count, 5); i++) {
       const card = projectCards.nth(i);
@@ -165,21 +170,13 @@ test.describe('Projects секция', () => {
     await page.waitForTimeout(300);
 
     // Проверяем что все видимые карточки имеют год 2026
-    const allCards = page.locator('.all-projects .project-card');
-    const totalCards = await allCards.count();
+    const visibleCards = page.locator('.all-projects .project-card:visible');
+    const visibleCount = await visibleCards.count();
 
-    let visibleCount = 0;
-    for (let i = 0; i < totalCards; i++) {
-      const card = allCards.nth(i);
-      const isDisplayed = await card.evaluate(
-        el => el.style.display !== 'none',
+    for (let i = 0; i < visibleCount; i++) {
+      await expect(visibleCards.nth(i).locator('.year-badge')).toHaveText(
+        '2026',
       );
-      if (isDisplayed) {
-        const yearBadge = card.locator('.year-badge');
-        const yearText = await yearBadge.textContent();
-        expect(yearText).toBe('2026');
-        visibleCount++;
-      }
     }
 
     expect(visibleCount).toBeGreaterThan(0);
@@ -191,7 +188,7 @@ test.describe('Projects секция', () => {
     await clearFilter(page, 'Год');
     await page.waitForTimeout(300);
 
-    const visibleCards = page.locator('.all-projects .project-card');
+    const visibleCards = page.locator('.all-projects .project-card:visible');
     const count = await visibleCards.count();
     expect(count).toBeGreaterThan(15); // Должно быть много проектов
   });
@@ -201,20 +198,11 @@ test.describe('Projects секция', () => {
     await page.waitForTimeout(300);
 
     // Проверяем что видимые карточки имеют тип "Сервисы" через data-type атрибут
-    const allCards = page.locator('.all-projects .project-card');
-    const totalCards = await allCards.count();
+    const visibleCards = page.locator('.all-projects .project-card:visible');
+    const visibleCount = await visibleCards.count();
 
-    let visibleCount = 0;
-    for (let i = 0; i < totalCards; i++) {
-      const card = allCards.nth(i);
-      const isDisplayed = await card.evaluate(
-        el => el.style.display !== 'none',
-      );
-      if (isDisplayed) {
-        const typeAttr = await card.getAttribute('data-type');
-        expect(typeAttr).toBe('service');
-        visibleCount++;
-      }
+    for (let i = 0; i < visibleCount; i++) {
+      await expect(visibleCards.nth(i)).toHaveAttribute('data-type', 'service');
     }
 
     expect(visibleCount).toBeGreaterThan(0);
@@ -280,13 +268,13 @@ test.describe('Projects секция', () => {
     await clearFilter(page, 'Год');
     await page.waitForTimeout(300);
 
-    const visibleCards = page.locator('.all-projects .project-card');
+    const visibleCards = page.locator('.all-projects .project-card:visible');
     const count = await visibleCards.count();
     expect(count).toBeGreaterThan(5);
   });
 
   test('при наведении на карточку есть hover эффект', async ({ page }) => {
-    const projectCards = page.locator('.all-projects .project-card');
+    const projectCards = page.locator('.all-projects .project-card:visible');
     const firstCard = projectCards.first();
 
     const initialBox = await firstCard.boundingBox();

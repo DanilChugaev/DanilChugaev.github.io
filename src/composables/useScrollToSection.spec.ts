@@ -1,8 +1,9 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import type { MockInstance } from 'vitest';
 import { useScrollToSection } from './useScrollToSection';
 
 describe('useScrollToSection', () => {
-  let scrollToSpy: any;
+  let scrollToSpy: MockInstance<typeof window.scrollTo>;
 
   beforeEach(() => {
     // Mock window.scrollTo
@@ -26,6 +27,7 @@ describe('useScrollToSection', () => {
 
   afterEach(() => {
     vi.restoreAllMocks();
+    vi.unstubAllGlobals();
   });
 
   it('должен прокрутить к элементу при наличии элемента с указанным ID', () => {
@@ -102,6 +104,20 @@ describe('useScrollToSection', () => {
     expect(scrollToSpy).toHaveBeenNthCalledWith(1, {
       top: 200 + 0 - 80,
       behavior: 'smooth',
+    });
+  });
+
+  it('отключает плавную прокрутку при настройке reduced motion', () => {
+    vi.stubGlobal('matchMedia', vi.fn().mockReturnValue({ matches: true }));
+    const mockElement = document.createElement('div');
+    vi.spyOn(document, 'getElementById').mockReturnValue(mockElement);
+
+    const { scrollToSection } = useScrollToSection();
+    scrollToSection('projects');
+
+    expect(scrollToSpy).toHaveBeenCalledWith({
+      top: 200 + 0 - 80,
+      behavior: 'auto',
     });
   });
 });

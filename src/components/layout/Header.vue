@@ -64,12 +64,21 @@ function closeMenuOnOutsidePointerDown(event: PointerEvent) {
   }
 }
 
+function closeMenuOnEscape(event: KeyboardEvent) {
+  if (event.key !== 'Escape' || !isMenuOpen.value) return;
+
+  isMenuOpen.value = false;
+  menuButtonRef.value?.focus();
+}
+
 onMounted(() => {
   document.addEventListener('pointerdown', closeMenuOnOutsidePointerDown);
+  document.addEventListener('keydown', closeMenuOnEscape);
 });
 
 onBeforeUnmount(() => {
   document.removeEventListener('pointerdown', closeMenuOnOutsidePointerDown);
+  document.removeEventListener('keydown', closeMenuOnEscape);
 });
 
 function scrollToSection(sectionId: SectionIdType) {

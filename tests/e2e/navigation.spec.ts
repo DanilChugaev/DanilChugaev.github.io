@@ -85,8 +85,9 @@ test.describe('Навигация — Header', () => {
   }) => {
     const skipLink = page.locator('.skip-link');
     await expect(skipLink).toHaveText('Перейти к основному содержимому');
-    // Skip-ссылка должна быть скрыта но доступна
-    await expect(skipLink).not.toHaveAttribute('tabindex', '-1');
+    await skipLink.focus();
+    await page.keyboard.press('Enter');
+    await expect(page.locator('#main-content')).toBeFocused();
   });
 
   test('mobile menu кнопка отображается на мобильном viewport', async ({
@@ -121,6 +122,21 @@ test.describe('Навигация — Header', () => {
 
     await mobileMenuBtn.click();
     await expect(nav).not.toHaveClass(/open/);
+  });
+
+  test('мобильное меню закрывается по Escape и возвращает фокус на кнопку', async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 375, height: 667 });
+    const mobileMenuBtn = page.locator('.mobile-menu-btn');
+    const nav = page.locator('.nav');
+
+    await mobileMenuBtn.click();
+    await page.keyboard.press('Escape');
+
+    await expect(nav).not.toHaveClass(/open/);
+    await expect(mobileMenuBtn).toHaveAttribute('aria-expanded', 'false');
+    await expect(mobileMenuBtn).toBeFocused();
   });
 
   test('мобильное меню закрывается при клике вне него', async ({ page }) => {

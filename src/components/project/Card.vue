@@ -97,7 +97,7 @@ function openDemo() {
 
 .project-image-container {
   position: relative;
-
+  aspect-ratio: 16 / 10;
   overflow: hidden;
 }
 
@@ -107,11 +107,6 @@ function openDemo() {
   object-fit: contain;
   object-position: center;
   transition: transform 0.4s ease;
-  min-height: 400px;
-
-  @media (max-width: 640px) {
-    min-height: initial;
-  }
 }
 
 .project-card:hover .project-image {

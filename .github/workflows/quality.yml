@@ -60,6 +60,9 @@ jobs:
       - name: Run E2E tests
         run: yarn test:e2e:chromium
 
+      - name: Run mobile E2E smoke tests
+        run: yarn test:e2e:mobile
+
       - name: Upload Playwright report
         if: always()
         uses: actions/upload-artifact@v6

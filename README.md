@@ -24,7 +24,7 @@
 | **Язык**         | TypeScript 6.0                                                           |
 | **Bundler**      | Vite 8                                                                   |
 | **Стилизация**   | PostCSS + `postcss-nested` + `postcss-custom-media` (`.pcss` файлы)       |
-| **PWA**          | vite-plugin-pwa (Service Worker, manifest, офлайн-поддержка)               |
+| **Метаданные приложения** | Web App Manifest и иконки для установки в поддерживающих браузерах |
 | **Линтинг**      | ESLint 10 + eslint-plugin-vue + eslint-plugin-prettier + @typescript-eslint |
 | **Форматирование** | Prettier 3                                                              |
 | **Типизация**    | vue-tsc (строгая проверка типов для Vue SFC)                               |
@@ -110,6 +110,7 @@ yarn preview
 | `yarn test:unit:cov` | Запустить юнит-тесты с отчётом о покрытии          |
 | `yarn test:e2e`    | Запустить E2E-тесты (Playwright)                   |
 | `yarn test:e2e:chromium` | Запустить E2E-тесты на Chromium              |
+| `yarn test:e2e:mobile` | Запустить минимальный E2E-набор для Mobile Chrome |
 | `yarn test:e2e:headed`   | Запустить E2E-тесты в видимом режиме         |
 | `yarn test:e2e:report`   | Показать отчёт E2E-тестов                      |
 
@@ -131,7 +132,7 @@ yarn test:e2e:report
 
 ## Особенности
 
-- **PWA** — приложение устанавливается как Progressive Web App с автообновлением Service Worker
+- **Web App Manifest** — метаданные и иконки для установки сайта в поддерживающих браузерах
 - **Тёмная тема** — дизайн построен на CSS-переменных с тёмной цветовой схемой
 - **Доступность** — skip-link для навигации с клавиатуры, семантическая разметка, ARIA-роли
 - **Фильтрация проектов** — переключение между тестовыми заданиями и pet-проектами через FilterGroup
