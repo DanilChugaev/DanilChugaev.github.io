@@ -407,4 +407,31 @@ export const projects: Project[] = [
     github: 'https://github.com/DanilChugaev/DanilChugaev.github.io',
     image: `${IMAGE_DIR}/portfolio.webp`,
   },
+  {
+    id: 19,
+    title: 'Учебник Go',
+    description:
+      'Интерактивный русскоязычный учебник: от первой программы до backend-проекта Task Manager API (Gin, PostgreSQL, Docker)',
+    year: 2026,
+    type: 'other',
+    technologies: [
+      'Go',
+      'VuePress 2',
+      'Vue 3',
+      'Vite',
+      'TypeScript',
+      'PWA',
+      'PagedJS',
+      'Puppeteer',
+      'GitHub Actions',
+      'ESLint',
+      'Prettier',
+      'Husky',
+    ],
+    github: 'https://github.com/DanilChugaev/go-book',
+    demo: 'https://danilchugaev.github.io/go-book/',
+    image: `${IMAGE_DIR}/go-book.webp`,
+    featuredDescription:
+      '35 последовательных глав с квизами, заданиями и скрытыми решениями; финальный проект — Task Manager API с Gin, PostgreSQL, Docker и CI/CD; сайт публикуется на GitHub Pages и устанавливается как PWA, есть полная PDF/EPUB/KPF-версия.',
+  },
 ];

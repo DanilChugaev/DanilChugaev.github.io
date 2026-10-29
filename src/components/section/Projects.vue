@@ -75,7 +75,7 @@ import FilterGroup from '@/components/project/FilterGroup.vue';
 import type { FilterOption } from '@/types.ts';
 import { projects } from '@/data/projects';
 
-const FEATURED_PROJECT_IDS = [11, 10, 16, 9, 12] as const;
+const FEATURED_PROJECT_IDS = [19, 10, 16, 9, 12] as const;
 
 const {
   selectedYears,
