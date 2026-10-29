@@ -20,7 +20,6 @@ export function useProjectFilter() {
     });
 
     return [...techCount.entries()]
-      .filter(([, count]) => count >= 2)
       .sort((first, second) => second[1] - first[1])
       .map(([technology]) => technology);
   });
